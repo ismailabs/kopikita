@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://kopikita.ismailstudio.my/sitemap.xml
+Sitemap: https://kopikita.mohamad-ismail-mohd-izwan.workers.dev/sitemap.xml

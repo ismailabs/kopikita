@@ -1,0 +1,19 @@
+{
+  "name": "kopikita-my",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node tools/serve.mjs",
+    "build": "node tools/build.mjs",
+    "verify": "node tools/verify.mjs",
+    "test": "node tools/browser-check.mjs",
+    "deploy": "wrangler deploy --keep-vars"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "lighthouse": "^13.5.0",
+    "playwright": "^1.64.1",
+    "wrangler": "^4.151.0"
+  }
+}

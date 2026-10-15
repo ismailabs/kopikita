@@ -7,30 +7,30 @@
   <meta name="description" content="Meet KopiKita MY, a fictional Kuala Lumpur specialty café concept celebrating Malaysian coffee rituals. An original frontend portfolio project by ISMAIL.">
   <meta name="robots" content="index,follow,max-image-preview:large">
   <title>KopiKita MY — A Little Coffee, A Lot of Feeling | Fictional Café Concept</title>
-  <link rel="canonical" href="https://kopikita.ismailstudio.my/">
+  <link rel="canonical" href="https://kopikita.mohamad-ismail-mohd-izwan.workers.dev/">
   <link rel="icon" type="image/svg+xml" href="assets/brand/favicon.svg">
   <link rel="preload" as="image" href="assets/images/iced-latte.webp" fetchpriority="high">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="KopiKita MY — Fictional Café Concept">
   <meta property="og:title" content="KopiKita MY — A Little Coffee, A Lot of Feeling">
   <meta property="og:description" content="A fictional Malaysian specialty café experience, designed and developed as a portfolio concept by ISMAIL.">
-  <meta property="og:url" content="https://kopikita.ismailstudio.my/">
-  <meta property="og:image" content="https://kopikita.ismailstudio.my/assets/images/og-cover.jpg">
+  <meta property="og:url" content="https://kopikita.mohamad-ismail-mohd-izwan.workers.dev/">
+  <meta property="og:image" content="https://kopikita.mohamad-ismail-mohd-izwan.workers.dev/assets/images/og-cover.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="KopiKita MY concept artwork featuring a warm iced latte and the words A little coffee, a lot of feeling.">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="KopiKita MY — Fictional Café Concept">
   <meta name="twitter:description" content="An original Malaysian specialty café website concept by ISMAIL.">
-  <meta name="twitter:image" content="https://kopikita.ismailstudio.my/assets/images/og-cover.jpg">
+  <meta name="twitter:image" content="https://kopikita.mohamad-ismail-mohd-izwan.workers.dev/assets/images/og-cover.jpg">
   <link rel="stylesheet" href="styles.css">
-  <script>document.documentElement.classList.add('js');</script>
+  <link rel="stylesheet" href="refinements.css">
   <script src="script.js" defer></script>
   <script type="application/ld+json">{
     "@context": "https://schema.org",
     "@type": "CreativeWork",
     "name": "KopiKita MY — Fictional Café Website Concept",
-    "url": "https://kopikita.ismailstudio.my/",
+    "url": "https://kopikita.mohamad-ismail-mohd-izwan.workers.dev/",
     "description": "A fictional Malaysian specialty café website designed and developed as a frontend portfolio project, not a real operating café.",
     "inLanguage": "en-MY",
     "isAccessibleForFree": true,
@@ -78,7 +78,16 @@
        </div>
        <div class="hero-bottom container"><span>A CONTEMPORARY MALAYSIAN CAFÉ CONCEPT</span><span class="hero-scroll">SCROLL TO EXPLORE <span aria-hidden="true">↓</span></span></div>
     </section>
-    <div class="ticker" aria-hidden="true"><div class="ticker-inner"><span>POURED WITH CARE</span><b>✳</b><span>SHARED WITH JOY</span><b>✳</b><span>ROOTED IN KITA</span><b>✳</b><span>POURED WITH CARE</span><b>✳</b><span>SHARED WITH JOY</span><b>✳</b><span>ROOTED IN KITA</span></div></div>
+    <div class="ticker">
+      <p class="sr-only">Poured with care. Shared with joy. Rooted in kita.</p>
+      <div class="ticker-window" aria-hidden="true">
+        <div class="ticker-track">
+          <div class="ticker-group"><span>POURED WITH CARE</span><b>✳</b><span>SHARED WITH JOY</span><b>✳</b><span>ROOTED IN KITA</span><b>✳</b><span>A LITTLE MORE HEART</span><b>✳</b></div>
+          <div class="ticker-group"><span>POURED WITH CARE</span><b>✳</b><span>SHARED WITH JOY</span><b>✳</b><span>ROOTED IN KITA</span><b>✳</b><span>A LITTLE MORE HEART</span><b>✳</b></div>
+        </div>
+      </div>
+      <button class="ticker-toggle" type="button" aria-label="Pause moving text" aria-pressed="false" hidden><span aria-hidden="true">Ⅱ</span></button>
+    </div>
     <section class="story section-pad" id="story" aria-labelledby="story-heading">
        <div class="container story-layout">
           <div class="story-photo-wrap"><div class="story-photo"><img src="assets/images/espresso-craft.webp" loading="lazy" decoding="async" width="827" height="462" alt="Fresh espresso being pulled into a ceramic cup at the coffee bar"></div><div class="story-side-label">A LITTLE ABOUT US — 01</div></div>
@@ -98,7 +107,7 @@
          <article class="signature-card"><div class="signature-media"><img src="assets/images/pastry-selection.webp" loading="lazy" decoding="async" width="826" height="462" alt="Golden croissants and almond-topped pastries on a café plate"><span class="photo-stamp">02 / THE TREAT</span></div><div class="signature-copy"><span class="signature-tag">SOMETHING SWEET</span><div class="signature-bottom"><div><h3>Almond Croissant</h3><p>Buttery layers, almond cream and a little crunch on top.</p></div><span class="signature-price">RM 15</span></div></div></article>
          <article class="signature-card"><div class="signature-media"><img src="assets/images/espresso-craft.webp" loading="lazy" decoding="async" width="827" height="462" alt="Rich espresso flowing from a coffee machine into a ceramic cup"><span class="photo-stamp">03 / THE CLASSIC</span></div><div class="signature-copy"><span class="signature-tag">ESPRESSO BAR</span><div class="signature-bottom"><div><h3>Double Espresso</h3><p>Small in size, big in character. Two rich shots, nothing to hide.</p></div><span class="signature-price">RM 11</span></div></div></article>
         </div>
-        <p class="signature-note">* All items and prices are illustrative as part of this fictional café concept.</p>
+        <div class="signature-tail"><a class="underlined-link" href="#menu">Find your kind of coffee <span aria-hidden="true">↗</span></a><p class="signature-note">* All items and prices are illustrative as part of this fictional café concept.</p></div>
       </div>
     </section>
     <section class="menu-section section-pad" id="menu" aria-labelledby="menu-heading">
@@ -299,6 +308,12 @@
     <section class="closing" aria-labelledby="closing-heading">
       <div class="container closing-inner"><p class="eyebrow eyebrow-light">ONE MORE SIP BEFORE YOU GO</p><h2 id="closing-heading">Here’s to the<br><em>little moments.</em></h2><p>However you take your coffee, make time for the things that make you feel at home.</p><div class="closing-buttons"><a class="button button-cream" href="#menu">See the full menu <span aria-hidden="true">↗</span></a><a class="text-link text-link-light" href="#top">Back to the beginning <span aria-hidden="true">↑</span></a></div><div class="closing-botanical" aria-hidden="true">✳</div></div>
     </section>
+    <aside class="studio-note" aria-labelledby="studio-heading">
+      <div class="container studio-note-inner">
+        <div><p class="eyebrow">FROM CAFÉ CONCEPT TO YOUR NEXT CHAPTER</p><h2 id="studio-heading">Your business has a story.<br><em>Give it a place online.</em></h2></div>
+        <div class="studio-note-copy"><p>KopiKita is imagined. The design and development are real. ISMAIL creates considered websites for Malaysian businesses.</p><a href="https://www.ismailstudio.my/" class="underlined-link">Explore ISMAIL’s website services <span aria-hidden="true">↗</span></a></div>
+      </div>
+    </aside>
   </main>
   <footer class="footer" id="project-note">
     <div class="container footer-top"><div class="footer-brand"><p class="footer-wordmark">kopi<span>kita.</span></p><p>Familiar coffee.<br>A little more heart.</p></div><div class="footer-links"><h2>EXPLORE</h2><a href="#story">Our story</a><a href="#signatures">Signatures</a><a href="#menu">The menu</a><a href="#space">The feeling</a></div><div class="footer-credit"><h2>THE PROJECT BEHIND THE CAFÉ</h2><p><strong>KopiKita MY is fictional.</strong> This café and its menu, prices, imagery and atmosphere are a conceptual portfolio project — not a real business, venue or ordering service.</p><p>Designed and developed to showcase ISMAIL’s frontend website craft for Malaysian businesses.</p><a href="https://www.ismailstudio.my/" target="_blank" rel="noopener noreferrer" class="footer-studio-link">Discover ISMAIL <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></div></div>

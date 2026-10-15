@@ -1,0 +1,17 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "kopikita",
+  "account_id": "44214a829e2337ca50cf40e4cd827cba",
+  "compatibility_date": "2026-10-12",
+  "build": { "command": "npm run build" },
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 1,
+    "logs": { "enabled": true, "head_sampling_rate": 1, "persist": true, "invocation_logs": true },
+    "traces": { "enabled": false, "head_sampling_rate": 1, "persist": true }
+  },
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "none"
+  }
+}
