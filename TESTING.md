@@ -1,57 +1,72 @@
-# KopiKita MY validation
+# KopiKita redesign — executed validation
 
-Executed on 15 October 2026 against the local source and the original GitHub baseline `8b11de8a181ffbe385cbb8dd4f34feee1ca42e50`.
+17 October 2026, Malaysia. This report distinguishes local evidence from production acceptance. **Production publication is blocked by Cloudflare authentication.**
 
-## Passed local checks
+## Baseline
 
-- Actual Microsoft Edge 155.0.4283.45 browser checks at 320, 375, 430, 768, 1024 and 1440px: no horizontal page overflow; all five filters return 30 / 6 / 9 / 7 / 8 items.
-- Mobile navigation opening, Escape and focus restoration, anchor activation and destination focus, desktop/mobile resize reset.
-- Keyboard filter activation and visible focus styles.
-- Marquee visible at every width; actual frame samples show movement; adjoining equal tracks have no gap. Native pause/resume states, reduced motion and responsive resizing checked.
-- No JavaScript and blocked script loading: all 30 entries and mobile navigation remain visible. The no-JavaScript marquee is static.
-- Live reduced-motion preference changes disable marquee motion and filtering transitions.
-- 200% text enlargement at 1440px produces no page overflow.
-- Axe 4.13 scans with WCAG 2 A/AA, 2.1 AA and 2.2 AA tags at 375 and 1440px: zero violations after correcting the small studio label's contrast.
-- No JavaScript exceptions or failed HTTP resources during the exercised local interactions.
-- Every complete original menu entry compared with the original Git commit: names, descriptions, prices, categories and illustrations are unchanged.
-- Syntax, local asset references, internal anchor destinations, unique IDs, category counts, fictional-project disclosure and production metadata checks pass.
-- Explicit public-asset build and Wrangler deployment dry run pass.
-- Dependency audit reports zero known vulnerabilities; the browser packages and Wrangler are development-only.
+Verified local root, `origin=https://github.com/ismailabs/kopikita.git`, `main`, local/fetched/advertised SHA `541ae3246a9ef69cf6da0025f2c00aece62664f0`. The supplied handoff was the only untracked folder; it was preserved and ignored. Its manifest matches all 31 present listed files; its listed short-prompt file is absent. No other source changes were present.
 
-Commands: `npm run verify`, `npm test`, `npm run build`, `npx wrangler deploy --dry-run`, and `node tools/performance.mjs`. A staged-file/common-secret-pattern and history-diff scan is also run before publication; it is not a comprehensive guarantee that all possible secrets are detectable.
+Captured fresh local, custom-host and workers.dev screenshots at 375/1440px. Both public hosts returned 200, served 30 items and had the old workers.dev canonical. Both public `/release.json` documents identified the baseline SHA. `https://ismailstudio.my/` successfully redirected to `https://www.ismailstudio.my/`.
 
-## Visual evidence
+The original browser suite passed at 320/375/430/768/1024/1440 before edits. All four menu fields in the handoff CSV were separately compared with original Git source and matched exactly.
 
-Baseline screenshots were captured before source edits. Lazy-loaded images were then explicitly decoded for complete baseline and upgraded full-page captures. Browser evidence lives in ignored `artifacts/browser/`: six full-page and hero sizes, section captures at desktop/mobile, axe reports, and `results.json`.
+## Commands and observed results
 
-Inspection covers heading breaks, image crops, section rhythm, menu readability, mobile navigation, the visible marquee, studio attribution and reduced-motion composition. Screenshots are real browser captures. Entrance animations are allowed to finish for final section captures.
+| Check | Observed result |
+|---|---|
+| `npm ci` | PASS: 151 packages, 152 audited, zero known vulnerabilities. An initial overlapping install attempt failed with ENOTEMPTY; its task-owned installer was stopped and generated dependencies preserved under ignored artifacts before the clean install. |
+| `npm run verify` | PASS: exact 30 original names, descriptions, categories and prices; distribution 30/6/9/7/8; anchors, assets, metadata, noindex, exact ISMAIL URLs, disclosure and both inline/external JS syntax. |
+| `npm test` (Edge 155.0.4283.45) | PASS: seven widths, all five filters, exact rendered menu data, featured-to-menu focus/category, mobile navigation/Escape/outside dismissal/destination focus, responsive reset, actual marquee frames and seam, pause/resume, live reduced motion, no-JS, blocked main script, 200% text at 1440 and 320, skip link, touch emulation and no JS/resource failures. |
+| Additional focus checks, Edge and WebKit | PASS: every visible link/button in document Tab order, visible skip focus and activation; keyboard toggle/Escape/focus return; Space filtering; hidden hash target reveal. Explicit tabindex=0 fixed the WebKit port's native-link Tab behavior without positive tabindex or dropping the assertion. Fresh pages avoid WebKit's focus restoration on same-URL navigation. |
+| WebKit 27.2 full responsive/interaction/axe suite | PASS at all seven widths, including complete Tab order and skip activation. Initial runs exposed asynchronous resize delivery and link-tabbing differences, both investigated and corrected. Final receipt: `artifacts/final-webkit/results.json`; do not infer physical Safari/iOS coverage. |
+| `node tools/external-check.mjs` | PASS: actual studio navigation by pointer and keyboard to the live portfolio, plus protected footer popup with null opener. |
+| `npm run build` | PASS: 60 allowlisted public files, reproducible text normalization and release manifest. |
+| `npx wrangler deploy --dry-run` | PASS: static-asset upload prepared; no bindings found locally; no deployment occurred. This does not inspect hosted bindings. |
+| Built-site smoke, port 4175 | PASS: 375/1440px, exact menu, filters, highlighted row, custom canonical, zero axe findings and JS errors. |
+| Built-site hash/privacy verification | PASS: 60/60 file hashes match; docs, tools, CSV, handoff, Git config and environment paths return 404 from the allowlisted staging server. |
+| Staged whitespace and secret-pattern/history scans | PASS after removing trailing whitespace from a font license without changing its text. No generated/private paths or common secret patterns in the reviewed staged scope/history. |
+| Production deployment/acceptance | BLOCKED: connector reauthentication required (`oauth_token_invalid_grant`); Wrangler has no authenticated session/API token. User confirmed reconnect is unavailable. No main push or manual deploy is authorized past the brief's unverified Worker invariant gate. |
 
-## Performance measurements
+## Accessibility and visual review
 
-Lighthouse 13.5.0, installed Edge 155, local loopback HTTP, default simulated mobile throttling. Both versions use the same local server implementation and browser. One isolated paired run after the interaction tests:
+Axe 4.13, WCAG 2 A/AA, 2.1 AA and 2.2 AA tags: zero findings on completed desktop/mobile, open-navigation and filtered-menu scans. One observed 4.42:1 studio eyebrow contrast failure was corrected. This is not a complete WCAG conformance claim.
 
-| Metric | Original | Upgraded |
+Inspected actual 320/375/430/768/1024/1440/1920 layouts and mobile/desktop section captures: live heading breaks, hero cup crop, four real featured items, menu prices/descriptions, arched story photograph, dark atmosphere, truthful studio invitation and footer. Corrected 320px/200% text overflow in headings, buttons, grid sizing and decorative wordmark. Corrected a hidden skip-link capture artifact using clipping rather than a negative fixed offset. No-JS content remains complete; blocked main JS retains early working navigation and hides inactive filters.
+
+200% checks enlarge text with CSS; they are not a claim of testing the browser chrome's zoom control. Touch coverage is browser emulation, not a physical phone. Manual screen readers, physical hardware and field INP were not tested. Firefox could not start because its Windows side-by-side configuration is incorrect (`spawn UNKNOWN`); WebKit supplied the second-engine coverage.
+
+## Performance evidence and tradeoffs
+
+Lighthouse 13.5.0, installed Edge 155, loopback HTTP, default simulated mobile throttling. Three alternating paired mobile trials and one paired desktop trial; raw JSON retained. The first revised pair overlapped completion of a short targeted browser check, so the set is not uniformly isolated. Later pairs had no other test browsers active. Host variance was substantial; these numbers do not establish a reliable speedup or field performance.
+
+| Mobile metric, median of the three recorded final trials | Original | Redesign |
 |---|---:|---:|
-| Performance | 70 | 82 |
-| Accessibility | 96 | 100 |
+| Performance | 74 | 85 |
+| Accessibility | 100 | 100 |
 | Best practices | 100 | 100 |
-| SEO | 100 | 100 |
-| First contentful paint | 1.18 s | 1.65 s |
-| Largest contentful paint | 2.07 s | 2.27 s |
-| Total blocking time | 1538 ms | 648 ms |
-| Cumulative layout shift | 0 | 0 |
-| Speed index | 4.81 s | 2.19 s |
+| SEO | 100 | 69 |
+| FCP | 1.48 s | 2.16 s |
+| LCP | 1.96 s | 2.32 s |
+| TBT | 894 ms | 417 ms |
+| CLS | 0 | 0 |
+| Speed index | 1.75 s | 2.40 s |
 
-The earlier run overlapped other browser work and included a robots fetch timeout. It was investigated and replaced with the isolated comparison above. The upgraded run's FCP/LCP were slower, while its blocking time and speed index improved. These are single-run laboratory results, with host variance; they are not field Core Web Vitals or a guarantee of real visitor performance. No extra runtime package, font or photography download was introduced.
+Raw mobile performance: original 88/74/73; redesign 72/86/85. Redesigned LCP: 3.66/2.32/2.24 s. Desktop performance: 100 for both; LCP 0.61→0.68 s; redesigned CLS 0. The first pre-fix candidate had mobile CLS up to 0.199: navigation initialized after first paint and font-driven wrapping contributed. Early navigation binding and font preloads removed it in all three final mobile trials. Richer local imagery and 86 KB of licensed local fonts are deliberate costs; FCP/LCP/speed index did not all improve. No runtime framework or tracking package was added.
 
-Raw reports and the summary are in ignored `artifacts/performance/`.
+SEO 69 is intentional: `noindex, follow` prevents the fictional portfolio café from being indexed. Other metadata is coherent. This should not be 'fixed' by falsely presenting an operational café or dropping the fictional indexing boundary. There are no field Core Web Vitals or conversion-uplift claims.
 
-## Publishing and production acceptance
+## Evidence locations (local, ignored)
 
-Authenticated Cloudflare inspection confirmed the existing account, `kopikita` Worker, original `workers.dev` hostname, empty bindings and the `ismailabs/kopikita` main-branch Workers Builds trigger. Compatibility date and observability configuration are preserved. The existing `npx wrangler deploy` command uses the repository's build hook to create the allowlisted `dist` directory.
+- `artifacts/baseline/`: original local/custom/Worker screenshots, live identity receipts, handoff integrity.
+- `artifacts/baseline-suite/results.json`: fresh original suite.
+- `artifacts/final-edge/`: final responsive screenshots, axe reports and result JSON.
+- `artifacts/final-webkit/`, `artifacts/webkit/`: second-engine screenshots and scans; original failed attempts are retained rather than hidden.
+- `artifacts/external/`: real portfolio navigation receipts and screenshots.
+- `artifacts/staging/`: built-site smoke results and screenshots.
+- `artifacts/performance-redesign/`: pre-fix trials; `artifacts/performance-final/`: all revised raw trials and summary.
+- `artifacts/production/assets-127.0.0.1.json`: **local staging** hash/privacy receipt, identified by its explicit base URL, not production proof.
+- `artifacts/PUBLICATION.json` and `artifacts/RELEASE-REPORT.md`: exact final feature SHA, advertised remote comparison, current public release observations and final P0 report.
 
-After pushing the reviewed commit, acceptance requires a successful build for that exact SHA and public `/release.json` verification. Compare every public asset's SHA-256 hash with the committed build, then run the same browser suite against the public URL using `SITE_URL`. Preserve the actual deployment ID, build ID and production results in the release evidence. A push or build response alone is insufficient.
+## Production gate
 
-## Evidence boundaries
-
-Automated axe checks and keyboard interaction checks do not establish complete WCAG conformance. Physical devices, manual screen readers and real-user performance were not tested. The café is fictional; no ordering, payment, reservation or business-hours claim is made.
+Reconnect the Cloudflare plugin or authenticate Wrangler securely outside chat. Inspect account `44214a829e2337ca50cf40e4cd827cba`, existing Worker `kopikita`, current bindings/settings/custom domain and Workers Builds trigger/deploy command. Confirm no configuration loss, fetch and check ancestry, fast-forward reviewed source to main only when safe, then observe its existing automatic build. Do not duplicate it with a manual deploy. Rebuild the exact committed source, compare `/release.json` plus all public hashes on both public hosts, and run production browser/external smoke before changing the report to DONE.

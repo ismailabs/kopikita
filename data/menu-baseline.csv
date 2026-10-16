@@ -1,0 +1,31 @@
+﻿category_key,product_name,description,display_price
+local,Kopi O,"Bold local black coffee, lightly sweetened.",RM 06
+local,Kopi O Kosong,"Full-bodied black coffee, no sugar added.",RM 05
+local,Kopi Susu,Classic fragrant kopi with silky condensed milk.,RM 07
+local,Kopi C,Smooth local brew with evaporated milk.,RM 07
+local,White Coffee,"A mellow, creamy Malaysian café favourite.",RM 09
+local,Kopi Cham,Coffee and tea in a beautifully balanced blend.,RM 08
+espresso,Espresso,"Short, concentrated, with a lingering cocoa finish.",RM 09
+espresso,Double Espresso,"Two rich shots for a deeper, bolder sip.",RM 11
+espresso,Americano,Espresso opened up with hot water; clean and smooth.,RM 11
+espresso,Cappuccino,Bold espresso beneath a generous cap of microfoam.,RM 13
+espresso,Caffè Latte,Espresso and textured milk in a gentle embrace.,RM 14
+espresso,Flat White,"A velvety, coffee-forward pour with fine microfoam.",RM 14
+espresso,Macchiato,A concentrated shot marked with a touch of milk.,RM 11
+espresso,Mocha,Espresso and cocoa with steamed milk.,RM 16
+espresso,Piccolo,A little glass of espresso softened with warm milk.,RM 12
+iced,Iced Americano,Bright espresso poured long over ice.,RM 13
+iced,Iced Latte,Cool milk and espresso with a mellow finish.,RM 16
+iced,Cold Brew,"Slow-steeped coffee, smooth and naturally sweet.",RM 16
+iced,Gula Melaka Latte,Caramel notes of palm sugar with espresso and milk.,RM 18
+iced,Orange Espresso Tonic,"Citrus, espresso and a lively tonic sparkle.",RM 19
+iced,Iced Mocha,"Chilled espresso, milk and dark chocolate.",RM 18
+iced,Coconut Cold Brew,Slow-brewed coffee with a light coconut twist.,RM 19
+bakes,Butter Croissant,"Golden, crisp layers with a soft buttery centre.",RM 11
+bakes,Almond Croissant,Flaky pastry finished with almond cream and flakes.,RM 15
+bakes,Pain au Chocolat,Delicate laminated pastry wrapped around chocolate.,RM 14
+bakes,Pandan Kaya Roll,Soft pandan sponge rolled with fragrant kaya cream.,RM 13
+bakes,Cinnamon Roll,Tender swirls with cinnamon and a light glaze.,RM 13
+bakes,Banana Bread,"Moist banana loaf, gently caramelised at the edge.",RM 12
+bakes,Burnt Cheesecake,Creamy centre beneath a beautifully bronzed top.,RM 18
+bakes,Mango Fruit Tart,"Buttery tart shell, vanilla cream and fresh mango.",RM 16

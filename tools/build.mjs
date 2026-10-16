@@ -7,7 +7,7 @@ const output = resolve('dist');
 if (output !== resolve('.') + '\\dist' && output !== resolve('.') + '/dist') throw new Error('Unexpected build directory');
 await rm(output, { recursive: true, force: true });
 await mkdir(output, { recursive: true });
-for (const file of ['index.html', 'styles.css', 'refinements.css', 'script.js', 'robots.txt', 'sitemap.xml', 'assets']) {
+for (const file of ['index.html', 'styles.css', 'script.js', 'robots.txt', 'sitemap.xml', 'assets']) {
   await cp(file, `${output}/${file}`, { recursive: true });
 }
 async function filesAt(directory) {

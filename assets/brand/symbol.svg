@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-labelledby="t">
+ <title id="t">KopiKita botanical coffee symbol, concept</title>
+ <g fill="none" stroke="#315647" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M60 99 C58 75 58 55 59 29"/>
+  <path d="M59 60 C32 59 22 43 28 23 C51 26 60 37 59 60Z" fill="#C39A63"/>
+  <path d="M60 76 C88 75 98 56 92 37 C69 40 60 54 60 76Z" fill="#A85A37"/>
+  <path d="M60 44 C60 25 52 17 47 13 M61 45 C66 25 73 19 81 17"/>
+ </g>
+ <circle cx="60" cy="105" r="4" fill="#A85A37"/>
+</svg>

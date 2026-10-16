@@ -1,60 +1,57 @@
 # KopiKita MY
 
-A fictional Kuala Lumpur specialty café concept, designed and developed by ISMAIL as a frontend portfolio showcase. The café, products and prices are illustrative. Enquiries about website services go to [ISMAIL](https://www.ismailstudio.my/).
+A fictional Malaysian café concept by [ISMAIL](https://ismailstudio.my/). The café, menu, prices and synthetic imagery are illustrative. There are no orders, payments, reservations, actual venue, customers or business hours.
 
-- Production: https://kopikita.mohamad-ismail-mohd-izwan.workers.dev/
-- Repository: https://github.com/ismailabs/kopikita
-- Production branch: `main`
-- Existing Cloudflare Worker: `kopikita`
+- Intended public URL: <https://kopikita.ismailstudio.my/>
+- Existing Worker endpoint: <https://kopikita.mohamad-ismail-mohd-izwan.workers.dev/>
+- Repository: <https://github.com/ismailabs/kopikita>, production branch `main`
+- Existing Cloudflare Worker: `kopikita`, account pinned in the unchanged `wrangler.jsonc`
 
-## Architecture
+## Architecture and design
 
-Semantic HTML, CSS and vanilla JavaScript, with system fonts and local WebP/JPEG/SVG assets. There are no runtime packages, CDN scripts, backend services or purchasing operations. The original 30 menu entries remain in HTML: Malaysian kopi (6), espresso bar (9), iced & specialty (7), and bakes (8).
+Semantic HTML, one tokenized mobile-first stylesheet, and progressive vanilla JavaScript. No runtime packages, third-party scripts, external fonts, backend services or analytics. DM Serif Display and DM Sans are hosted locally with their OFL licenses. The handoff boards guided composition only; their invented claims and menu data were not used.
 
-`styles.css` contains the original visual foundations; `refinements.css` contains the editorial type scale, responsive refinements and motion system. `script.js` progressively enhances navigation, filters, announcements, the marquee pause control and one-time Intersection Observer entrances. Without JavaScript, the navigation and all menu content remain available, and the marquee becomes static. Reduced-motion preferences also disable the moving marquee and menu transitions.
+All 30 original menu entries remain in HTML and work without JavaScript: Malaysian kopi (6), espresso bar (9), iced & specialty (7), bakes (8). `data/menu-baseline.csv`, independently checked against original commit `541ae32`, locks every name, description, category and display price. The four photographic highlights link to exact original rows. With JS they reveal the appropriate category and move focus; without JS they are ordinary working anchors.
 
-The marquee uses equal 1600px tracks, translated by half their combined width. Its usual pace is about 36px per second and is independent of the viewport width. Above 1600px, each track expands to cover the viewport. Decorative duplicates are hidden from assistive technology. A native pause/resume control is available; movement also pauses offscreen and when the document is hidden.
+The small navigation controller runs immediately after the header to prevent a measured loading shift; the deferred script handles filters and motion. Navigation supports Escape, outside dismissal, destination focus and responsive reset, including when the main script fails. Five native filter buttons announce counts and pressed state. The slow decorative ticker has pause/resume, offscreen/document pause, reduced-motion and static no-JS behavior. Entrances never gate access to content. Cream reading surfaces, a cinematic desktop opening, separate mobile image crop and restrained botanical identity form one visual system. See [design decisions](docs/REDESIGN-DECISIONS.md).
 
-## Local development and validation
+The fictional disclosure remains visible at the top, near the illustrative menu and in the footer. Two truthful studio links use exactly `https://ismailstudio.my/`. Metadata uses `CreativeWork`, the intended custom canonical, and `noindex, follow`. No DNS or routes need changing.
 
-Requires Node.js 22 or newer. Development dependencies are locked in `package-lock.json`.
+## Development and verification
+
+Node.js 22+; locked development dependencies. On Windows the tests use installed Microsoft Edge; use `BROWSER_PATH` for an alternative Chromium executable. `BROWSER_ENGINE=webkit` or `firefox` selects another installed Playwright engine.
 
 ```sh
 npm ci
 npm run dev
 npm run verify
 npm test
+node tools/external-check.mjs
 npm run build
 npx wrangler deploy --dry-run
 ```
 
-Preview: `http://127.0.0.1:4173`. The browser checks use an installed Microsoft Edge by default. On another machine, install Chromium with `npx playwright install chromium` and supply `BROWSER_PATH` with its executable path. Screenshots and machine-readable results are written under ignored `artifacts/`.
+Preview: `http://127.0.0.1:4173`. `SITE_URL` changes the test destination, and `EVIDENCE_DIR` changes the evidence folder. The suite checks 320/375/430/768/1024/1440/1920px, exact menu content, all filters, featured links, keyboard/focus/navigation, real animation frames, pause, reduced motion, script failure, 200% text and touch emulation. Axe covers desktop/mobile, open navigation and filtered state. External navigation is separately tested against the actual portfolio. [TESTING.md](TESTING.md) records executed coverage and limitations.
 
-Browser checks cover 320, 375, 430, 768, 1024 and 1440px, all five filters, responsive navigation, keyboard activation, reduced motion, actual animation frames, marquee pause/resume, missing JavaScript, blocked script loading, resource failures, text enlargement and axe accessibility checks. See [TESTING.md](TESTING.md) for executed evidence and its limits.
+`tools/performance.mjs` compares a separately served baseline on port 4174 against the candidate on port 4173: three alternating paired mobile trials and one paired desktop trial with Lighthouse. Run it after browser suites complete to avoid concurrent browser interference. These are local lab measurements, not field Core Web Vitals or conversion evidence.
 
-## Deployment to the existing Worker
+## Existing Worker publication
 
-This repository uses Cloudflare Workers Static Assets. The `wrangler.jsonc` name is `kopikita`; the public destination remains the existing `workers.dev` hostname. The previous Pages/custom-domain instructions were obsolete and have been replaced.
+Workers Static Assets, not Pages. The existing documented Workers Builds integration deploys `main` with `npx wrangler deploy`. The unchanged Wrangler build hook executes `npm run build`. Inspect the authenticated Worker settings/bindings/build trigger before publishing. Observe the existing build; do not launch a duplicate manual deployment. Never force-push or change DNS.
 
-`npm run build` copies an explicit public allowlist into `dist`: HTML, the two stylesheets, JavaScript, robots, sitemap and local assets. It creates `release.json` with the Git commit and SHA-256 hashes of public files. Source documentation, dependencies, test evidence, `.git`, deployment state and credentials stay outside the publish directory.
-
-Before deploying, authenticate against the account that owns the existing Worker and inspect its current settings, bindings and build integration. If Workers Builds is already deploying `main`, observe that deployment instead of launching a duplicate. Authenticated inspection on 15 October 2026 confirmed Workers Builds connects `ismailabs/kopikita` (`main`) to the existing Worker. Its deploy command is `npx wrangler deploy`, with an empty separate build command. The Wrangler build hook runs `npm run build` before that existing deploy command. Pushing to `main` therefore publishes automatically; observe the build instead of deploying twice.
-
-For a verified manual deployment:
+The build publishes an explicit allowlist: HTML, stylesheet, JS, robots, sitemap and selected/local assets. It creates `release.json` with the Git commit and SHA-256 hashes, normalizing text line endings across Windows/Linux. Dependencies, Git state, source docs, handoff, CSV baseline, tools, local evidence and secrets are excluded. `tools/verify-production.mjs` requires every hosted file hash and release commit to match the locally built committed revision, and checks source/private paths return 404.
 
 ```sh
-npx wrangler whoami
-npm run verify
-npm test
+# Only after authenticated invariant inspection and passing candidate gates:
+# fast-forward main to the reviewed commit; push main once; observe Workers Builds.
 npm run build
-npx wrangler deploy --dry-run
-npm run deploy
+node tools/verify-production.mjs
+# Repeat with SITE_URL set to the existing workers.dev endpoint.
+# Rerun the browser and external-link suites against the intended public URL.
 ```
 
-The deployment command keeps dashboard variables. This static-asset configuration must first be compared with the existing hosted Worker's settings; it is not authorization to remove unrelated bindings or secrets. No DNS or account changes are needed.
+A successful Git push alone does not establish production acceptance. Exact deployment receipts, asset matching, public browser journeys, rollback reference and remaining limitations belong in [the release report](docs/RELEASE-REPORT.md).
 
-After publishing, retrieve `/release.json`, verify its commit and hashes against the committed build, and rerun browser checks with `SITE_URL` set to the production URL. A local build, successful push or deployment response alone does not establish production acceptance.
+## Assets and ownership
 
-## Assets and project truthfulness
-
-Existing photography and illustrations are preserved. See [ASSET-CREDITS.md](ASSET-CREDITS.md) for attribution. Metadata describes a `CreativeWork`, rather than an operating café, and canonical/Open Graph/robots/sitemap references point to the approved production hostname. The concept disclosure is visible at the top and in the footer.
+See [ASSET-CREDITS.md](ASSET-CREDITS.md). Supplied third-party Pinterest screenshots, mockup PNGs and full-resolution generation originals remain in the ignored handoff and are not published. The original repository assets are retained as provenance; current imagery is explicitly synthetic. No trademark clearance, exclusive copyright, café certification or real customer results are claimed.

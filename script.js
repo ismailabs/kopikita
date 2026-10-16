@@ -2,57 +2,7 @@
 (() => {
   'use strict';
 
-  const menuToggle = document.querySelector('.menu-toggle');
-  const primaryNav = document.querySelector('#primary-navigation');
-
-  if (menuToggle && primaryNav) {
-    // Only collapse navigation after its controls are successfully attached.
-    document.documentElement.classList.add('js');
-    const closeNavigation = (restoreFocus = false) => {
-      menuToggle.setAttribute('aria-expanded', 'false');
-      menuToggle.setAttribute('aria-label', 'Open navigation menu');
-      primaryNav.classList.remove('is-open');
-      if (restoreFocus) menuToggle.focus();
-    };
-
-    menuToggle.addEventListener('click', () => {
-      const opened = menuToggle.getAttribute('aria-expanded') === 'true';
-      menuToggle.setAttribute('aria-expanded', String(!opened));
-      menuToggle.setAttribute('aria-label', opened ? 'Open navigation menu' : 'Close navigation menu');
-      primaryNav.classList.toggle('is-open', !opened);
-      if (!opened) primaryNav.querySelector('a')?.focus();
-    });
-
-    primaryNav.addEventListener('click', event => {
-      const link = event.target.closest('a');
-      if (link) {
-        closeNavigation();
-        // Keep keyboard focus out of the newly collapsed navigation.
-        const destination = document.querySelector(link.hash);
-        if (destination) {
-          destination.setAttribute('tabindex', '-1');
-          destination.focus({ preventScroll: true });
-        }
-      }
-    });
-
-    document.addEventListener('keydown', event => {
-      if (event.key === 'Escape' && menuToggle.getAttribute('aria-expanded') === 'true') {
-        closeNavigation(true);
-      }
-    });
-
-    document.addEventListener('click', event => {
-      if (!menuToggle.contains(event.target) && !primaryNav.contains(event.target)) closeNavigation();
-    });
-
-    const desktopWidth = window.matchMedia('(min-width: 761px)');
-    const closeOnDesktop = () => {
-      if (desktopWidth.matches) closeNavigation();
-    };
-    if (desktopWidth.addEventListener) desktopWidth.addEventListener('change', closeOnDesktop);
-    else desktopWidth.addListener(closeOnDesktop);
-  }
+  document.documentElement.classList.add('js');
 
   const filterButtons = [...document.querySelectorAll('.filter-btn[data-filter]')];
   const menuGroups = [...document.querySelectorAll('[data-menu-group]')];
@@ -60,8 +10,7 @@
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
   if (filterButtons.length && menuGroups.length && filterStatus) {
-    filterButtons.forEach(button => {
-      button.addEventListener('click', () => {
+    const applyFilter = button => {
         const chosen = button.dataset.filter;
         filterButtons.forEach(option => {
           const active = option === button;
@@ -84,8 +33,33 @@
         filterStatus.textContent = chosen === 'all'
           ? `Showing all ${count} selections`
           : `Showing ${count} selections in ${label}`;
+    };
+    filterButtons.forEach(button => {
+      button.addEventListener('click', () => applyFilter(button));
+    });
+    // A featured link reveals the correct category before following its real anchor.
+    document.querySelectorAll('[data-menu-target]').forEach(link => {
+      link.addEventListener('click', () => {
+        const button = filterButtons.find(option => option.dataset.filter === link.dataset.category);
+        if (button) applyFilter(button);
+        const destination = document.getElementById(link.dataset.menuTarget);
+        if (destination) {
+          destination.setAttribute('tabindex', '-1');
+          destination.focus({ preventScroll: true });
+        }
       });
     });
+    const revealHash = () => {
+      const destination = document.getElementById(location.hash.slice(1));
+      const group = destination?.closest('[data-menu-group]');
+      if (group?.hidden) {
+        const button = filterButtons.find(option => option.dataset.filter === group.dataset.menuGroup);
+        if (button) applyFilter(button);
+        destination.scrollIntoView({ behavior: 'instant', block: 'center' });
+      }
+    };
+    window.addEventListener('hashchange', revealHash);
+    revealHash();
   }
 
   const ticker = document.querySelector('.ticker');
