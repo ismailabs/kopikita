@@ -25,7 +25,7 @@
           if (visible) {
             count += group.querySelectorAll('.menu-item').length;
             if (!reducedMotion.matches && group.animate) {
-              group.animate([{ opacity: .5, transform: 'translateY(10px)' }, { opacity: 1, transform: 'translateY(0)' }], { duration: 360, easing: 'cubic-bezier(.22,1,.36,1)' });
+              group.animate([{ transform: 'translateY(10px)' }, { transform: 'translateY(0)' }], { duration: 360, easing: 'cubic-bezier(.22,1,.36,1)' });
             }
           }
         });

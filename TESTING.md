@@ -23,6 +23,7 @@ The original browser suite passed at 320/375/430/768/1024/1440 before edits. All
 | `npm run build` | PASS: 60 allowlisted public files, reproducible text normalization and release manifest. |
 | `npx wrangler deploy --dry-run` | PASS: static-asset upload prepared; no bindings found locally; no deployment occurred. This does not inspect hosted bindings. |
 | Built-site smoke, port 4175 | PASS: 375/1440px, exact menu, filters, highlighted row, custom canonical, zero axe findings and JS errors. |
+| `node tools/motion-contrast-check.mjs` | PASS: actual filter/entrance animations frozen at their first frame, zero axe findings at 375/1440 in Edge and WebKit. The source now uses movement only; text remains fully opaque. Receipt: `artifacts/motion-contrast/results.json`. |
 | Built-site hash/privacy verification | PASS: 60/60 file hashes match; docs, tools, CSV, handoff, Git config and environment paths return 404 from the allowlisted staging server. |
 | Staged whitespace and secret-pattern/history scans | PASS after removing trailing whitespace from a font license without changing its text. No generated/private paths or common secret patterns in the reviewed staged scope/history. |
 | Production deployment/acceptance | BLOCKED: connector reauthentication required (`oauth_token_invalid_grant`); Wrangler has no authenticated session/API token. User confirmed reconnect is unavailable. No main push or manual deploy is authorized past the brief's unverified Worker invariant gate. |
@@ -31,13 +32,13 @@ The original browser suite passed at 320/375/430/768/1024/1440 before edits. All
 
 Axe 4.13, WCAG 2 A/AA, 2.1 AA and 2.2 AA tags: zero findings on completed desktop/mobile, open-navigation and filtered-menu scans. One observed 4.42:1 studio eyebrow contrast failure was corrected. This is not a complete WCAG conformance claim.
 
-Inspected actual 320/375/430/768/1024/1440/1920 layouts and mobile/desktop section captures: live heading breaks, hero cup crop, four real featured items, menu prices/descriptions, arched story photograph, dark atmosphere, truthful studio invitation and footer. Corrected 320px/200% text overflow in headings, buttons, grid sizing and decorative wordmark. Corrected a hidden skip-link capture artifact using clipping rather than a negative fixed offset. No-JS content remains complete; blocked main JS retains early working navigation and hides inactive filters.
+Inspected actual 320/375/430/768/1024/1440/1920 layouts and mobile/desktop section captures: live heading breaks, hero cup crop, four real featured items, menu prices/descriptions, arched story photograph, dark atmosphere, truthful studio invitation and footer. Corrected 320px/200% text overflow in headings, buttons, grid sizing and decorative wordmark. Corrected a hidden skip-link capture artifact using clipping rather than a negative fixed offset. A check of the committed build exposed intermittent contrast during opacity animation: pausing the actual filter at its first frame reproduced 102 failing nodes, including 2.17:1 category labels. Removed text fading from filter and entrance effects, retaining translation and reduced-motion handling; the dedicated regression scans the real paused animations. No-JS content remains complete; blocked main JS retains early working navigation and hides inactive filters.
 
 200% checks enlarge text with CSS; they are not a claim of testing the browser chrome's zoom control. Touch coverage is browser emulation, not a physical phone. Manual screen readers, physical hardware and field INP were not tested. Firefox could not start because its Windows side-by-side configuration is incorrect (`spawn UNKNOWN`); WebKit supplied the second-engine coverage.
 
 ## Performance evidence and tradeoffs
 
-Lighthouse 13.5.0, installed Edge 155, loopback HTTP, default simulated mobile throttling. Three alternating paired mobile trials and one paired desktop trial; raw JSON retained. The first revised pair overlapped completion of a short targeted browser check, so the set is not uniformly isolated. Later pairs had no other test browsers active. Host variance was substantial; these numbers do not establish a reliable speedup or field performance.
+Lighthouse 13.5.0, installed Edge 155, loopback HTTP, default simulated mobile throttling. Three alternating paired mobile trials and one paired desktop trial; raw JSON retained. The first revised pair overlapped completion of a short targeted browser check, so the set is not uniformly isolated. Later pairs had no other test browsers active. These trials preceded the final opacity-only contrast correction; no performance run of that final follow-up commit or hosted release is claimed. Host variance was substantial; these numbers do not establish a reliable speedup or field performance.
 
 | Mobile metric, median of the three recorded final trials | Original | Redesign |
 |---|---:|---:|
@@ -63,6 +64,7 @@ SEO 69 is intentional: `noindex, follow` prevents the fictional portfolio café 
 - `artifacts/final-webkit/`, `artifacts/webkit/`: second-engine screenshots and scans; original failed attempts are retained rather than hidden.
 - `artifacts/external/`: real portfolio navigation receipts and screenshots.
 - `artifacts/staging/`: built-site smoke results and screenshots.
+- `artifacts/staging-motion-fixed/`, `artifacts/motion-contrast/`: rebuilt smoke and the first-frame transition regression after the follow-up contrast correction.
 - `artifacts/performance-redesign/`: pre-fix trials; `artifacts/performance-final/`: all revised raw trials and summary.
 - `artifacts/production/assets-127.0.0.1.json`: **local staging** hash/privacy receipt, identified by its explicit base URL, not production proof.
 - `artifacts/PUBLICATION.json` and `artifacts/RELEASE-REPORT.md`: exact final feature SHA, advertised remote comparison, current public release observations and final P0 report.

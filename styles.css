@@ -185,7 +185,7 @@ h1,h2,h3,h4 { overflow-wrap:anywhere; }
 @media(min-width:1601px) { .ticker-group { width:100vw; flex-basis:100vw; } .js .ticker-track { animation-duration:calc(100vw / 26.66px * 1s); } }
 @media(hover:hover) and (prefers-reduced-motion:no-preference) { .signature-link:hover .signature-media img { transform:scale(1.04); } .signature-link:hover .card-arrow { transform:rotate(45deg); } }
 .has-entered { animation:editorial-enter .65s var(--ease); }
-@keyframes editorial-enter { from { opacity:.65; translate:0 14px; } to { opacity:1; translate:0 0; } }
+@keyframes editorial-enter { from { translate:0 14px; } to { translate:0 0; } }
 html:not(.js) .ticker-track { width:100%; }
 html:not(.js) .ticker-group { width:100%; flex:1 1 auto; white-space:normal; flex-wrap:wrap; justify-content:center; gap:.75rem 1.5rem; padding:1.25rem; }
 html:not(.js) .ticker-group:nth-child(2) { display:none; }

@@ -26,6 +26,7 @@ npm ci
 npm run dev
 npm run verify
 npm test
+node tools/motion-contrast-check.mjs
 node tools/external-check.mjs
 npm run build
 npx wrangler deploy --dry-run

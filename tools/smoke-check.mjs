@@ -22,6 +22,7 @@ try {
   await page.locator('[data-menu-target=menu-item-23]').click(); assert(await page.locator('#menu-item-23').isVisible());
   await page.locator('[data-filter=all]').click();
   const axe=await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa','wcag21aa','wcag22aa']).analyze();
+  await writeFile(`${output}/axe-${width}.json`,JSON.stringify(axe.violations,null,2));
   assert.deepEqual(axe.violations.map(v=>v.id),[]);
   await page.evaluate(()=>window.scrollTo({top:0,behavior:'instant'}));
   await page.evaluate(()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r))));
