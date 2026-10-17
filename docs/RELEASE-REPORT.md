@@ -1,128 +1,61 @@
-# KopiKita MY — authorized production recovery in progress
+# KopiKita MY — production acceptance
 
-The user authorized recreating the missing KopiKita-specific deployment and preserving `https://kopikita.ismailstudio.my/`. This supersedes the earlier prohibition on recreation and the historical blocked checkpoint below.
+**PRODUCTION COMPLETE — VERIFIED.** Application acceptance checked 2026-10-17T08:06:23.708Z.
 
-Repository history at `541ae32`, the original Wrangler configuration and saved live receipts identify Workers Static Assets, not Pages. Fresh account inspection found no matching Worker/Pages project or custom-domain mapping. No conflicting Worker route existed. The recreated `kopikita` Worker first deployed validated commit `1c219bf`; version `84eb8d2e-8fda-434b-9eed-81e788dadcc6`, deployment `4cabf1d4-6cca-454f-9c30-1b82f8525c15`. Cloudflare's custom-domain changeset then reported exactly one addition, zero updates/removals/conflicts. The hostname was attached with `override_existing_origin=false` and `override_existing_dns_record=false`; no shared zone setting or other project was changed.
+## Verified destinations and release
 
-Public Cloudflare/Google DNS resolves the hostname, but this machine's default resolver retains the earlier negative answer. Read-only QA can use an isolated public-DNS CONNECT tunnel with end-to-end TLS validation; no system DNS or router setting is changed. Such evidence is labeled separately from default-resolver checks.
-
-Live Worker seven-width Edge tests and all 60 asset hashes PASS at `1c219bf`. The custom host exposed zone-level automatic Web Analytics injection, causing strict HTML hash failure. A KopiKita-only `_headers` response policy adds `no-transform` to prevent that injection without touching shared analytics. The build consumes this control file without listing it as a public asset. Browser verification now also records failed requests. Full custom-host acceptance will be rerun after this correction; production is not yet accepted in this checkpoint.
-
-Raw recovery evidence is in `artifacts/recovery/`; exact final deployment and public acceptance receipts will replace the local `artifacts/RELEASE-REPORT.md` and `artifacts/PUBLICATION.json` after verification. Builds API inspection returns 403 with local OAuth, so automatic Git builds are unverified. The authenticated manual Wrangler deployment is the observed release mechanism.
-
----
-
-# Historical blocked checkpoint
-
-**BLOCKED — IMPLEMENTED, PRODUCTION BLOCKED.** Updated 2026-10-17. Wrangler authentication has recovered, but the existing production target is absent. This checkpoint supersedes the older authentication blocker and public-version observations in the historical validation record below.
-
-## Current production evidence
-
-Wrangler 4.151.0 successfully authenticated with the locally authorized OAuth session and reported account `44214a829e2337ca50cf40e4cd827cba`, matching the unchanged config. Credentials remained local and were not printed or committed. The separate connector still requires reauthorization; authenticated local API reads work.
-
-- `wrangler deployments list --name kopikita --json`: error `10007`, Worker does not exist.
-- Authenticated Worker/service inventories contain no KopiKita target. Settings return HTTP 404 / `10007`; service lookup returns HTTP 404 / `10090`.
-- No KopiKita custom-domain mapping or matching Pages project exists. The account Workers subdomain still matches `mohamad-ismail-mohd-izwan`. Repository history identifies **Workers Static Assets**, not Pages.
-- At `2026-10-17T07:29:09.126Z` (15:29 MYT), `https://kopikita.ismailstudio.my/` still failed DNS resolution (`ENOTFOUND`). An independent public DNS-over-HTTPS query returned status 3 / NXDOMAIN at `07:01:18Z`; the authenticated inventory was rechecked at 15:29 and still contained no KopiKita target or mapping.
-- `https://kopikita.mohamad-ismail-mohd-izwan.workers.dev/` returned Cloudflare HTTP 404 for `/release.json`. Neither endpoint currently exposes a release SHA.
-- Only those two café URLs are established by repository evidence. A third café endpoint, current build trigger, deployment ID and hosted bindings cannot be verified while the target is absent. The external ISMAIL portfolio is not a third café deployment.
-
-Sanitized local receipts: `artifacts/release-resume/cloudflare-before.json`, `cloudflare-discovery.json`, `public-current.json`, and `custom-dns.json`. The earlier `public-before.json` showed baseline `541ae32` at both hosts; that is historical, not current. No attribution is made for the target's absence.
-
-## Source and current local validation
-
-Approved implementation `b6385c2977ebd56cbc0b3ad5aefc693ddb4c8e74` is preserved on `codex/kopikita-redesign`, descended from main baseline `541ae3246a9ef69cf6da0025f2c00aece62664f0`. Fresh fetch and advertised remote refs matched; no newer shared source changes were found.
-
-The resumed smoke check exposed a selected-to-unselected filter button whose simultaneous text/background colour transitions briefly fell below AA contrast. The sole product change removes that colour interpolation. The expanded regression freezes actual button transitions at their midpoint alongside existing first-frame animation checks. Menu data, layouts, images, scripts, deployment config and dependencies are unchanged from the approved implementation. Static checks confirm all **30 original names, descriptions, categories and prices**, distribution **30 / 6 / 9 / 7 / 8**.
-
-Static verification and the 60-file build PASS. Built-site smoke at 375/1440 PASS with zero axe findings. The four-case 375/1440 Edge/WebKit motion/transition regression PASS. The fresh full Edge seven-width suite PASS (exit 0), including exact rendered menu, filters, keyboard, touch, reduced motion, fallback behavior and zero axe/script/resource errors. The fresh WebKit run produced captures from 320 through 1440 and a zero-finding mobile scan, but its process ended without a final result; it is PARTIAL, not a fresh full-suite pass. The earlier full WebKit run and current focused two-engine regression remain separately recorded evidence. An initial overlapping-build run hit an image decode error and is not counted as a pass; the successful Edge rerun used stable output.
-
-The 30-row fixture was also freshly compared directly with the original Git HTML at `541ae32`; all four fields match. Fresh screenshots at `artifacts/release-resume/current-edge/` were visually reviewed at mobile/desktop hero, full mobile menu and desktop atmosphere. A parallel external-link run reached the portfolio by pointer and keyboard but timed out clicking the footer. The unchanged isolated rerun PASS (exit 0): pointer and keyboard both reached the real portfolio; the footer popup opened with null opener. Receipt: `artifacts/release-resume/external-isolated/results.json`. No test assertions or timeouts were relaxed.
-
-Exact final feature SHA and independent advertised-remote comparison belong in local `artifacts/PUBLICATION.json` and `artifacts/RELEASE-REPORT.md` after committing; this source report cannot embed its own circular SHA. Main remains at the baseline until the existing target and deployment invariants are verified.
-
-No account, Worker, Pages project, DNS record, domain mapping, route, binding, secret or build trigger was created, changed or deleted. PROWORKS and CIVOLYN were not modified. No main push, production deploy, cache purge or force push occurred.
-
-## Current P0 acceptance
-
-| Required gate | Current state |
+| Destination | Acceptance |
 |---|---|
-| Correct clone/remote/ancestry and preserved work | PASS; feature history retained, scoped additive correction only. |
-| All 30 immutable menu entries and category counts | PASS locally; production NOT TESTED because no café release is served. |
-| Coherent responsive fictional café and truthful sections | PASS in fresh Edge seven-width checks and reviewed mobile/desktop captures. |
-| Exact ISMAIL link and disclosure | PASS in fresh isolated pointer/keyboard/footer external tests and static disclosure checks. |
-| Pointer/keyboard/touch, filters, focus and reduced motion | PASS in fresh full Edge and focused two-engine checks; fresh broad WebKit PARTIAL as documented. |
-| Build/regression/staged smoke | Static/build/smoke/four-case contrast and full Edge PASS; broad WebKit limitation documented. |
-| Source security and existing deploy scope | Reviewed staged whitespace/common-secret-pattern checks PASS; no hosted mutations. Hosted invariant BLOCKED by missing target. |
-| Validated production publish, SHA/assets and custom host | BLOCKED; NXDOMAIN/HTTP 404, no new deployment ID. |
-| Truthful report, evidence, limitations and recovery | PASS; current observations distinguished from historical evidence. |
+| https://kopikita.ismailstudio.my/ | Canonical production URL; HTTPS, exact manifest and all 60 public hashes PASS; full seven-width Edge journey PASS. |
+| https://kopikita.mohamad-ismail-mohd-izwan.workers.dev/ | URL independently reported by Wrangler; HTTPS, exact manifest, all 60 public hashes, seven-width Edge journey and 375/1440 smoke PASS. |
+| Any additional historical URL | UNRESOLVED; no Pages URL, www alias or third café endpoint is invented. |
 
-## Required external coordination
+Accepted application commit: **2b15599324b45bf23f2bbd8b1c410f3c107c3178**, integrated by fast-forward into **main** from **codex/kopikita-redesign** in https://github.com/ismailabs/kopikita. Application Worker version: **35c40053-ea12-42ff-b5b1-04cf9d2ac944**; deployment: **af085ca4-092c-418c-bf8d-6109a71a8bf8**, 100% traffic. The final acceptance-document commit changes no public file hashes; its exact deployed HEAD, version and deployment ID are recorded after publication in local artifacts/RELEASE-REPORT.md and artifacts/PUBLICATION.json, and verified through public /release.json. This avoids embedding a circular self-commit hash.
 
-The user confirmed they will restore or identify the existing KopiKita target. Resume after confirmation or a verified existing target dashboard URL/name. Do not create a replacement or change DNS to bypass the mismatch. Reinspect settings, mappings, bindings, secrets and main-branch Workers Builds integration; safely fast-forward validated source, push once, observe the build, then verify deployment ID, exact public SHA, every asset hash and live acceptance at every verified café endpoint.
+## Hosting investigation and scoped restoration
 
-Physical devices, manual screen readers and field performance remain untested; automated results are not WCAG certification. No rollback occurred because this session did not change production. Baseline `541ae3246a9ef69cf6da0025f2c00aece62664f0` is the prior source reference, not proof of an available rollback deployment.
+The initial README at 8b11de8 recommended Pages but explicitly said the intended domain was not configured/published. That is not evidence of an actual Pages deployment. By 541ae32 the repository had a pinned Workers Static Assets config and documented authenticated Workers Builds integration. Saved live HTML, screenshots and release receipts show the same café at the custom and workers.dev hosts. The latest verified historical arrangement was therefore Workers; no historical Pages deployment is established.
 
----
+Fresh authenticated inspection found no KopiKita Worker, service, Pages project or custom-domain mapping, and no conflicting Worker route. The user then explicitly authorized recreating the missing KopiKita target and configuring the canonical subdomain. Worker kopikita was recreated in account 44214a829e2337ca50cf40e4cd827cba, tag ac70fa7b1f354bdaa501a7588449e8a4. Cloudflare's domain plan reported one addition, zero updates/removals/conflicts. Attachment used override_existing_origin=false and override_existing_dns_record=false. No apex, wildcard, nameserver, MX, PROWORKS, CIVOLYN or unrelated resource was targeted.
 
-# Historical redesign validation record
+The observed release mechanism is authenticated manual Wrangler deployment with --keep-vars and the existing npm build hook. New Worker settings have no bindings/secrets. Workers Builds API reads returned 403 with local OAuth; automatic Git deployment is unverified and not claimed. No build token or shared integration was created.
 
-The following is the previous handoff. Its authentication and live-host statements are superseded above; implementation and test evidence remain useful history.
+## Released application and production correction
 
-## Source and publication
+The approved warm editorial redesign, local licensed fonts, synthetic responsive photography, progressive navigation, full menu, featured links, atmosphere section and tasteful ISMAIL endcap are preserved. All **30 original names, descriptions, categories and prices** exactly match original Git HTML and the locked CSV: **6 local / 9 espresso / 7 iced / 8 bakes**, 30 total. All content remains available without JavaScript, with visible fictional disclosures and no operational ordering, booking or payments.
 
-- Local clone: `C:\Users\moham\OneDrive\Desktop\kopikita-my`.
-- Exact authorized remote: `https://github.com/ismailabs/kopikita.git`.
-- Baseline/rollback source: `541ae3246a9ef69cf6da0025f2c00aece62664f0`.
-- Implementation branch: `codex/kopikita-redesign`; final revision is this branch's reviewed HEAD. The exact committed/pushed SHA and independent advertised-remote comparison are recorded in the local `artifacts/PUBLICATION.json`, final local report and delivery message. The report is part of that commit, so it does not embed its own circular commit hash.
-- Main is held at the verified baseline; no force push, main merge, manual deployment, DNS modification or hosted setting change has occurred.
-- Original user changes: the sole untracked input folder is preserved and ignored. No unknown source edits were overwritten. Generated dependencies from the interrupted install remain under ignored local artifacts.
+The resumed work corrected transient filter-button contrast. Live custom-host verification then found inherited Cloudflare Web Analytics injection changing HTML bytes. A Worker-local _headers policy now sends public, max-age=0, must-revalidate, no-transform, preventing that injection without changing shared analytics settings. All public bytes now match the local committed build. The consumed _headers control file, source, docs, data, Git and environment paths return 404. No runtime tracker or backend was added.
 
-## What changed
+## Every mandatory P0 gate
 
-Rebuilt `index.html` and consolidated the stylesheet into `styles.css`; removed the superseded `refinements.css`. Added a live botanical wordmark, cinematic desktop hero, separate mobile cup crop, four exact-menu highlights, warm editorial story, readable full menu, dark atmosphere section and one studio endcap. Photography, responsive derivatives, social cover, favicon and licensed local fonts are credited in `ASSET-CREDITS.md`. Old source assets remain available as provenance.
+| Gate | Result and authoritative evidence |
+|---|---|
+| Correct Git baseline, remote, preserved user work and scoped identity | PASS. Baseline 541ae32, approved b6385c2, tested 1c219bf and accepted application revision above remain ancestors. Fast-forward integration and normal pushes only; handoff preserved/ignored. Account/Worker/hostname inspected and creation explicitly authorized. |
+| All 30 original menu fields and distribution | PASS. Original Git HTML equals CSV equals source; live rendered strict equality at all seven widths; counts 30/6/9/7/8. |
+| Coherent responsive fictional café and truthful reachable sections | PASS. Actual canonical-host 320/375/430/768/1024/1440/1920 captures, no overflow; visual review of mobile/desktop hero, menu, atmosphere and studio endcap. |
+| Exact ISMAIL links and disclosure | PASS. Live pointer and keyboard navigation via exactly https://ismailstudio.my/ reaches the real portfolio; footer popup has null opener. Disclosures remain visible. |
+| Controls, pointer/keyboard/touch, filters/status, focus, fallback and motion | PASS. Full live Edge journeys, exact featured destinations, navigation dismissal/Escape/focus return, complete DOM Tab order, touch emulation, no-JS/blocked-main-script fallback, 200% text and reduced motion. |
+| Real build, tests and staged/live smoke | PASS. Static verification, dry runs, generated types, full live Edge, 375/1440 live smoke, four live Edge/WebKit paused-motion axe cases and exact hosted byte checks. All completed axe scans have zero findings. |
+| Security, secrets, safe source and scoped deploy invariant | PASS. Reviewed staged whitespace/common-secret-pattern/history scans; allowlisted publication; private/control paths 404; no force push, secret exposure, unrelated deletion or shared-zone change. The Worker has no user bindings. |
+| Production publish from validated source; exact SHA/assets and canonical host | PASS. Authenticated deployment records, enabled custom hostname, real TLS/public DNS and manifest/hash comparisons at both verified URLs. Final exact-HEAD receipt is regenerated after the documentation-only publication. |
+| Truthful report, files/Git/URLs/tests/screenshots/performance/issues/rollback | PASS. This report, TESTING.md, README, ASSET-CREDITS, raw local receipts and exact final publication report. |
 
-`script.js` enhances menu/filter/hash/focus and motion. A small inline navigation controller binds before the first content paint to prevent the measured header shift. All links keep DOM order with explicit zero tabindex for WebKit. The 30-row CSV fixture and `tools/menu-contract.mjs` enforce immutable data. Tests cover genuine UI behavior and actual external navigation. Build/public verification remains allowlisted and now covers either public hostname plus source/private 404s. No runtime services, trackers or operational commerce were introduced.
+## Network, accessibility and evidence scope
 
-Other changes: canonical/OG/robots/sitemap now use the independently reachable intended custom host, `noindex, follow` reflects the fictional project, and every portfolio href is exactly `https://ismailstudio.my/`. Added design decisions, optional unactivated measurement plan, testing and maintenance/runbook documentation.
+Cloudflare and Google public DNS resolve the custom hostname. This machine initially retained its earlier NXDOMAIN answer; those failed default-transport diagnostics are retained. The default resolver recovered naturally at 2026-10-17T08:05:51.865Z, and ordinary-network canonical verification now also passes all 60 hashes and private-path checks. Canonical-host QA used an isolated loopback CONNECT tunnel resolving through 1.1.1.1/8.8.8.8. Browser HTTPS remained end-to-end with normal certificate validation; Node hash checks also used public DNS and TLS validation. No IP was hardcoded, HTTP response rewritten, TLS check bypassed, or system/router DNS setting changed. Fresh browser contexts required real network loads. Both endpoints were additionally verified through the default resolver after propagation. The earlier transport workaround is disclosed and is not substituted for the final ordinary-network checks.
 
-## Every P0 criterion
+Full final canonical browser run: zero script, HTTP and unexpected failed-request errors; zero image cancellations. An earlier stricter run recorded responsive image cancellations during resize; these are now separately logged while visible-image decoding and genuine request failures remain mandatory. The earlier pre-recovery full WebKit run was partial; current **live WebKit coverage is the focused 375/1440 contrast/motion scans**, not a claim of a full live Safari/iOS suite. Automated axe is not WCAG certification. Physical devices, manual screen readers, browser-chrome zoom and field INP were not tested.
 
-| P0 Definition of Done criterion | Status | Evidence |
-|---|---|---|
-| Git baseline, remote, preserved user changes, scoped resource identity | PASS locally; hosted identity inspection BLOCKED | Root/remotes/fetched and advertised baseline match; only handoff untracked before edits; existing name/account pinned in unchanged config. Current authenticated Worker inspection is unavailable. |
-| All 30 original names/categories/prices, original descriptions, distribution | PASS | CSV independently matched original Git HTML; static and rendered strict equality; 30 / 6 / 9 / 7 / 8 at exercised widths. No description exceptions. |
-| Recognizable coherent responsive KopiKita, reachable truthful sections | PASS | Actual seven-width captures, section QA, all anchors verified; all referenced product names/prices are real baseline entries; no invented venue, customers, reviews, checkout or booking. |
-| Exact ISMAIL destination, external tests, informative disclosure | PASS | Real pointer/keyboard navigation and footer popup to the portfolio; top banner/menu/studio/footer disclosures; target hrefs retain non-www as requested. |
-| Pointer/keyboard/touch controls, filters/status, dismissal/focus, no-JS/reduced motion | PASS locally | Edge full suite, second-engine responsive checks, focused complete Tab-order/skip checks in both engines, touch emulation and script-failure cases. See TESTING for exact coverage. |
-| Static/build/relevant tests and staged browser smoke actually pass | PASS locally | Clean npm ci, verify, Edge suite, targeted regressions, build, dry-run, built-site smoke, 60-file hash/privacy check. Early failed tests were investigated; corrected behavior and remaining platform limits are documented. |
-| Security: no secrets, unsafe config/resources, force push or unrelated deletion; scoped deploy invariant | PASS for source; deploy invariant BLOCKED | Staged/history common-secret scan and whitespace checks; no forbidden indexed paths; config/package/lock unchanged. Hosted bindings/settings cannot be authenticated, so production is gated. |
-| Publish validated commit; actual release SHA/hashes; independently checked intended hostname | BLOCKED | Both public hosts were checked and still served baseline release. No redesign production build/deploy receipt exists. Required authenticated Worker/Builds inspection cannot be completed. |
-| Truthful end report, files/Git/URLs/tests/screenshots/performance/issues/rollback | PASS | This report, TESTING, design/provenance documents, local exact-SHA publication receipt, raw browser/axe/performance evidence and final message. |
+## Performance
 
-## Validation and quality evidence
+One isolated live simulated-mobile Lighthouse 13.5.0 / Edge 155.0.4283.45 run through the recorded QA transport: performance 59, accessibility 100, best practices 100, SEO 69; LCP 3.03s, FCP 1.26s, TBT 5465ms, CLS 0. This is one lab observation, not field data or a reliable before/after comparison. SEO reflects intentional noindex, follow for a fictional portfolio concept. Historical local three-pair medians were baseline 74 vs redesign 85, LCP 1.96 vs 2.32s, CLS 0 vs 0; variance and richer imagery/fonts were documented, and no speedup/conversion claim is made.
 
-Executed command/results, failures and fixes are detailed in `TESTING.md`. Fresh screenshots are local under `artifacts/final-edge/` at 320/375/430/768/1024/1440/1920, including mobile/desktop sections. Baseline captures are under `artifacts/baseline/`. Compare visual hierarchy, cup crop, live type, exact prices, navigation, studio credit and fictional disclosure rather than copying invented board text. The provided boards are not implementation screenshots.
+The byte-identical Worker endpoint was then measured once through the default resolver: performance 78, accessibility 100, best practices 100, SEO 69; LCP 2.56s, TBT 775ms, CLS 0. The canonical trace attributed about 6.25s to Other/unattributable work, about 1.34s to style/layout and only 0.13s to script evaluation; boot-up was about 0.1s, with no unused-JS finding. The samples show substantial environment/transport sensitivity, not a proven causal diagnosis. High lab blocking time remains a limitation, and neither sample establishes field performance or a speedup. No blind application/design change was made from this noisy measurement.
 
-Axe scans found zero issues after correcting the studio caption contrast. Edge 155 and WebKit 27.2 completed the full seven-width suites successfully; the complete keyboard sequence also passed separately in both engines. Post-commit smoke then exposed transient contrast during a filter fade; freezing the first frame reproduced 102 findings. A follow-up correction removes text opacity from both motion effects, with a dedicated two-engine first-frame regression plus rebuilt smoke. 320px plus 200% text overflow was fixed. WebKit required waiting for the actual asynchronous responsive reset and explicit zero tabindex for links; neither assertion was simply removed. The hidden skip-link screenshot artifact was corrected. Initial npm install overlap, axe's explicit-context requirement and Firefox's Windows launch failure are retained in the evidence rather than misrepresented as passes.
+## Evidence and rollback
 
-Performance: Lighthouse 13.5/Edge 155, local simulated mobile, three paired trials plus one desktop pair. Raw medians: mobile performance 74→85, LCP 1.96→2.32s, FCP 1.48→2.16s, TBT 894→417ms, CLS 0→0. All three revised mobile CLS values are zero after fixing a pre-fix value up to 0.199. Desktop performance 100→100. One pair overlapped a short targeted test completion; host variance was large. Trials preceded the final opacity-only contrast correction; no performance benchmark of that follow-up commit or hosted release is claimed. This is not proof of a reliable speedup. Added licensed local fonts and richer photography have a loading cost. SEO 69 follows intentional noindex; accessibility/best practices 100 in those lab runs. No field/INP or conversion claims.
+Raw local evidence under artifacts/recovery/: preflight.json, domain-plan.json, domain-attachment.json, created-worker.json, cloudflare-live.json, dns-after.json, accepted-custom-hashes/dns-transport.json, final-custom-edge/results.json and screenshots/axe, live-worker-edge/results.json, live-worker-smoke/results.json, live-motion/results.json, live-external/results.json, live-performance/mobile.json and summary.json, worker-performance/mobile.json and summary.json, default-resolver-latest.json. Hosted hash receipts are artifacts/production/assets-<hostname>.json. Exact final revision/deployment and post-publication checks are in artifacts/PUBLICATION.json and artifacts/RELEASE-REPORT.md.
 
-P1 limitations: no physical devices, manual screen readers, real Safari/iOS hardware, browser chrome zoom control or field performance. CSS 200% text and touch emulation were tested. Firefox could not start due to Windows side-by-side configuration. No remote preview was created because authenticated Worker invariants could not be checked; robust local allowlisted staging was used.
+No rollback was needed. Verified fallback version **35c40053-ea12-42ff-b5b1-04cf9d2ac944** is the accepted application revision. After a later regression, inspect current state and use npx wrangler rollback 35c40053-ea12-42ff-b5b1-04cf9d2ac944 --name kopikita with a reviewed reason, or a normal source revert/new deploy. The old deleted Worker's IDs must not be guessed or reused. Preserve the hostname and do not reset/force-push Git history.
 
-## Public targets and precise blocker
-
-- Intended canonical: `https://kopikita.ismailstudio.my/`.
-- Existing Worker endpoint: `https://kopikita.mohamad-ismail-mohd-izwan.workers.dev/`.
-- Worker target from configuration: `kopikita`, account `44214a829e2337ca50cf40e4cd827cba`.
-- Connector: `UNAUTHORIZED`, reauthentication required, `oauth_token_invalid_grant`.
-- Wrangler: no authenticated session; noninteractive commands require a scoped API token. No token was requested in chat or exposed.
-- User confirmed Cloudflare cannot be reconnected now. Build/deployment IDs, current hosted bindings/settings and Workers Builds trigger are therefore UNKNOWN, not inferred safe from previous documentation.
-
-The handoff's `06-TECHNICAL-AND-DEPLOYMENT.md` requires authenticated identity/binding inspection before main publication. Holding main is this mandatory gate, not another request for routine code/Git approval.
-
-## Resume and rollback
-
-Reconnect Cloudflare or authenticate Wrangler securely outside chat. Inspect the existing account/Worker, bindings/secrets/settings/custom hostname and exact main-branch build/deploy command. Fetch remote state and verify a safe fast-forward. Publish the reviewed feature commit to main only after the invariant holds, observe the existing automatic build, and avoid duplicate manual deployment. Rebuild that exact commit, compare release manifests and all 60 hashes at both public hosts, run production browser/external suites, capture actual build/deploy IDs, then update acceptance.
-
-No production rollback is presently needed because the redesign was not released. The known prior source is baseline `541ae3246a9ef69cf6da0025f2c00aece62664f0`. After a future release, prefer reverting the redesign through a normal new commit and the existing build pipeline, or a verified prior Worker deployment through its authenticated rollback controls. Do not reset/force-push history or guess deployment IDs.
+No further user authorization or account action is required for this completed manual release. Future automatic Git builds require separately verified integration; they are not part of the success claim.

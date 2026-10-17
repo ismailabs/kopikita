@@ -10,10 +10,17 @@ const engine = process.env.BROWSER_ENGINE || 'chromium';
 const browser = engine === 'firefox' ? await firefox.launch() : engine === 'webkit' ? await webkit.launch() : await chromium.launch(process.env.BROWSER_PATH ? { executablePath: process.env.BROWSER_PATH } : { channel: 'msedge' });
 const evidence = { base, engine, browser: browser.version(), checkedAt: new Date().toISOString(), widths: [], checks: [] };
 const errors = [];
+const imageCancellations = [];
 const context = await browser.newContext();
 const page = await context.newPage();
 page.on('pageerror', error => errors.push(error.message));
-page.on('requestfailed', request => errors.push(`${request.failure()?.errorText} ${request.url()}`));
+page.on('requestfailed', request => {
+  const reason = request.failure()?.errorText;
+  // Resizing or navigating can cancel an obsolete responsive image request.
+  // Every visible image must still decode in finishImages at each tested width.
+  if (request.resourceType() === 'image' && reason === 'net::ERR_ABORTED') imageCancellations.push(request.url());
+  else errors.push(`${reason} ${request.url()}`);
+});
 page.on('response', response => { if (response.status() >= 400) errors.push(`${response.status()} ${response.url()}`); });
 async function finishImages(target) {
   for (const image of await target.locator('img').all()) {
@@ -200,6 +207,7 @@ try {
   assert.equal(await page.locator('a[href^="https://"]').evaluateAll(links => links.filter(link => link.href !== 'https://ismailstudio.my/').length), 0);
   evidence.checks.push('ISMAIL links target the approved portfolio');
   assert.deepEqual(errors, [], 'Browser errors or failed resources');
+  evidence.imageRequestCancellations = imageCancellations;
   evidence.checks.push('No JavaScript errors or HTTP resource failures');
   await writeFile(`${output}/results.json`, JSON.stringify(evidence, null, 2));
   console.log(JSON.stringify(evidence, null, 2));

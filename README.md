@@ -2,7 +2,7 @@
 
 A fictional Malaysian café concept by [ISMAIL](https://ismailstudio.my/). The café, menu, prices and synthetic imagery are illustrative. There are no orders, payments, reservations, actual venue, customers or business hours.
 
-Production recovery (2026-10-17): the user authorized recreating the missing KopiKita-specific target and preserving `https://kopikita.ismailstudio.my/`. The Workers Static Assets project `kopikita` has been recreated, and Cloudflare accepted its custom hostname after a conflict-free plan. Live acceptance is in progress. See [release evidence](docs/RELEASE-REPORT.md).
+Production status (2026-10-17): **PRODUCTION COMPLETE — VERIFIED** at https://kopikita.ismailstudio.my/. The missing KopiKita Worker and hostname were restored with explicit user authorization, and live acceptance passed. See [release evidence and network scope](docs/RELEASE-REPORT.md).
 
 - Intended public URL: <https://kopikita.ismailstudio.my/>
 - Existing Worker endpoint: <https://kopikita.mohamad-ismail-mohd-izwan.workers.dev/>
@@ -49,8 +49,8 @@ The build publishes an explicit allowlist: HTML, stylesheet, JS, robots, sitemap
 The `_headers` control file sets `Cache-Control: public, max-age=0, must-revalidate, no-transform` only on this Worker's responses. This prevents the zone's automatic analytics injection from altering KopiKita's HTML, preserves exact served bytes and keeps the concept free of runtime tracking. Cloudflare consumes this control file; it is excluded from the public hash manifest and must return 404 publicly. Shared zone analytics settings are unchanged.
 
 ```sh
-# Only after authenticated invariant inspection and passing candidate gates:
-# fast-forward main to the reviewed commit; push main once; observe Workers Builds.
+# From a clean, validated main checkout after authenticated invariant inspection:
+npm run deploy
 npm run build
 node tools/verify-production.mjs
 # Repeat with SITE_URL set to the existing workers.dev endpoint.

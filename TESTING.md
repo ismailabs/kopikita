@@ -1,88 +1,34 @@
-# KopiKita redesign — executed validation
+# KopiKita MY — executed production validation
 
-## Production recovery (latest)
+Production acceptance: **PASS**, with the network/browser scope below. Detailed P0 acceptance and hosting history are in docs/RELEASE-REPORT.md. Accepted application revision: 2b15599324b45bf23f2bbd8b1c410f3c107c3178; the final acceptance-document commit preserves all 60 public file hashes.
 
-The user authorized restoration of the missing KopiKita-specific Worker and canonical hostname. Live seven-width Edge tests at the restored Worker URL PASS; all 60 hosted hashes match validated `1c219bf`, with source/private paths returning 404. Cloudflare's conflict-free hostname plan and non-overriding attachment are recorded under `artifacts/recovery/`.
-
-Custom-host verification exposed automatic zone analytics injection, which changed HTML bytes. The `_headers` `no-transform` policy is scoped to this Worker and prevents injection; the strict hash assertion is retained. Main-page failed requests are now included alongside HTTP/resource and script errors. This machine's stale default DNS answer is distinguished from fresh public DNS and end-to-end TLS QA. Full custom-host acceptance is pending the correction's deployment; earlier local/blocked observations below remain historical.
-
-17 October 2026, Malaysia. This report distinguishes local evidence from production acceptance. **Production publication is blocked by the missing existing Worker/domain target. Wrangler authentication has recovered.** See the current checkpoint in `docs/RELEASE-REPORT.md`; earlier live-host and authentication observations below are historical.
-
-## Resumed release checks
-
-The resumed smoke test found a remaining filter-button contrast failure during simultaneous foreground/background colour interpolation (3.91:1). Removing only that interpolation fixes the issue. The regression exercises selected-to-unselected buttons and freezes any actual transitions at their midpoint, preserving the first-frame entrance/filter checks. Static/build PASS; rebuilt 375/1440 smoke PASS; four Edge/WebKit motion cases PASS with zero axe findings. Fresh full Edge PASS at all seven widths (exit 0); raw results are in `artifacts/release-resume/current-edge/results.json`. Direct comparison of the fixture with original Git HTML also PASS. An initial run overlapped a rebuild and failed image decode; it is not counted as a pass.
-
-The fresh broad WebKit run produced 320/375/430/768/1024/1440 captures and a clear mobile axe scan, then its process ended before a final result. This is PARTIAL coverage, not a fresh full-suite pass. The earlier full WebKit PASS and today's focused two-engine regression remain separate evidence. The parallel external-link run reached the portfolio by pointer and keyboard, then timed out on the footer click. The unchanged isolated rerun PASS (exit 0), including pointer/keyboard navigation and the protected footer popup; receipt: `artifacts/release-resume/external-isolated/results.json`. No test assertions/timeouts were relaxed.
-
-Current raw evidence is under `artifacts/release-resume/`, including authenticated missing-target receipts and the NXDOMAIN/Worker-404 public observations. No production deployment or current deployed SHA is claimed.
-
-## Baseline
-
-Verified local root, `origin=https://github.com/ismailabs/kopikita.git`, `main`, local/fetched/advertised SHA `541ae3246a9ef69cf6da0025f2c00aece62664f0`. The supplied handoff was the only untracked folder; it was preserved and ignored. Its manifest matches all 31 present listed files; its listed short-prompt file is absent. No other source changes were present.
-
-Captured fresh local, custom-host and workers.dev screenshots at 375/1440px. Both public hosts returned 200, served 30 items and had the old workers.dev canonical. Both public `/release.json` documents identified the baseline SHA. `https://ismailstudio.my/` successfully redirected to `https://www.ismailstudio.my/`.
-
-The original browser suite passed at 320/375/430/768/1024/1440 before edits. All four menu fields in the handoff CSV were separately compared with original Git source and matched exactly.
-
-## Commands and observed results
-
-| Check | Observed result |
+| Executed check | Observed result |
 |---|---|
-| `npm ci` | PASS: 151 packages, 152 audited, zero known vulnerabilities. An initial overlapping install attempt failed with ENOTEMPTY; its task-owned installer was stopped and generated dependencies preserved under ignored artifacts before the clean install. |
-| `npm run verify` | PASS: exact 30 original names, descriptions, categories and prices; distribution 30/6/9/7/8; anchors, assets, metadata, noindex, exact ISMAIL URLs, disclosure and both inline/external JS syntax. |
-| `npm test` (Edge 155.0.4283.45) | PASS: seven widths, all five filters, exact rendered menu data, featured-to-menu focus/category, mobile navigation/Escape/outside dismissal/destination focus, responsive reset, actual marquee frames and seam, pause/resume, live reduced motion, no-JS, blocked main script, 200% text at 1440 and 320, skip link, touch emulation and no JS/resource failures. |
-| Additional focus checks, Edge and WebKit | PASS: every visible link/button in document Tab order, visible skip focus and activation; keyboard toggle/Escape/focus return; Space filtering; hidden hash target reveal. Explicit tabindex=0 fixed the WebKit port's native-link Tab behavior without positive tabindex or dropping the assertion. Fresh pages avoid WebKit's focus restoration on same-URL navigation. |
-| WebKit 27.2 full responsive/interaction/axe suite | PASS at all seven widths, including complete Tab order and skip activation. Initial runs exposed asynchronous resize delivery and link-tabbing differences, both investigated and corrected. Final receipt: `artifacts/final-webkit/results.json`; do not infer physical Safari/iOS coverage. |
-| `node tools/external-check.mjs` | PASS: actual studio navigation by pointer and keyboard to the live portfolio, plus protected footer popup with null opener. |
-| `npm run build` | PASS: 60 allowlisted public files, reproducible text normalization and release manifest. |
-| `npx wrangler deploy --dry-run` | PASS: static-asset upload prepared; no bindings found locally; no deployment occurred. This does not inspect hosted bindings. |
-| Built-site smoke, port 4175 | PASS: 375/1440px, exact menu, filters, highlighted row, custom canonical, zero axe findings and JS errors. |
-| `node tools/motion-contrast-check.mjs` | PASS: actual filter/entrance animations frozen at their first frame, zero axe findings at 375/1440 in Edge and WebKit. The source now uses movement only; text remains fully opaque. Receipt: `artifacts/motion-contrast/results.json`. |
-| Built-site hash/privacy verification | PASS: 60/60 file hashes match; docs, tools, CSV, handoff, Git config and environment paths return 404 from the allowlisted staging server. |
-| Staged whitespace and secret-pattern/history scans | PASS after removing trailing whitespace from a font license without changing its text. No generated/private paths or common secret patterns in the reviewed staged scope/history. |
-| Production deployment/acceptance | BLOCKED: connector reauthentication required (`oauth_token_invalid_grant`); Wrangler has no authenticated session/API token. User confirmed reconnect is unavailable. No main push or manual deploy is authorized past the brief's unverified Worker invariant gate. |
+| npm run verify; original Git/CSV/source comparison | PASS; exact 30 original names/descriptions/categories/prices, 30/6/9/7/8, metadata, noindex, anchors, assets, disclosures and script syntax. |
+| Build, Wrangler dry run and generated project types | PASS; 60 public files plus release manifest; _headers consumed privately. |
+| Canonical-host full Edge 155.0.4283.45 suite | PASS at 320/375/430/768/1024/1440/1920; exact menu, all filters, navigation/dismissal/focus, featured links, touch, keyboard/skip, 200% text, no-JS, blocked-main-script fallback, reduced motion and actual marquee. Zero axe, HTTP, script or failed-request findings; final image cancellations: 0. |
+| Worker-host full Edge suite and post-correction 375/1440 smoke | PASS; identical public file bytes, all menu fields, interactions, canonical metadata and zero axe/script errors. |
+| Live paused-motion contrast, Edge and WebKit 27.2 | PASS, four cases: 375/1440 in each engine; zero axe findings. This is focused WebKit coverage, not a full live Safari/iOS suite. |
+| Live external ISMAIL pointer, keyboard and footer popup | PASS; exact source href https://ismailstudio.my/ redirects to the real portfolio; footer opener is null. |
+| Both public /release.json and all 60 file hashes | PASS; private/source/control paths 404; no-transform header present and no injected analytics HTML. |
+| Reviewed staged whitespace and common-secret-pattern/history scans | PASS; generated/private/handoff paths excluded. This is not described as a Gitleaks audit. |
+| Public DNS and TLS | PASS via independent public resolvers and fresh public-DNS QA transport; the default resolver later recovered naturally (2026-10-17T08:05:51.865Z) and canonical ordinary-network hash checks PASS. No system DNS/cache change or TLS bypass. |
+| Isolated live mobile Lighthouse | One measured lab run: performance 59, accessibility 100, best practices 100, SEO 69; LCP 3.03s, TBT 5465ms, CLS 0. Not field data or proof of speedup. |
 
-## Accessibility and visual review
+## Failures diagnosed and corrected
 
-Axe 4.13, WCAG 2 A/AA, 2.1 AA and 2.2 AA tags: zero findings on completed desktop/mobile, open-navigation and filtered-menu scans. One observed 4.42:1 studio eyebrow contrast failure was corrected. This is not a complete WCAG conformance claim.
+The resumed button transition briefly reached 3.91:1 contrast; removing colour interpolation and retaining opaque moving text fixed it. Strict custom-host hashing then found inherited zone analytics injection; the Worker-only no-transform response policy removed it without modifying shared analytics settings or relaxing hash comparison. An early request-failure scan recorded browser-cancelled responsive image requests during resize. Such image cancellations are recorded separately while every visible image must decode and all genuine failures remain fatal; the final full run recorded none. A parallel external footer click timed out; the isolated unchanged rerun passed, with no timeout/assertion relaxation. Earlier overlapping builds caused a decode failure; final production tests used stable hosted output.
 
-Inspected actual 320/375/430/768/1024/1440/1920 layouts and mobile/desktop section captures: live heading breaks, hero cup crop, four real featured items, menu prices/descriptions, arched story photograph, dark atmosphere, truthful studio invitation and footer. Corrected 320px/200% text overflow in headings, buttons, grid sizing and decorative wordmark. Corrected a hidden skip-link capture artifact using clipping rather than a negative fixed offset. A check of the committed build exposed intermittent contrast during opacity animation: pausing the actual filter at its first frame reproduced 102 failing nodes, including 2.17:1 category labels. Removed text fading from filter and entrance effects, retaining translation and reduced-motion handling; the dedicated regression scans the real paused animations. No-JS content remains complete; blocked main JS retains early working navigation and hides inactive filters.
+## Evidence and limitations
 
-200% checks enlarge text with CSS; they are not a claim of testing the browser chrome's zoom control. Touch coverage is browser emulation, not a physical phone. Manual screen readers, physical hardware and field INP were not tested. Firefox could not start because its Windows side-by-side configuration is incorrect (`spawn UNKNOWN`); WebKit supplied the second-engine coverage.
+Current raw evidence is under artifacts/recovery/ (see the release report's exact paths). During propagation, canonical requests used a process-local public-DNS CONNECT tunnel with end-to-end TLS validation because the default resolver returned an old negative answer. The default resolver then recovered naturally, and ordinary-network canonical verification passed as well. The transport does not rewrite HTTP, hardcode an IP or change system/router settings. Worker endpoint checks also passed normally. Every result names its actual base URL; local staging is never called production.
 
-## Performance evidence and tradeoffs
+Actual mobile/desktop hero, full menu, atmosphere and studio screenshots were reviewed. Physical phones, manual screen readers, browser-chrome zoom and field INP are untested. CSS 200% text and touch emulation are covered. The original full local WebKit suite passed before follow-ups; a fresh broad local rerun later ended without a result and is PARTIAL. Current live WebKit evidence is focused and labeled. No full WCAG, real-device, conversion or field-performance claim is made.
 
-Lighthouse 13.5.0, installed Edge 155, loopback HTTP, default simulated mobile throttling. Three alternating paired mobile trials and one paired desktop trial; raw JSON retained. The first revised pair overlapped completion of a short targeted browser check, so the set is not uniformly isolated. Later pairs had no other test browsers active. These trials preceded the final opacity-only contrast correction; no performance run of that final follow-up commit or hosted release is claimed. Host variance was substantial; these numbers do not establish a reliable speedup or field performance.
+Historical local Lighthouse medians (three pairs, with documented host variance) were performance 74→85, LCP 1.96→2.32s, FCP 1.48→2.16s, TBT 894→417ms, CLS 0→0. Richer imagery/local fonts have a loading cost, and these older trials are not a comparison against the final public run.
 
-| Mobile metric, median of the three recorded final trials | Original | Redesign |
-|---|---:|---:|
-| Performance | 74 | 85 |
-| Accessibility | 100 | 100 |
-| Best practices | 100 | 100 |
-| SEO | 100 | 69 |
-| FCP | 1.48 s | 2.16 s |
-| LCP | 1.96 s | 2.32 s |
-| TBT | 894 ms | 417 ms |
-| CLS | 0 | 0 |
-| Speed index | 1.75 s | 2.40 s |
+## Public performance diagnostic
 
-Raw mobile performance: original 88/74/73; redesign 72/86/85. Redesigned LCP: 3.66/2.32/2.24 s. Desktop performance: 100 for both; LCP 0.61→0.68 s; redesigned CLS 0. The first pre-fix candidate had mobile CLS up to 0.199: navigation initialized after first paint and font-driven wrapping contributed. Early navigation binding and font preloads removed it in all three final mobile trials. Richer local imagery and 86 KB of licensed local fonts are deliberate costs; FCP/LCP/speed index did not all improve. No runtime framework or tracking package was added.
+The byte-identical Worker endpoint was then measured once through the default resolver: performance 78, accessibility 100, best practices 100, SEO 69; LCP 2.56s, TBT 775ms, CLS 0. The canonical trace attributed about 6.25s to Other/unattributable work, about 1.34s to style/layout and only 0.13s to script evaluation; boot-up was about 0.1s, with no unused-JS finding. The samples show substantial environment/transport sensitivity, not a proven causal diagnosis. High lab blocking time remains a limitation, and neither sample establishes field performance or a speedup. No blind application/design change was made from this noisy measurement.
 
-SEO 69 is intentional: `noindex, follow` prevents the fictional portfolio café from being indexed. Other metadata is coherent. This should not be 'fixed' by falsely presenting an operational café or dropping the fictional indexing boundary. There are no field Core Web Vitals or conversion-uplift claims.
-
-## Evidence locations (local, ignored)
-
-- `artifacts/baseline/`: original local/custom/Worker screenshots, live identity receipts, handoff integrity.
-- `artifacts/baseline-suite/results.json`: fresh original suite.
-- `artifacts/final-edge/`: final responsive screenshots, axe reports and result JSON.
-- `artifacts/final-webkit/`, `artifacts/webkit/`: second-engine screenshots and scans; original failed attempts are retained rather than hidden.
-- `artifacts/external/`: real portfolio navigation receipts and screenshots.
-- `artifacts/staging/`: built-site smoke results and screenshots.
-- `artifacts/staging-motion-fixed/`, `artifacts/motion-contrast/`: rebuilt smoke and the first-frame transition regression after the follow-up contrast correction.
-- `artifacts/performance-redesign/`: pre-fix trials; `artifacts/performance-final/`: all revised raw trials and summary.
-- `artifacts/production/assets-127.0.0.1.json`: **local staging** hash/privacy receipt, identified by its explicit base URL, not production proof.
-- `artifacts/PUBLICATION.json` and `artifacts/RELEASE-REPORT.md`: exact final feature SHA, advertised remote comparison, current public release observations and final P0 report.
-
-## Production gate
-
-Reconnect the Cloudflare plugin or authenticate Wrangler securely outside chat. Inspect account `44214a829e2337ca50cf40e4cd827cba`, existing Worker `kopikita`, current bindings/settings/custom domain and Workers Builds trigger/deploy command. Confirm no configuration loss, fetch and check ancestry, fast-forward reviewed source to main only when safe, then observe its existing automatic build. Do not duplicate it with a manual deploy. Rebuild the exact committed source, compare `/release.json` plus all public hashes on both public hosts, and run production browser/external smoke before changing the report to DONE.
+Both raw lab runs are preserved; neither is averaged into a favorable claim.
