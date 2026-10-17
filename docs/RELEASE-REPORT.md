@@ -1,4 +1,18 @@
-# KopiKita MY production release — current checkpoint
+# KopiKita MY — authorized production recovery in progress
+
+The user authorized recreating the missing KopiKita-specific deployment and preserving `https://kopikita.ismailstudio.my/`. This supersedes the earlier prohibition on recreation and the historical blocked checkpoint below.
+
+Repository history at `541ae32`, the original Wrangler configuration and saved live receipts identify Workers Static Assets, not Pages. Fresh account inspection found no matching Worker/Pages project or custom-domain mapping. No conflicting Worker route existed. The recreated `kopikita` Worker first deployed validated commit `1c219bf`; version `84eb8d2e-8fda-434b-9eed-81e788dadcc6`, deployment `4cabf1d4-6cca-454f-9c30-1b82f8525c15`. Cloudflare's custom-domain changeset then reported exactly one addition, zero updates/removals/conflicts. The hostname was attached with `override_existing_origin=false` and `override_existing_dns_record=false`; no shared zone setting or other project was changed.
+
+Public Cloudflare/Google DNS resolves the hostname, but this machine's default resolver retains the earlier negative answer. Read-only QA can use an isolated public-DNS CONNECT tunnel with end-to-end TLS validation; no system DNS or router setting is changed. Such evidence is labeled separately from default-resolver checks.
+
+Live Worker seven-width Edge tests and all 60 asset hashes PASS at `1c219bf`. The custom host exposed zone-level automatic Web Analytics injection, causing strict HTML hash failure. A KopiKita-only `_headers` response policy adds `no-transform` to prevent that injection without touching shared analytics. The build consumes this control file without listing it as a public asset. Browser verification now also records failed requests. Full custom-host acceptance will be rerun after this correction; production is not yet accepted in this checkpoint.
+
+Raw recovery evidence is in `artifacts/recovery/`; exact final deployment and public acceptance receipts will replace the local `artifacts/RELEASE-REPORT.md` and `artifacts/PUBLICATION.json` after verification. Builds API inspection returns 403 with local OAuth, so automatic Git builds are unverified. The authenticated manual Wrangler deployment is the observed release mechanism.
+
+---
+
+# Historical blocked checkpoint
 
 **BLOCKED — IMPLEMENTED, PRODUCTION BLOCKED.** Updated 2026-10-17. Wrangler authentication has recovered, but the existing production target is absent. This checkpoint supersedes the older authentication blocker and public-version observations in the historical validation record below.
 

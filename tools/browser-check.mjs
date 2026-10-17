@@ -13,6 +13,7 @@ const errors = [];
 const context = await browser.newContext();
 const page = await context.newPage();
 page.on('pageerror', error => errors.push(error.message));
+page.on('requestfailed', request => errors.push(`${request.failure()?.errorText} ${request.url()}`));
 page.on('response', response => { if (response.status() >= 400) errors.push(`${response.status()} ${response.url()}`); });
 async function finishImages(target) {
   for (const image of await target.locator('img').all()) {

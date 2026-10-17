@@ -7,7 +7,7 @@ const output = resolve('dist');
 if (output !== resolve('.') + '\\dist' && output !== resolve('.') + '/dist') throw new Error('Unexpected build directory');
 await rm(output, { recursive: true, force: true });
 await mkdir(output, { recursive: true });
-for (const file of ['index.html', 'styles.css', 'script.js', 'robots.txt', 'sitemap.xml', 'assets']) {
+for (const file of ['index.html', 'styles.css', 'script.js', 'robots.txt', 'sitemap.xml', 'assets', '_headers']) {
   await cp(file, `${output}/${file}`, { recursive: true });
 }
 async function filesAt(directory) {
@@ -17,6 +17,8 @@ async function filesAt(directory) {
 }
 const hashes = {};
 for (const path of await filesAt(output)) {
+  // Cloudflare consumes this control file; it is not a public asset.
+  if (relative(output, path) === '_headers') continue;
   // Git checkouts on Windows and Linux can have different line endings.
   // Normalize public text before hashing so production bytes are reproducible.
   if (/\.(html|css|js|svg|xml|txt)$/.test(path)) {

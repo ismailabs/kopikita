@@ -2,6 +2,10 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "kopikita",
   "account_id": "44214a829e2337ca50cf40e4cd827cba",
+  "workers_dev": true,
+  "routes": [
+    { "pattern": "kopikita.ismailstudio.my", "custom_domain": true }
+  ],
   "compatibility_date": "2026-10-12",
   "build": { "command": "npm run build" },
   "observability": {

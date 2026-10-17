@@ -1,5 +1,11 @@
 # KopiKita redesign — executed validation
 
+## Production recovery (latest)
+
+The user authorized restoration of the missing KopiKita-specific Worker and canonical hostname. Live seven-width Edge tests at the restored Worker URL PASS; all 60 hosted hashes match validated `1c219bf`, with source/private paths returning 404. Cloudflare's conflict-free hostname plan and non-overriding attachment are recorded under `artifacts/recovery/`.
+
+Custom-host verification exposed automatic zone analytics injection, which changed HTML bytes. The `_headers` `no-transform` policy is scoped to this Worker and prevents injection; the strict hash assertion is retained. Main-page failed requests are now included alongside HTTP/resource and script errors. This machine's stale default DNS answer is distinguished from fresh public DNS and end-to-end TLS QA. Full custom-host acceptance is pending the correction's deployment; earlier local/blocked observations below remain historical.
+
 17 October 2026, Malaysia. This report distinguishes local evidence from production acceptance. **Production publication is blocked by the missing existing Worker/domain target. Wrangler authentication has recovered.** See the current checkpoint in `docs/RELEASE-REPORT.md`; earlier live-host and authentication observations below are historical.
 
 ## Resumed release checks

@@ -2,7 +2,7 @@
 
 A fictional Malaysian café concept by [ISMAIL](https://ismailstudio.my/). The café, menu, prices and synthetic imagery are illustrative. There are no orders, payments, reservations, actual venue, customers or business hours.
 
-Production status (2026-10-17): **BLOCKED**. Wrangler authentication works, but the existing Worker `kopikita` is absent from the configured account, the custom hostname returns NXDOMAIN and the documented Worker endpoint returns 404. The redesign is preserved on `codex/kopikita-redesign`; main has not advanced. See [current release evidence and recovery](docs/RELEASE-REPORT.md). Do not create a replacement project or alter domains to bypass this mismatch.
+Production recovery (2026-10-17): the user authorized recreating the missing KopiKita-specific target and preserving `https://kopikita.ismailstudio.my/`. The Workers Static Assets project `kopikita` has been recreated, and Cloudflare accepted its custom hostname after a conflict-free plan. Live acceptance is in progress. See [release evidence](docs/RELEASE-REPORT.md).
 
 - Intended public URL: <https://kopikita.ismailstudio.my/>
 - Existing Worker endpoint: <https://kopikita.mohamad-ismail-mohd-izwan.workers.dev/>
@@ -40,9 +40,13 @@ Preview: `http://127.0.0.1:4173`. `SITE_URL` changes the test destination, and `
 
 ## Existing Worker publication
 
-Workers Static Assets, not Pages. The existing documented Workers Builds integration deploys `main` with `npx wrangler deploy`. The unchanged Wrangler build hook executes `npm run build`. Inspect the authenticated Worker settings/bindings/build trigger before publishing. Observe the existing build; do not launch a duplicate manual deployment. Never force-push or change DNS.
+Workers Static Assets, not Pages. Git history and saved public receipts establish the previous Worker arrangement. The original Worker was absent on 17 October 2026 and was recreated with explicit user authorization. The custom domain is now declared in `wrangler.jsonc`; Cloudflare manages that hostname's DNS and certificate. No wildcard, apex or other project's mapping is part of this configuration.
+
+Production source is `main`. Use authenticated `npm run deploy` from a clean validated committed checkout; its Wrangler build hook executes `npm run build`, and `--keep-vars` preserves dashboard variables. The old Workers Builds integration cannot be assumed to survive recreation. Builds API inspection currently returns 403 with local OAuth, so automatic deployment is unverified; do not claim a Git push alone deploys this restored target. If Git builds are connected later, inspect and observe them rather than deploying twice. Never force-push or modify unrelated resources.
 
 The build publishes an explicit allowlist: HTML, stylesheet, JS, robots, sitemap and selected/local assets. It creates `release.json` with the Git commit and SHA-256 hashes, normalizing text line endings across Windows/Linux. Dependencies, Git state, source docs, handoff, CSV baseline, tools, local evidence and secrets are excluded. `tools/verify-production.mjs` requires every hosted file hash and release commit to match the locally built committed revision, and checks source/private paths return 404.
+
+The `_headers` control file sets `Cache-Control: public, max-age=0, must-revalidate, no-transform` only on this Worker's responses. This prevents the zone's automatic analytics injection from altering KopiKita's HTML, preserves exact served bytes and keeps the concept free of runtime tracking. Cloudflare consumes this control file; it is excluded from the public hash manifest and must return 404 publicly. Shared zone analytics settings are unchanged.
 
 ```sh
 # Only after authenticated invariant inspection and passing candidate gates:
