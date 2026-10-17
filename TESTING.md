@@ -1,6 +1,14 @@
 # KopiKita redesign — executed validation
 
-17 October 2026, Malaysia. This report distinguishes local evidence from production acceptance. **Production publication is blocked by Cloudflare authentication.**
+17 October 2026, Malaysia. This report distinguishes local evidence from production acceptance. **Production publication is blocked by the missing existing Worker/domain target. Wrangler authentication has recovered.** See the current checkpoint in `docs/RELEASE-REPORT.md`; earlier live-host and authentication observations below are historical.
+
+## Resumed release checks
+
+The resumed smoke test found a remaining filter-button contrast failure during simultaneous foreground/background colour interpolation (3.91:1). Removing only that interpolation fixes the issue. The regression exercises selected-to-unselected buttons and freezes any actual transitions at their midpoint, preserving the first-frame entrance/filter checks. Static/build PASS; rebuilt 375/1440 smoke PASS; four Edge/WebKit motion cases PASS with zero axe findings. Fresh full Edge PASS at all seven widths (exit 0); raw results are in `artifacts/release-resume/current-edge/results.json`. Direct comparison of the fixture with original Git HTML also PASS. An initial run overlapped a rebuild and failed image decode; it is not counted as a pass.
+
+The fresh broad WebKit run produced 320/375/430/768/1024/1440 captures and a clear mobile axe scan, then its process ended before a final result. This is PARTIAL coverage, not a fresh full-suite pass. The earlier full WebKit PASS and today's focused two-engine regression remain separate evidence. The parallel external-link run reached the portfolio by pointer and keyboard, then timed out on the footer click. The unchanged isolated rerun PASS (exit 0), including pointer/keyboard navigation and the protected footer popup; receipt: `artifacts/release-resume/external-isolated/results.json`. No test assertions/timeouts were relaxed.
+
+Current raw evidence is under `artifacts/release-resume/`, including authenticated missing-target receipts and the NXDOMAIN/Worker-404 public observations. No production deployment or current deployed SHA is claimed.
 
 ## Baseline
 

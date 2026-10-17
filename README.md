@@ -2,6 +2,8 @@
 
 A fictional Malaysian café concept by [ISMAIL](https://ismailstudio.my/). The café, menu, prices and synthetic imagery are illustrative. There are no orders, payments, reservations, actual venue, customers or business hours.
 
+Production status (2026-10-17): **BLOCKED**. Wrangler authentication works, but the existing Worker `kopikita` is absent from the configured account, the custom hostname returns NXDOMAIN and the documented Worker endpoint returns 404. The redesign is preserved on `codex/kopikita-redesign`; main has not advanced. See [current release evidence and recovery](docs/RELEASE-REPORT.md). Do not create a replacement project or alter domains to bypass this mismatch.
+
 - Intended public URL: <https://kopikita.ismailstudio.my/>
 - Existing Worker endpoint: <https://kopikita.mohamad-ismail-mohd-izwan.workers.dev/>
 - Repository: <https://github.com/ismailabs/kopikita>, production branch `main`

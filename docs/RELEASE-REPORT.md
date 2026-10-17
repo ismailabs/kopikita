@@ -1,6 +1,59 @@
-# KopiKita MY redesign — release report
+# KopiKita MY production release — current checkpoint
 
-**IMPLEMENTED, PRODUCTION BLOCKED.** The premium redesign is implemented and locally validated. Cloudflare access is unavailable; the user confirmed reconnect cannot be completed now. Production is not accepted and the site must not be described as released.
+**BLOCKED — IMPLEMENTED, PRODUCTION BLOCKED.** Updated 2026-10-17. Wrangler authentication has recovered, but the existing production target is absent. This checkpoint supersedes the older authentication blocker and public-version observations in the historical validation record below.
+
+## Current production evidence
+
+Wrangler 4.151.0 successfully authenticated with the locally authorized OAuth session and reported account `44214a829e2337ca50cf40e4cd827cba`, matching the unchanged config. Credentials remained local and were not printed or committed. The separate connector still requires reauthorization; authenticated local API reads work.
+
+- `wrangler deployments list --name kopikita --json`: error `10007`, Worker does not exist.
+- Authenticated Worker/service inventories contain no KopiKita target. Settings return HTTP 404 / `10007`; service lookup returns HTTP 404 / `10090`.
+- No KopiKita custom-domain mapping or matching Pages project exists. The account Workers subdomain still matches `mohamad-ismail-mohd-izwan`. Repository history identifies **Workers Static Assets**, not Pages.
+- At `2026-10-17T07:29:09.126Z` (15:29 MYT), `https://kopikita.ismailstudio.my/` still failed DNS resolution (`ENOTFOUND`). An independent public DNS-over-HTTPS query returned status 3 / NXDOMAIN at `07:01:18Z`; the authenticated inventory was rechecked at 15:29 and still contained no KopiKita target or mapping.
+- `https://kopikita.mohamad-ismail-mohd-izwan.workers.dev/` returned Cloudflare HTTP 404 for `/release.json`. Neither endpoint currently exposes a release SHA.
+- Only those two café URLs are established by repository evidence. A third café endpoint, current build trigger, deployment ID and hosted bindings cannot be verified while the target is absent. The external ISMAIL portfolio is not a third café deployment.
+
+Sanitized local receipts: `artifacts/release-resume/cloudflare-before.json`, `cloudflare-discovery.json`, `public-current.json`, and `custom-dns.json`. The earlier `public-before.json` showed baseline `541ae32` at both hosts; that is historical, not current. No attribution is made for the target's absence.
+
+## Source and current local validation
+
+Approved implementation `b6385c2977ebd56cbc0b3ad5aefc693ddb4c8e74` is preserved on `codex/kopikita-redesign`, descended from main baseline `541ae3246a9ef69cf6da0025f2c00aece62664f0`. Fresh fetch and advertised remote refs matched; no newer shared source changes were found.
+
+The resumed smoke check exposed a selected-to-unselected filter button whose simultaneous text/background colour transitions briefly fell below AA contrast. The sole product change removes that colour interpolation. The expanded regression freezes actual button transitions at their midpoint alongside existing first-frame animation checks. Menu data, layouts, images, scripts, deployment config and dependencies are unchanged from the approved implementation. Static checks confirm all **30 original names, descriptions, categories and prices**, distribution **30 / 6 / 9 / 7 / 8**.
+
+Static verification and the 60-file build PASS. Built-site smoke at 375/1440 PASS with zero axe findings. The four-case 375/1440 Edge/WebKit motion/transition regression PASS. The fresh full Edge seven-width suite PASS (exit 0), including exact rendered menu, filters, keyboard, touch, reduced motion, fallback behavior and zero axe/script/resource errors. The fresh WebKit run produced captures from 320 through 1440 and a zero-finding mobile scan, but its process ended without a final result; it is PARTIAL, not a fresh full-suite pass. The earlier full WebKit run and current focused two-engine regression remain separately recorded evidence. An initial overlapping-build run hit an image decode error and is not counted as a pass; the successful Edge rerun used stable output.
+
+The 30-row fixture was also freshly compared directly with the original Git HTML at `541ae32`; all four fields match. Fresh screenshots at `artifacts/release-resume/current-edge/` were visually reviewed at mobile/desktop hero, full mobile menu and desktop atmosphere. A parallel external-link run reached the portfolio by pointer and keyboard but timed out clicking the footer. The unchanged isolated rerun PASS (exit 0): pointer and keyboard both reached the real portfolio; the footer popup opened with null opener. Receipt: `artifacts/release-resume/external-isolated/results.json`. No test assertions or timeouts were relaxed.
+
+Exact final feature SHA and independent advertised-remote comparison belong in local `artifacts/PUBLICATION.json` and `artifacts/RELEASE-REPORT.md` after committing; this source report cannot embed its own circular SHA. Main remains at the baseline until the existing target and deployment invariants are verified.
+
+No account, Worker, Pages project, DNS record, domain mapping, route, binding, secret or build trigger was created, changed or deleted. PROWORKS and CIVOLYN were not modified. No main push, production deploy, cache purge or force push occurred.
+
+## Current P0 acceptance
+
+| Required gate | Current state |
+|---|---|
+| Correct clone/remote/ancestry and preserved work | PASS; feature history retained, scoped additive correction only. |
+| All 30 immutable menu entries and category counts | PASS locally; production NOT TESTED because no café release is served. |
+| Coherent responsive fictional café and truthful sections | PASS in fresh Edge seven-width checks and reviewed mobile/desktop captures. |
+| Exact ISMAIL link and disclosure | PASS in fresh isolated pointer/keyboard/footer external tests and static disclosure checks. |
+| Pointer/keyboard/touch, filters, focus and reduced motion | PASS in fresh full Edge and focused two-engine checks; fresh broad WebKit PARTIAL as documented. |
+| Build/regression/staged smoke | Static/build/smoke/four-case contrast and full Edge PASS; broad WebKit limitation documented. |
+| Source security and existing deploy scope | Reviewed staged whitespace/common-secret-pattern checks PASS; no hosted mutations. Hosted invariant BLOCKED by missing target. |
+| Validated production publish, SHA/assets and custom host | BLOCKED; NXDOMAIN/HTTP 404, no new deployment ID. |
+| Truthful report, evidence, limitations and recovery | PASS; current observations distinguished from historical evidence. |
+
+## Required external coordination
+
+The user confirmed they will restore or identify the existing KopiKita target. Resume after confirmation or a verified existing target dashboard URL/name. Do not create a replacement or change DNS to bypass the mismatch. Reinspect settings, mappings, bindings, secrets and main-branch Workers Builds integration; safely fast-forward validated source, push once, observe the build, then verify deployment ID, exact public SHA, every asset hash and live acceptance at every verified café endpoint.
+
+Physical devices, manual screen readers and field performance remain untested; automated results are not WCAG certification. No rollback occurred because this session did not change production. Baseline `541ae3246a9ef69cf6da0025f2c00aece62664f0` is the prior source reference, not proof of an available rollback deployment.
+
+---
+
+# Historical redesign validation record
+
+The following is the previous handoff. Its authentication and live-host statements are superseded above; implementation and test evidence remain useful history.
 
 ## Source and publication
 

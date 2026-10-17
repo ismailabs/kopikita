@@ -17,6 +17,9 @@ for(const [name,engine,options] of [['edge',chromium,{channel:'msedge'}],['webki
    await page.evaluate(()=>document.fonts.ready);
    await page.locator('[data-filter=all]').scrollIntoViewIfNeeded();
    const frozen = await page.evaluate(()=>{
+    // Exercise a selected-to-unselected button, then freeze any real transitions.
+    document.querySelector('[data-filter=bakes]').click();
+    document.querySelector('[data-filter=bakes]').getBoundingClientRect();
     document.querySelector('[data-filter=all]').click();
     document.querySelectorAll('.signature-card').forEach(el=>{
       el.classList.remove('has-entered'); el.getBoundingClientRect(); el.classList.add('has-entered');
@@ -24,6 +27,8 @@ for(const [name,engine,options] of [['edge',chromium,{channel:'msedge'}],['webki
     // Freeze actual entrance/filter animations at their first frame, not a CSS approximation.
     const animations=document.getAnimations().filter(a=>a.effect?.getTiming().iterations!==Infinity);
     animations.forEach(a=>{a.pause();a.currentTime=0;});
+    const buttonAnimations = [...document.querySelectorAll('.filter-btn')].flatMap(el=>el.getAnimations());
+    buttonAnimations.forEach(a=>{a.pause();a.currentTime=a.effect.getTiming().duration/2;});
     return animations.length;
    });
    assert(frozen>0,'Real product animations must be present for this regression');
