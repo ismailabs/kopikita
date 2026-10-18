@@ -12,9 +12,13 @@ The exact 30 menu entries match data/menu-baseline.csv and original Git commit 5
 - node tools/external-check.mjs passes pointer/keyboard navigation to the exact studio href, its real redirect and protected footer popup.
 - npm run build and npx wrangler deploy --dry-run pass. The explicit allowlist produces 60 public files plus release.json; no bindings. The built 4175 preview passes all 60 public hashes and 15 private/source 404 checks, including V3 handoff/skill files.
 
+The live canonical Edge full suite passed all eight widths and the same complete functional/fallback/accessibility checks. Workers.dev smoke passed at 375/1440. Raw results: artifacts/v3-production/.
+
+The production verifier now records bounded transport retries without retrying status, manifest or hash mismatches. Its three negative fixtures all fail immediately as intended; the ignored helper exits 0. On Windows Node 24, two intentionally failing children additionally report UV_HANDLE_CLOSING during shutdown after writing correct FAIL receipts; raw evidence is retained. Actual positive production checks exit 0.
+
 The initial open-navigation axe run found decorative ivory stamp text over orange at 2.43:1. Opaque pine fixed it. Visual review also found 320px enlarged-text overlap; adaptive favourites columns, fixed-size gutters, wrapping definition and resilient body text fixed it. Final full Edge rechecked both cases without relaxing assertions.
 
-Paired Lighthouse finished: V3 mobile medians 97 performance, 2.274s LCP, 126ms TBT and CLS 0; desktop sample 99. FCP was slower than the baseline median. Every sample, trace and limitation is recorded in the release report; production acceptance follows there. No inherited V2 result counts as V3 acceptance.
+Paired Lighthouse finished: V3 mobile medians 97 performance, 2.274s LCP, 126ms TBT and CLS 0; desktop sample 99. FCP was slower than the baseline median. Every sample, trace and limitation is recorded in the release report; both public hosts also passed exact manifest/60-file hashes/private 404s and browser journeys. Detailed production receipts are recorded there. No inherited V2 result counts as V3 acceptance.
 
 Reproduce with Node 22+ and the locked project dependencies:
 

@@ -2,7 +2,7 @@
 
 A fictional Malaysian café concept by [ISMAIL](https://ismailstudio.my/). The café, menu, prices and synthetic imagery are illustrative. There are no orders, payments, reservations, actual venue, customers or business hours.
 
-V3 redesign (2026-10-18): implementation and release verification in progress. See [V3 acceptance evidence](docs/V3-RELEASE-REPORT.md) for the current state and verified rollback reference.
+V3 production (2026-10-18): **COMPLETE — VERIFIED** at https://kopikita.ismailstudio.my/. See [V3 acceptance evidence](docs/V3-RELEASE-REPORT.md) for the current state and verified rollback reference.
 
 - Intended public URL: <https://kopikita.ismailstudio.my/>
 - Existing Worker endpoint: <https://kopikita.mohamad-ismail-mohd-izwan.workers.dev/>
