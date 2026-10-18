@@ -2,7 +2,7 @@
 
 A fictional Malaysian café concept by [ISMAIL](https://ismailstudio.my/). The café, menu, prices and synthetic imagery are illustrative. There are no orders, payments, reservations, actual venue, customers or business hours.
 
-Production status (2026-10-17): **PRODUCTION COMPLETE — VERIFIED** at https://kopikita.ismailstudio.my/. The missing KopiKita Worker and hostname were restored with explicit user authorization, and live acceptance passed. See [release evidence and network scope](docs/RELEASE-REPORT.md).
+V3 redesign (2026-10-18): implementation and release verification in progress. See [V3 acceptance evidence](docs/V3-RELEASE-REPORT.md) for the current state and verified rollback reference.
 
 - Intended public URL: <https://kopikita.ismailstudio.my/>
 - Existing Worker endpoint: <https://kopikita.mohamad-ismail-mohd-izwan.workers.dev/>
@@ -15,7 +15,7 @@ Semantic HTML, one tokenized mobile-first stylesheet, and progressive vanilla Ja
 
 All 30 original menu entries remain in HTML and work without JavaScript: Malaysian kopi (6), espresso bar (9), iced & specialty (7), bakes (8). `data/menu-baseline.csv`, independently checked against original commit `541ae32`, locks every name, description, category and display price. The four photographic highlights link to exact original rows. With JS they reveal the appropriate category and move focus; without JS they are ordinary working anchors.
 
-The small navigation controller runs immediately after the header to prevent a measured loading shift; the deferred script handles filters and motion. Navigation supports Escape, outside dismissal, destination focus and responsive reset, including when the main script fails. Five native filter buttons announce counts and pressed state. The slow decorative ticker has pause/resume, offscreen/document pause, reduced-motion and static no-JS behavior. Entrances never gate access to content. Cream reading surfaces, a cinematic desktop opening, separate mobile image crop and restrained botanical identity form one visual system. See [design decisions](docs/REDESIGN-DECISIONS.md).
+The small navigation controller runs immediately after the header to prevent a measured loading shift; the deferred script handles filters and motion. Navigation supports Escape, outside dismissal, destination focus and responsive reset, including when the main script fails. Five native filter buttons announce counts and pressed state. The slow decorative ticker has pause/resume, offscreen/document pause, reduced-motion and static no-JS behavior. Entrances never gate access to content. Concept B uses a pine opening, oversized three-line serif, an iced-coffee arch over tangerine, ivory menu surfaces, alternating product frames, an oat story section and a three-image atmosphere mosaic. Mobile copy and imagery occupy separate blocks; enlarged text can reflow the favourites into one column. See [design decisions](docs/V3-DESIGN-DECISIONS.md).
 
 The fictional disclosure remains visible at the top, near the illustrative menu and in the footer. Two truthful studio links use exactly `https://ismailstudio.my/`. Metadata uses `CreativeWork`, the intended custom canonical, and `noindex, follow`. No DNS or routes need changing.
 
@@ -34,7 +34,7 @@ npm run build
 npx wrangler deploy --dry-run
 ```
 
-Preview: `http://127.0.0.1:4173`. `SITE_URL` changes the test destination, and `EVIDENCE_DIR` changes the evidence folder. The suite checks 320/375/430/768/1024/1440/1920px, exact menu content, all filters, featured links, keyboard/focus/navigation, real animation frames, pause, reduced motion, script failure, 200% text and touch emulation. Axe covers desktop/mobile, open navigation and filtered state. External navigation is separately tested against the actual portfolio. [TESTING.md](TESTING.md) records executed coverage and limitations.
+Preview: `http://127.0.0.1:4173`. `SITE_URL` changes the test destination, and `EVIDENCE_DIR` changes the evidence folder. The suite checks 320/375/390/430/768/1024/1440/1920px, exact menu content, all filters, featured links, keyboard/focus/navigation, real animation frames, pause, reduced motion, script failure, 200% text and touch emulation. Axe covers desktop/mobile, open navigation and filtered state. External navigation is separately tested against the actual portfolio. [TESTING.md](TESTING.md) records executed coverage and limitations.
 
 `tools/performance.mjs` compares a separately served baseline on port 4174 against the candidate on port 4173: three alternating paired mobile trials and one paired desktop trial with Lighthouse. Run it after browser suites complete to avoid concurrent browser interference. These are local lab measurements, not field Core Web Vitals or conversion evidence.
 
@@ -57,8 +57,8 @@ node tools/verify-production.mjs
 # Rerun the browser and external-link suites against the intended public URL.
 ```
 
-A successful Git push alone does not establish production acceptance. Exact deployment receipts, asset matching, public browser journeys, rollback reference and remaining limitations belong in [the release report](docs/RELEASE-REPORT.md).
+A successful Git push alone does not establish production acceptance. Exact deployment receipts, asset matching, public browser journeys, rollback reference and remaining limitations belong in [the V3 release report](docs/V3-RELEASE-REPORT.md).
 
 ## Assets and ownership
 
-See [ASSET-CREDITS.md](ASSET-CREDITS.md). Supplied third-party Pinterest screenshots, mockup PNGs and full-resolution generation originals remain in the ignored handoff and are not published. The original repository assets are retained as provenance; current imagery is explicitly synthetic. No trademark clearance, exclusive copyright, café certification or real customer results are claimed.
+See [ASSET-CREDITS.md](ASSET-CREDITS.md). The V3 concept boards, mockup PNGs, reference prototype and low-resolution photo crops remain local-only and are excluded from Git and deployment. The original repository assets are retained as provenance; current imagery is explicitly synthetic. No trademark clearance, exclusive copyright, café certification or real customer results are claimed.

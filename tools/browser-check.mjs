@@ -11,9 +11,16 @@ const browser = engine === 'firefox' ? await firefox.launch() : engine === 'webk
 const evidence = { base, engine, browser: browser.version(), checkedAt: new Date().toISOString(), widths: [], checks: [] };
 const errors = [];
 const imageCancellations = [];
+const unexpectedNetwork = [];
 const context = await browser.newContext();
 const page = await context.newPage();
 page.on('pageerror', error => errors.push(error.message));
+page.on('request', request => {
+  const requestUrl = new URL(request.url());
+  if (['script', 'stylesheet', 'font', 'image', 'fetch', 'xhr'].includes(request.resourceType()) && ['http:', 'https:'].includes(requestUrl.protocol) && requestUrl.origin !== new URL(base).origin) {
+    unexpectedNetwork.push({ type: request.resourceType(), url: request.url() });
+  }
+});
 page.on('requestfailed', request => {
   const reason = request.failure()?.errorText;
   // Resizing or navigating can cancel an obsolete responsive image request.
@@ -37,7 +44,7 @@ async function noOverflow(target, width) {
   assert(size.scroll <= size.client + 1, `Page overflow at ${width}: ${JSON.stringify(size)}`);
 }
 try {
-  for (const width of [320, 375, 430, 768, 1024, 1440, 1920]) {
+  for (const width of [320, 375, 390, 430, 768, 1024, 1440, 1920]) {
     await page.setViewportSize({ width, height: 1000 });
     assert.equal((await page.goto(base)).status(), 200);
     await finishImages(page);
@@ -71,6 +78,8 @@ try {
       await toggle.click();
       assert.equal(await page.locator('#primary-navigation').isVisible(), true);
       const navigationAxe = await new AxeBuilder({ page }).withTags(['wcag2a','wcag2aa','wcag21aa','wcag22aa']).analyze();
+      await writeFile(`${output}/axe-navigation-${width}.json`, JSON.stringify(navigationAxe.violations, null, 2));
+      await page.screenshot({ path: `${output}/${width}-navigation-open.png` });
       assert.deepEqual(navigationAxe.violations.map(v=>v.id), [], 'Open navigation accessibility');
       await page.keyboard.press('Escape');
       assert.equal(await page.locator('#primary-navigation').isVisible(), false);
@@ -99,6 +108,10 @@ try {
     assert.equal(await page.locator('.ticker-track').evaluate(el => getComputedStyle(el).animationPlayState), 'paused');
     await page.getByRole('button', { name: 'Resume moving text', exact: true }).click();
     assert.equal(await page.locator('.ticker-track').evaluate(el => getComputedStyle(el).animationPlayState), 'running');
+    await page.locator('#project-note').scrollIntoViewIfNeeded();
+    await page.waitForFunction(() => document.querySelector('.ticker').classList.contains('is-offscreen') && getComputedStyle(document.querySelector('.ticker-track')).animationPlayState === 'paused');
+    await page.locator('.ticker').scrollIntoViewIfNeeded();
+    await page.waitForFunction(() => !document.querySelector('.ticker').classList.contains('is-offscreen') && getComputedStyle(document.querySelector('.ticker-track')).animationPlayState === 'running');
     await page.locator('#top').scrollIntoViewIfNeeded();
     await finishImages(page);
     await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));
@@ -207,7 +220,11 @@ try {
   assert.equal(await page.locator('a[href^="https://"]').evaluateAll(links => links.filter(link => link.href !== 'https://ismailstudio.my/').length), 0);
   evidence.checks.push('ISMAIL links target the approved portfolio');
   assert.deepEqual(errors, [], 'Browser errors or failed resources');
+  assert.deepEqual(unexpectedNetwork, [], 'Runtime scripts, styles, fonts, images and data must stay local');
   evidence.imageRequestCancellations = imageCancellations;
+  evidence.unexpectedNetwork = unexpectedNetwork;
+  evidence.checks.push('Ticker pauses outside the viewport and resumes on return at every width');
+  evidence.checks.push('No external runtime scripts, styles, fonts, images or data requests');
   evidence.checks.push('No JavaScript errors or HTTP resource failures');
   await writeFile(`${output}/results.json`, JSON.stringify(evidence, null, 2));
   console.log(JSON.stringify(evidence, null, 2));

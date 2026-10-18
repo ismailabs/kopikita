@@ -2,7 +2,13 @@
 
 This is a fictional portfolio concept, not an operating café. All photographic-looking scenes are synthetic. They do not document real staff, premises, menu production, sourcing or customers. No third-party stock photography was fetched.
 
-## Current design
+## V3 asset mapping (18 October 2026)
+
+V3 reuses production-resolution synthetic assets from this repository; no low-resolution V3 reference crops, boards or screenshots are published. `product-iced-coffee.webp` now supplies the hero arch and Iced Latte favourite. The four original product files supply favourites; `cafe-interior.webp` supplies the arched story image; `product-latte.webp`, `cafe-interior.webp` and `espresso-craft.webp` form the atmosphere mosaic. Existing alt text identifies the imagery as synthetic where the scene could imply a real venue. No new generated photographs or external downloads were added. The decorative hero line symbol is original inline SVG, authored as geometric code for V3; it conveys no functional label or trademark claim.
+
+The following table records retained predecessor asset provenance; prior placements are historical.
+
+## Retained asset provenance
 
 | Asset | Origin and use |
 |---|---|

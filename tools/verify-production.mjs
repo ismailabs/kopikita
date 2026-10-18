@@ -16,7 +16,7 @@ for (const [path, hash] of Object.entries(expected.files)) {
   assert.equal(createHash('sha256').update(body).digest('hex'), hash, `Public bytes differ: ${path}`);
   results.push({ path, status: response.status, bytes: body.length, hash });
 }
-for (const path of ['README.md', 'TESTING.md', 'package.json', 'wrangler.jsonc', '_headers', '.git/config', '.env', 'KopiKita-Codex-Handoff/08-CODEX-OPERATING-BRIEF.md', 'data/menu-baseline.csv', 'tools/build.mjs']) {
+for (const path of ['README.md', 'TESTING.md', 'package.json', 'wrangler.jsonc', '_headers', '.git/config', '.env', 'KopiKita-Codex-Handoff/08-CODEX-OPERATING-BRIEF.md', 'KopiKita-V3-Codex-Handoff/README-START-HERE.md', 'KopiKita-V3-Codex-Handoff/CODEX-EXECUTION-BRIEF.md', 'KopiKita-V3-Codex-Handoff/MANIFEST-SHA256.txt', '.agents/skills/web-design-guidelines/SKILL.md', 'skills-lock.json', 'data/menu-baseline.csv', 'tools/build.mjs']) {
   const response = await fetch(new URL(path, base), { cache: 'no-store' });
   assert.equal(response.status, 404, `Private/source path published: ${path}`);
 }
