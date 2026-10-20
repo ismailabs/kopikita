@@ -53,7 +53,7 @@ The final source verifier passed, the rebuilt preview contains 67 public files, 
 
 Production URL: https://kopikita.ismailstudio.my/. It still serves V3. The preflight authenticated read identified existing account `44214a829e2337ca50cf40e4cd827cba`, Worker `kopikita`, current version `e4aab4da-cf56-44ba-b37c-6e61734d8883` and deployment `88185ca7-e5b7-4e31-9383-add013f85a09` at 100%. No unrelated project, DNS, billing, variable, secret or credential was changed. Git push is not treated as deployment evidence.
 
-The exact V3 source is preserved on `codex/kopikita-v3-recovery`, at `48fef5bcd98bf0881c49cace7a2f26334cfb14da`, and in `artifacts/v4/v3-source.zip`. V4 uses `codex/kopikita-v4`. No rollback is currently needed because production was never replaced.
+The exact V3 source is preserved on `codex/kopikita-v3-recovery`, at `48fef5bcd98bf0881c49cace7a2f26334cfb14da`, and in `artifacts/v4/v3-source.zip`. V4 uses `codex/kopikita-v4`; its implementation commit is `581c9576f9a6b46a658bf7c74bb70d76d673f247`. No rollback is currently needed because production was never replaced.
 
 If a later V4 deployment needs recovery, first re-read the current scoped deployment. With the unchanged KopiKita configuration, restore the recorded V3 Worker version using project-local `wrangler rollback e4aab4da-cf56-44ba-b37c-6e61734d8883 --message "Restore verified KopiKita V3"`, then verify both the custom hostname and enabled workers.dev endpoint against the saved V3 manifest and browser journeys. Rollback is limited to this assets-only Worker; it does not require DNS changes, Worker recreation, force-push or a Git reset. Verify CLI help and actual version retention before acting.
 
