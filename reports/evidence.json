@@ -60,7 +60,7 @@
   "packaging_dry_run": "artifacts/v4/wrangler-dry-run.json",
   "real_photo_credits": "reports/photo-contact-sheet.html",
   "production_verification": null,
-  "implementation_commit": "581c9576f9a6b46a658bf7c74bb70d76d673f247",
+  "implementation_commit": "10da0dca42e02dcdefa4f87e0f9450bd75375968",
   "production_baseline_verification": "artifacts/production/assets-kopikita.ismailstudio.my.json",
   "manual_visual_gate": "blocked",
   "product_photo_gate": "fail",
