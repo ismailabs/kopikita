@@ -1,10 +1,10 @@
 # V4 Visual Transformation Gate
 
-**Overall status: BLOCKED.** Composition and interaction changes are visibly substantial, but the required 30-photo exhibition is not complete. The strict gate includes complete genuine photographic coverage, so it cannot pass with 23/30 photographs. No subjective rating substitutes for that condition.
+**Overall status: BLOCKED.** Composition and interaction changes are visibly substantial, but the required 30-photo exhibition is not complete. The strict gate includes complete genuine photographic coverage, so it cannot pass with 26/30 photographs. Four exact variants remain unresolved. No subjective rating substitutes for that condition.
 
 ## Matched browser evidence
 
-`artifacts/v4/visual-final/` contains actual Edge captures at 1440×900 and 390×844, with reduced motion for the static V3/V4 comparison. Each has opening, menu and studio screenshots. V3 was captured from the actual public site before any deployment; V4 came from the local implementation. All images were decoded before the final static capture. The same folder includes 0/25/50/75/100% samples from each of three real finite WAAPI scene animations on desktop and mobile. The 30 sampled states retain fully opaque informative text. `results.json` records actual transform matrices and browser version.
+`artifacts/v4/visual-final/` contains current Edge captures at 1440×900 and 390×844, with reduced motion for the static V3/V4 comparison. The captures were refreshed on 20 October 2026 after the 19, 20 and 22 photographs were added. Each viewport has opening, menu and studio screenshots. V3 was captured from the actual public site; V4 came from the local implementation. All images were decoded before the static captures. The same folder includes 0/25/50/75/100% samples from each of three real finite WAAPI scene animations on desktop and mobile. The 30 sampled states retain fully opaque informative text. `results.json` records actual transform matrices and browser version.
 
 The complete inspector capture sets are `artifacts/v4/round-1/`, `round-2/`, and `round-3/`. Their viewport folds and scroll sheets were inspected, together with the separate studio captures and the 30-slot photograph contact sheet. The small composite review sheet is a navigation aid; individual captures remain the evidence. Source boards were viewed as reference artwork, never passed off as browser captures.
 
@@ -14,7 +14,7 @@ The complete inspector capture sets are `artifacts/v4/round-1/`, `round-2/`, and
 | --- | --- | --- |
 | Hero | Three-line serif text beside an iced-glass arch | Full-width illustrative pour, two huge condensed word forms, layered native movement and portrait mobile art |
 | Typography / identity | Botanical café identity and soft serif hierarchy | Supplied porcelain-cup mark, heavy grotesk poster typography, selective serif category titles, warm orange print fields |
-| Menu | Four synthetic photographic highlights and a compact 30-item text/icon list | All 30 stable HTML entries in an alternating image-led exhibition, explicit per-image attribution and query-string filters; seven unfinished photos are visibly marked |
+| Menu | Four synthetic photographic highlights and a compact 30-item text/icon list | All 30 stable HTML entries in an alternating image-led exhibition, explicit per-image attribution and query-string filters; 26 genuine photographs and four clearly marked pending tiles |
 | Scroll / interaction | Mild entrance effects and ticker | Finite directed pour/type entrance, image zoom and tactile arrow response, category transitions and large opposing studio word entrances; native scrolling retained |
 | Studio | Quiet pine CTA block | Near-viewport typographic finale with real portfolio and verified contact anchors |
 | Mobile | Scaled hero split and compact menu | Own portrait art crop, stacked composition, single-column photo gallery, touch-sized filters and independent studio scale |
@@ -27,6 +27,8 @@ The complete inspector capture sets are `artifacts/v4/round-1/`, `round-2/`, and
 
 **Round 3.** Inspector: **0 FAIL, 3 WARN** at 1440/768/390. Every heading is at most two lines at standard text size; no page overflow or text collision is reported. Remaining warnings are explained below. Keyboard review also restored V3's explicit zero tab stops for the installed WebKit port and included the new native credits summary in the focus-order assertion. Both engines subsequently reached all 79 initial controls and opened/revealed source credits. Evidence: `round-3/report.json`, `interactions/results.json`.
 
+**Current gallery review.** The refreshed V3/V4 comparison was generated on 20 October with Edge 155.0.4283.62. I inspected the new 1440px and 390px menu captures and verified that the 19, 20 and 22 source photographs render in the exhibition; the four unresolved variants remain labeled as pending. The updated Chromium matrix passed at 320/375/390/430/768/1024/1440/1920px with no horizontal overflow, resource failures or JavaScript errors. The production comparison is still visual evidence only; V4 has not been deployed. Evidence: `visual-final/results.json`, `interactions/results.json`.
+
 ## Defended inspector warnings and brief overrides
 
 - Size count: fluid display scales, exact product names/prices, attribution and enlarged poster headings create more computed pixel values than a five-size generic scale. The running text remains 16px and the established semantic roles are consistent.
@@ -36,4 +38,4 @@ The complete inspector capture sets are `artifacts/v4/round-1/`, `round-2/`, and
 
 ## Remaining limitation
 
-The images come from different independent photographers and have visibly different lighting and vessels. Framing and image dimensions unify the exhibition, but this is not a single commissioned product shoot. Seven exact variants still require genuine, licensed, inspectable photographs. Until they are integrated and the completed gallery is inspected again, both the photo gate and the overall visual gate remain blocked. V4 has not been deployed.
+The images come from different independent photographers and have visibly different lighting and vessels. Framing and image dimensions unify the exhibition, but this is not a single commissioned product shoot. Four exact variants still require genuine, licensed, inspectable photographs. Until they are integrated and the completed gallery is inspected again, both the photo gate and the overall visual gate remain blocked. V4 has not been deployed.

@@ -12,8 +12,8 @@ SELECTIONS={
  '13':'Caffè macchiato.jpg','14':'Caffè Mocha by Phil.jpg',
  '15':'Fab Assembly Coffee piccolo at Over Under Coffee, Soho, London (27191548379).jpg',
  '16':'Iced americano.jpg','17':'Iced latte at 1933 Singapore, Capitol Piazza, Singapore - 20150902.jpg',
- '18':'Cold Brew Coffee (7994891379).jpg','20':'Espresso tonic.jpg',
- '21':"Iced Mocha - Granny's Café 2024-08-21.jpg",'22':'Rose coconut cold brew.jpg',
+ '18':'Cold Brew Coffee (7994891379).jpg',
+ '21':"Iced Mocha - Granny's Café 2024-08-21.jpg",
  '23':'Croissant-newspaper-and-tea.jpg','24':'Croissant Almond.jpg','25':'Pain au chocolat Luc Viatour.jpg',
  '26':'Pandan swiss roll.jpg','27':'Cinnamon rolls drizzled with glaze (1), April 2009.jpg','28':'Banana bread.jpg','29':'Basque-cheesecake.jpg','30':'Mango tart, 2015-06-06.jpg',
 }

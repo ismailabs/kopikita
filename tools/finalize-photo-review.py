@@ -5,9 +5,6 @@ ROOT=pathlib.Path(__file__).resolve().parents[1]
 reasons={
  '02':'No source verified as unsweetened local kopi. Sweetened Kopi O and espresso are not substitutes.',
  '04':'No free redistribution license verified for an accurately identified evaporated-milk Kopi C photo. Flickr candidate 39395606802 is all rights reserved and iced.',
- '19':'No zero-cost licensed photograph verified as Gula Melaka Latte. Depositphotos 309968110 requires a paid license; café and recipe photos do not establish redistribution rights.',
- '20':'Rejected Espresso tonic.jpg: tonic and coffee are identified, but no orange is visible or documented.',
- '22':'Rejected Rose coconut cold brew.jpg: explicitly rose-flavoured, a different named recipe.',
  '26':'Rejected Pandan swiss roll.jpg: pandan sponge is identified, but kaya filling is unverified.',
  '30':'Rejected Mango tart, 2015-06-06.jpg: cooked mango mini-pie, not the fresh mango and vanilla-cream tart in the canonical description.',
 }
@@ -28,13 +25,21 @@ alts={
  '16':'Black iced Americano with ice cubes, photographed from above',
  '17':'Iced latte in a tall glass with milk foam and a straw',
  '18':'A glass of dark cold-brew coffee beside a softly lit window',
+ '19':'Two glasses of iced palm-sugar coffee layered with milk and ice',
+ '20':'Orange espresso poured over ice and tonic with a fresh orange peel',
  '21':'Iced mocha with ice cubes and cocoa in a fluted glass',
+ '22':'Iced coffee with coconut milk and ice in a clear glass',
  '23':'Golden butter croissant on a white plate beside a newspaper and cup',
  '24':'Almond croissant covered in sliced almonds on a dark plate',
  '25':'Golden pain au chocolat with chocolate visible in its laminated layers',
  '27':'Cinnamon rolls being drizzled with a light white glaze',
  '28':'A slice of banana bread with a caramelised outer edge',
  '29':'A homemade Basque cheesecake with a deeply browned top in baking paper',
+}
+matchNotes={
+ '19':'Creator caption identifies coffee with palm sugar and ice; visual inspection shows iced coffee layered with milk. This matches the menu description of palm sugar, espresso and milk. Independent photograph, not a KopiKita product shoot. Unsplash marks it free for commercial use; credited here.',
+ '20':'Creator caption explicitly identifies an iced orange espresso tonic; visual inspection confirms orange peel, espresso pour, ice and tonic. The crop removes the source glass branding while retaining the drink. Independent photograph, not a KopiKita product shoot. Unsplash marks it free for commercial use; credited here.',
+ '22':'Creator caption identifies “Coconut & brew”; Unsplash tags identify coconut, iced coffee, cold brew and nut milk. Visual inspection shows iced coffee layered with pale milk. This matches the menu description. Independent photograph, not a KopiKita product shoot. Unsplash marks it free for commercial use; credited here.',
 }
 data=json.loads((ROOT/'data/product-photos.json').read_text(encoding='utf-8'));byid={p['id']:p for p in data}
 baseline=list(csv.DictReader((ROOT/'data/menu-baseline.csv').open(encoding='utf-8-sig',newline='')))
@@ -50,7 +55,7 @@ for n,item in enumerate(baseline,1):
   p.update(status='unresolved',matchNotes=reasons[id],path='',smallPath='',alt='')
  else:
   assert id in alts and p.get('path'),f'Missing reviewed photo {id}'
-  p.update(status='verified',alt=alts[id],matchNotes='Inspected in candidate/replacement contact sheets on 2026-10-20. Source file identifies the named drink/bake; visible appearance corresponds to the menu concept. Independently sourced depiction, not a KopiKita product shoot.')
+  p.update(status='verified',alt=alts[id],matchNotes=matchNotes.get(id,'Inspected in candidate/replacement contact sheets on 2026-10-20. Source file identifies the named drink/bake; visible appearance corresponds to the menu concept. Independently sourced depiction, not a KopiKita product shoot.'))
   if id=='14':p['attributionNotes']=p['creator'];p['creator']='Evilphil77 (Commons attribution)'
   if p.get('licenseUrl','').startswith('http:'):p['licenseUrl']=p['licenseUrl'].replace('http:','https:',1)
   if p.get('license')=='Public domain' and not p.get('licenseUrl'):p['licenseUrl']=p['sourcePage']+'#Licensing'

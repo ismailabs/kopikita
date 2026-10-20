@@ -51,7 +51,7 @@
   "visual_review_report": "reports/VISUAL-REVIEW.md",
   "actual_browser_tests": "artifacts/v4/interactions/results.json",
   "final_webkit_targeted_matrix": "artifacts/v4/final-webkit-desktop-final/results.json",
-  "final_webkit_post_matrix": "artifacts/v4/final-webkit-desktop-final/post-matrix/results.json",
+  "final_webkit_post_matrix": "artifacts/v4/webkit-post-matrix-photos-26-retry/results.json",
   "final_webkit_mobile_capture": "artifacts/v4/final-webkit-release/375-full.png",
   "final_webkit_desktop_capture": "artifacts/v4/final-webkit-release/1440-hero.png",
   "final_webkit_1920_capture": "artifacts/v4/final-webkit-desktop-final/1920-hero.png",
@@ -69,17 +69,14 @@
     "missingProducts": [
       "02 Kopi O Kosong",
       "04 Kopi C",
-      "19 Gula Melaka Latte",
-      "20 Orange Espresso Tonic",
-      "22 Coconut Cold Brew",
       "26 Pandan Kaya Roll",
       "30 Mango Fruit Tart"
     ]
   },
-  "reviewedHtmlSha256": "54603d09c66634cbfbba70b552d5a2a78da84ea3ec0728234cc330d5d1ea185a",
+  "reviewedHtmlSha256": "0d87b734d836e057544118044bde7a52dca6c6cd62ff12b82d1b251dbb549963",
   "visualTransformation": {
     "status": "blocked",
-    "reason": "23/30 genuine photos. Seven exact variants unresolved.",
+    "reason": "26/30 genuine photographs. Four exact variants unresolved.",
     "files": [
       "artifacts/v4/visual-final/v3-1440-hero.png",
       "artifacts/v4/visual-final/v3-1440-menu.png",
@@ -101,13 +98,24 @@
       "artifacts/v4/final-webkit-release/1440-hero.png",
       "artifacts/v4/final-webkit-desktop-final/1920-hero.png",
       "artifacts/v4/motion-built-final/results.json",
-      "artifacts/v4/perf-optimized/summary.json",
+      "artifacts/v4/perf-photos-26/summary.json",
       "artifacts/v4/wrangler-dry-run.json",
-      "artifacts/production/assets-kopikita.ismailstudio.my.json"
+      "artifacts/production/assets-kopikita.ismailstudio.my.json",
+      "artifacts/v4/visual-final/results.json",
+      "reports/PHOTO-SOURCING.md",
+      "artifacts/v4/webkit-post-matrix-photos-26-retry/results.json",
+      "artifacts/v4/interactions-photos-26/results.json",
+      "artifacts/v4/external-current/results.json"
     ]
   },
   "technical": {
     "status": "pass",
-    "reason": "Local source, built preview, browser, accessibility, interaction, performance and Wrangler dry-run checks completed. Release remains blocked by product-photo, overall visual and V4 production-verification gates."
-  }
+    "reason": "The current 26-photo build passed source verification, eight-width Chromium, refreshed WebKit accessibility/no-JavaScript/200% text checks, interaction and real outbound-link checks, and an updated Lighthouse comparison. The earlier motion and deployment-package dry-run evidence remains recorded. Release is blocked by four exact photo rows, the dependent visual gate and production verification."
+  },
+  "photo_sourcing_report": "reports/PHOTO-SOURCING.md",
+  "updated_visual_comparison": "artifacts/v4/visual-final/results.json",
+  "updated_performance_comparison": "artifacts/v4/perf-photos-26/summary.json",
+  "updated_webkit_post_matrix": "artifacts/v4/webkit-post-matrix-photos-26-retry/results.json",
+  "updated_interactions": "artifacts/v4/interactions-photos-26/results.json",
+  "external_link_verification": "artifacts/v4/external-current/results.json"
 }

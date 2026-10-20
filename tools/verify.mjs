@@ -5,6 +5,12 @@ import { Script } from 'node:vm';
 import { baseline, menuFromHtml } from './menu-contract.mjs';
 const html = await readFile('index.html', 'utf8');
 const url = 'https://kopikita.ismailstudio.my/';
+const approvedPhotoLinks = new Set([
+  'https://unsplash.com/photos/clear-drinking-glass-with-brown-liquid-MzMvUQ-mdRk',
+  'https://unsplash.com/photos/a-person-pouring-a-drink-into-a-glass-l50MvnRJfDg',
+  'https://unsplash.com/photos/ice-cream-in-clear-drinking-glass-kA1lumyOPmI',
+  'https://unsplash.com/license',
+]);
 for (const file of ['index.html', 'robots.txt', 'sitemap.xml']) {
   const source = await readFile(file, 'utf8');
   assert(source.includes(url), `${file}: production identity missing`);
@@ -17,7 +23,7 @@ assert.equal(baseline.length, 30);
 assert.deepEqual(menuFromHtml(html), baseline, 'Original names, descriptions, categories and prices must be identical');
 assert(html.includes('index,follow,max-image-preview:large') && !html.includes('noindex'), 'Approved V4 fictional CreativeWork must be indexable');
 for (const link of html.matchAll(/href="(https:[^"]+)"/g)) {
-  assert([url, 'https://ismailstudio.my/', 'https://ismailstudio.my/#contact'].includes(link[1]) || /^https:\/\/(commons\.wikimedia\.org\/wiki\/File:|creativecommons\.org\/)/.test(link[1]), `Unapproved destination ${link[1]}`);
+  assert([url, 'https://ismailstudio.my/', 'https://ismailstudio.my/#contact'].includes(link[1]) || approvedPhotoLinks.has(link[1]) || /^https:\/\/(commons\.wikimedia\.org\/wiki\/File:|creativecommons\.org\/)/.test(link[1]), `Unapproved destination ${link[1]}`);
 }
 assert.equal([...html.matchAll(/<h1\b/g)].length, 1);
 const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map(match => match[1]);
