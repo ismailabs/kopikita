@@ -61,19 +61,16 @@
   "real_photo_credits": "reports/photo-contact-sheet.html",
   "photo_sourcing_report": "reports/PHOTO-SOURCING.md",
   "skills_used": "reports/skill-usage.md",
-  "production_verification": null,
-  "implementation_commit": null,
+  "production_verification": "artifacts/production/assets-kopikita.ismailstudio.my.json",
+  "implementation_commit": "15318d9899ee056210e7d1d4cdd02bac92a50d07",
   "production_baseline_verification": "artifacts/v4/production-v3-baseline.json",
   "cloudflare_preflight": "artifacts/v4/cloudflare-preflight.json",
   "manual_visual_gate": "pass",
   "product_photo_gate": "pass",
   "release_gate": {
-    "status": "ready",
+    "status": "pass",
     "missingProducts": [],
-    "pending": [
-      "Git publication",
-      "production deployment and verification"
-    ]
+    "pending": []
   },
   "reviewedHtmlSha256": "0f9e03075c06eecadc602b196c209e477e44939bc51c5f0348cf1f6058ed0762",
   "visualTransformation": {
@@ -144,5 +141,24 @@
     "status": "pass",
     "reason": "Current exact-source verification, eight-width Chromium, WebKit desktop matrix plus mobile/fallback/keyboard/axe regressions, 30-photo provenance audit, matched native-scene captures, final design inspector, paired Lighthouse reports and Wrangler dry-run completed. Production acceptance is tracked separately."
   },
-  "updatedAt": "2026-10-20T07:24:31.230Z"
+  "updatedAt": "2026-10-20T07:35:31.277Z",
+  "workers_verification": "artifacts/production/assets-kopikita.mohamad-ismail-mohd-izwan.workers.dev.json",
+  "production_browser_tests": "artifacts/v4/production-edge/results.json",
+  "production_external_links": "artifacts/v4/production-external/results.json",
+  "production_native_interactions": "artifacts/v4/production-interactions/results.json",
+  "workers_browser_smoke": "artifacts/v4/production-workers-smoke/results.json",
+  "cloudflare_production": "artifacts/v4/cloudflare-production.json",
+  "release_manifest": "artifacts/v4/release-v4-final.json",
+  "deployed_commit": "15318d9899ee056210e7d1d4cdd02bac92a50d07",
+  "production": {
+    "status": "pass",
+    "url": "https://kopikita.ismailstudio.my/",
+    "worker": "kopikita",
+    "version": "80300e55-49c3-4fa7-8414-1138dc9c98b5",
+    "deployment": "11a78cc8-a57d-45d3-aaf2-f88744e14645",
+    "traffic": 100,
+    "files": 74,
+    "menuPhotos": 30,
+    "checkedAt": "2026-10-20T07:35:31.266Z"
+  }
 }

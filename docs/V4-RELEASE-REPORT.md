@@ -1,6 +1,6 @@
 # KopiKita V4 release record
 
-20 October 2026. The photography blocker is resolved under the user's representative-photography clarification. Final Git publication and production verification are pending below; this intermediate record does not claim deployment.
+20 October 2026. **Production verified.** The photography blocker is resolved under the user's representative-photography clarification. The completed V4 implementation is published on GitHub and deployed at https://kopikita.ismailstudio.my/.
 
 ## Implementation and visual acceptance
 
@@ -51,9 +51,23 @@ V4's mobile LCP is about 525ms slower. This is a documented trade-off for the su
 
 ## Publication and production
 
-Pending the release commit and live receipts. Preflight confirmed existing account `44214a829e2337ca50cf40e4cd827cba`, Worker `kopikita`, enabled custom domain `kopikita.ismailstudio.my`, zone `ismailstudio.my`, compatibility date `2026-10-12`, and no bindings. Before V4, version `e4aab4da-cf56-44ba-b37c-6e61734d8883`, deployment `88185ca7-e5b7-4e31-9383-add013f85a09`, served 100% of traffic. Readback: `artifacts/v4/cloudflare-preflight.json`.
+Production source commit: [`15318d9899ee056210e7d1d4cdd02bac92a50d07`](https://github.com/ismailabs/kopikita/commit/15318d9899ee056210e7d1d4cdd02bac92a50d07). It was pushed on `codex/kopikita-v4` and fast-forwarded/pushed to `main`; the V3 recovery branch was also pushed. `npm run deploy` passed the release gate and deployed the existing Worker at 07:28 UTC / 15:28 MYT. Worker version: `80300e55-49c3-4fa7-8414-1138dc9c98b5`; deployment: `11a78cc8-a57d-45d3-aaf2-f88744e14645`, independently read back at 100% traffic. The existing account, Worker, custom-domain/certificate mapping, compatibility date and empty bindings were preserved. No other project or DNS mapping was changed. Current Builds API readback found no build configuration associated with this Worker's script tag, so publication used the explicit existing deployment script.
 
-Production acceptance requires the public commit manifest and every file hash to match the committed build, private paths to return 404, HTTPS/SEO to work, and live browser/studio-link checks. A Git push alone is not deployment proof. The build excludes reports, handoffs, skills, tools, dependencies, source manifests, Git data and secrets. Cloudflare consumes `_headers`; its `no-transform` control preserves exact bytes and prevents analytics injection.
+| Production acceptance | Receipt |
+| --- | --- |
+| Canonical HTTPS manifest, all 74 public hashes, private/source 404s, zero transport retries | `artifacts/production/assets-kopikita.ismailstudio.my.json` |
+| Existing workers.dev host: same commit, 74 hashes, private 404s, zero retries | `artifacts/production/assets-kopikita.mohamad-ismail-mohd-izwan.workers.dev.json` |
+| Canonical eight-width Edge regression: all 30 exact entries/images, filters, navigation, accessibility, keyboard/touch/fallback/text checks; zero errors/external runtime loads | `artifacts/v4/production-edge/results.json` |
+| Real studio pointer/keyboard navigation, protected footer new tab and contact destination; no enquiry submitted | `artifacts/v4/production-external/results.json` |
+| Edge + WebKit against the public URL: all 86 controls, credits, global pause, lifecycle events, conflicting fragments, 200% text and loaded offline filtering | `artifacts/v4/production-interactions/results.json` |
+| workers.dev 375/1440 smoke: exact menu, filter/featured target, canonical, zero axe and JS errors | `artifacts/v4/production-workers-smoke/results.json` |
+| Provider identity, enabled domain, deployed version and 100% traffic | `artifacts/v4/cloudflare-production.json` |
+
+The scene-interaction helper was corrected to honor `SITE_URL` and `EVIDENCE_DIR`; its new receipts explicitly identify the public base URL and check timestamps. Earlier hardcoded-local receipts are local evidence only. An independent final GET audit also confirmed the exact 30 records/photo variants/credits, visible fiction and representative-image disclosures, indexable CreativeWork, canonical, robots and sitemap on the live site.
+
+The deployed public release remains source commit `15318d9`. The subsequent verification-record commit contains private documentation/evidence and the URL-aware verification helper, all excluded from the public asset allowlist; it does not require another website deployment. `artifacts/v4/release-v4-final.json` preserves the exact deployed manifest. V3 preflight and baseline receipts are retained separately under `artifacts/v4/cloudflare-preflight.json` and `artifacts/v4/production-v3-baseline.json`.
+
+The checks above establish the public commit manifest and file hashes, private-path protection, HTTPS/SEO and live browser/studio behavior independently of Git push. The build excludes reports, handoffs, skills, tools, dependencies, source manifests, Git data and secrets. Cloudflare consumes `_headers`; its `no-transform` control preserves exact bytes and prevents analytics injection.
 
 ## Exact rollback
 
@@ -67,4 +81,4 @@ Then verify canonical and existing workers.dev hosts against the saved V3 releas
 
 ## Limits
 
-Windows browser automation uses emulated viewports/touch/text enlargement. Physical devices, a manual screen-reader audit, browser-chrome zoom, field INP/CrUX and full WCAG certification are not established. Independent photo vessels, lighting and source resolution vary and ingredient details remain representative. No enquiry was sent and no business conversion, real venue or operating café is claimed. The common-pattern secret scan is not a Gitleaks audit. Delivery items marked pending above must be completed before the goal is finished.
+Windows browser automation uses emulated viewports/touch/text enlargement. Physical devices, a manual screen-reader audit, browser-chrome zoom, field INP/CrUX and full WCAG certification are not established. Independent photo vessels, lighting and source resolution vary and ingredient details remain representative. No enquiry was sent and no business conversion, real venue or operating café is claimed. The common-pattern secret scan is not a Gitleaks audit. No mandatory release condition remains unresolved.

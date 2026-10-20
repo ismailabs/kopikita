@@ -2,7 +2,7 @@
 
 A fictional Malaysian café concept by [Ismail Studio](https://ismailstudio.my/). The café, menu and prices are imagined. All 30 menu products use genuine, independently sourced representative photographs; the coffee-pour and print compositions are generated illustrative brand artwork. There are no orders, payments, reservations, actual venue, customer claims or business hours.
 
-The V4 source on `codex/kopikita-v4` now has complete 30-photo coverage. The user authorized representative photography on 20 October 2026; the four clarified matches and their ingredient limits are recorded in [the photo sourcing report](reports/PHOTO-SOURCING.md). Publication and production acceptance are recorded separately in [the V4 release report](docs/V4-RELEASE-REPORT.md) and `reports/evidence.json`. Photo completion alone is not a production deployment receipt.
+V4 is published on `main` and verified in production from commit `15318d9`, with complete 30-photo coverage. The user authorized representative photography on 20 October 2026; the four clarified matches and ingredient limits are recorded in [the photo sourcing report](reports/PHOTO-SOURCING.md). The exact deployed version, live acceptance receipts, performance trade-offs and rollback procedure are in [the V4 release report](docs/V4-RELEASE-REPORT.md) and `reports/evidence.json`.
 
 - Canonical public URL: <https://kopikita.ismailstudio.my/>
 - Existing Worker endpoint: <https://kopikita.mohamad-ismail-mohd-izwan.workers.dev/>
