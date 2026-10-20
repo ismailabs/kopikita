@@ -57,7 +57,7 @@
   "final_webkit_1920_capture": "artifacts/v4/final-webkit-desktop-final/1920-hero.png",
   "final_motion_contrast": "artifacts/v4/motion-built-final/results.json",
   "performance_comparison": "artifacts/v4/perf-optimized/summary.json",
-  "packaging_dry_run": "artifacts/v4/wrangler-dry-run.json",
+  "packaging_dry_run": "artifacts/v4/wrangler-dry-run-photos-26.txt",
   "real_photo_credits": "reports/photo-contact-sheet.html",
   "production_verification": null,
   "implementation_commit": "10da0dca42e02dcdefa4f87e0f9450bd75375968",
@@ -99,23 +99,26 @@
       "artifacts/v4/final-webkit-desktop-final/1920-hero.png",
       "artifacts/v4/motion-built-final/results.json",
       "artifacts/v4/perf-photos-26/summary.json",
-      "artifacts/v4/wrangler-dry-run.json",
+      "artifacts/v4/wrangler-dry-run-photos-26.txt",
       "artifacts/production/assets-kopikita.ismailstudio.my.json",
       "artifacts/v4/visual-final/results.json",
       "reports/PHOTO-SOURCING.md",
       "artifacts/v4/webkit-post-matrix-photos-26-retry/results.json",
       "artifacts/v4/interactions-photos-26/results.json",
-      "artifacts/v4/external-current/results.json"
+      "artifacts/v4/external-current/results.json",
+      "artifacts/production/current-baseline-read-only.json"
     ]
   },
   "technical": {
     "status": "pass",
-    "reason": "The current 26-photo build passed source verification, eight-width Chromium, refreshed WebKit accessibility/no-JavaScript/200% text checks, interaction and real outbound-link checks, and an updated Lighthouse comparison. The earlier motion and deployment-package dry-run evidence remains recorded. Release is blocked by four exact photo rows, the dependent visual gate and production verification."
+    "reason": "The current 26-photo build passed source verification, eight-width Chromium, refreshed WebKit accessibility/no-JavaScript/200% text checks, interaction and outbound-link checks, current Lighthouse comparison, and Wrangler 4.151.0 dry-run packaging. A read-only production GET still shows the pre-V4 manifest. Release is blocked by four exact photo rows, the dependent visual gate and V4 production verification."
   },
   "photo_sourcing_report": "reports/PHOTO-SOURCING.md",
   "updated_visual_comparison": "artifacts/v4/visual-final/results.json",
   "updated_performance_comparison": "artifacts/v4/perf-photos-26/summary.json",
   "updated_webkit_post_matrix": "artifacts/v4/webkit-post-matrix-photos-26-retry/results.json",
   "updated_interactions": "artifacts/v4/interactions-photos-26/results.json",
-  "external_link_verification": "artifacts/v4/external-current/results.json"
+  "external_link_verification": "artifacts/v4/external-current/results.json",
+  "updated_packaging_dry_run": "artifacts/v4/wrangler-dry-run-photos-26.txt",
+  "current_production_baseline_observation": "artifacts/production/current-baseline-read-only.json"
 }
