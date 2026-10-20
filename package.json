@@ -1,6 +1,6 @@
 {
   "name": "kopikita-my",
-  "version": "2.0.0",
+  "version": "4.0.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -8,7 +8,8 @@
     "build": "node tools/build.mjs",
     "verify": "node tools/verify.mjs",
     "test": "node tools/browser-check.mjs",
-    "deploy": "wrangler deploy --keep-vars"
+    "release:gate": "node tools/release-gate.mjs",
+    "deploy": "npm run release:gate && wrangler deploy --keep-vars"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.13.0",

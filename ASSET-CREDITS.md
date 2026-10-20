@@ -1,6 +1,16 @@
 # KopiKita MY — provenance and licenses
 
-This is a fictional portfolio concept, not an operating café. All photographic-looking scenes are synthetic. They do not document real staff, premises, menu production, sourcing or customers. No third-party stock photography was fetched.
+This is a fictional portfolio concept, not an operating café. V4 separates generated brand artwork from genuine independently sourced menu photography. None of the imagery documents an operating KopiKita venue or its actual products.
+
+## V4 photographic and artwork coverage (20 October 2026)
+
+23 of 30 menu items have reviewed, genuine, locally hosted photo depictions. Seven remain unresolved and block release: Kopi O Kosong, Kopi C, Gula Melaka Latte, Orange Espresso Tonic, Coconut Cold Brew, Pandan Kaya Roll and Mango Fruit Tart. Candidate photographs of different recipes were rejected; no invented license or generated image fills these slots.
+
+The exact per-product creator, source page, source image URL, stated license and license URL, download date, downloaded-byte hash, adaptation paths, alt text and match decision are in `data/product-photos.json`. [The source-linked contact sheet](reports/photo-contact-sheet.html) shows all 30 slots and their individual attribution. The same credits are available under “Photography, artwork & privacy” in the website footer. Resizing, cropping and WebP conversion are declared; CC BY-SA photo derivatives retain their respective source licenses. The rest of the site's code is not represented as being licensed by those photographers. There is no implied photographer or café endorsement.
+
+`assets/art-v4/coffee-pour-hero.webp`, its mobile counterpart and `kopitiam-print-art.webp` are generated illustrative compositions supplied in the approved V4 handoff. The accompanying kopi mark, orange stamp and coffee tile are supplied editable vector brand artwork. They do not satisfy any genuine-photo requirement. Concept boards are never website content. The mark, hero, portrait crop, stamp and print composition are integrated; the unused tile stays outside the referenced-asset build.
+
+The retained synthetic V3 assets below are historical. The V4 build copies only assets referenced by the current public HTML/CSS, along with font licenses. Rejected candidates, evidence, baseline CSV, source provenance JSON, handoff and project tools are excluded from the deployed bundle.
 
 ## V3 asset mapping (18 October 2026)
 

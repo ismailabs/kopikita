@@ -20,6 +20,9 @@ for(const [name,engine,options] of [['edge',chromium,{channel:'msedge'}],['webki
    ]) {
    await page.setViewportSize({width,height:1000});
    await page.goto(base);
+   // Prevent smooth page scrolling from making Playwright's element stability
+   // check time out; motion under test remains enabled and sampled below.
+   await page.addStyleTag({content:'html { scroll-behavior: auto !important; }'});
    await page.evaluate(()=>document.fonts.ready);
    await page.locator('[data-filter=all]').scrollIntoViewIfNeeded();
    const frozen = await page.evaluate(sample=>{

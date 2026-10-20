@@ -2,7 +2,11 @@
 
 A fictional Malaysian café concept by [ISMAIL](https://ismailstudio.my/). The café, menu, prices and synthetic imagery are illustrative. There are no orders, payments, reservations, actual venue, customers or business hours.
 
-V3 production (2026-10-18): **COMPLETE — VERIFIED** at https://kopikita.ismailstudio.my/. See [V3 acceptance evidence](docs/V3-RELEASE-REPORT.md) for the current state and verified rollback reference.
+V4 implementation (2026-10-20): **PRODUCTION BLOCKED — seven exact product photographs remain unresolved.** The reviewable redesign is on `codex/kopikita-v4`; it must not be deployed until the media and visual release gates pass. See [V4 release report](docs/V4-RELEASE-REPORT.md), [design decisions](docs/V4-DESIGN-DECISIONS.md), and [photo coverage](reports/photo-contact-sheet.html).
+
+Production remains the verified V3 release at https://kopikita.ismailstudio.my/. See [V3 acceptance evidence](docs/V3-RELEASE-REPORT.md). V4 adds native scene animation, a 30-entry image-led exhibition, a studio finale, truthful indexable CreativeWork metadata, explicit photo provenance and a fail-closed deployment guard. The V3 architecture notes below are historical where the V4 decisions supersede them.
+
+For the current V4 candidate, run `npm run dev`, `npm run verify`, `npm test`, `node tools/v4-interactions.mjs`, and `node tools/v4-visual-check.mjs`. `BROWSER_ENGINE=webkit` selects the installed alternate engine. The photograph checklist and `npm run release:gate` are expected to fail until the seven missing variants are genuinely resolved. `npm run deploy` invokes that guard before Wrangler. No build output, handoff, local screenshots or private research files are published.
 
 - Intended public URL: <https://kopikita.ismailstudio.my/>
 - Existing Worker endpoint: <https://kopikita.mohamad-ismail-mohd-izwan.workers.dev/>

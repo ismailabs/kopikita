@@ -7,8 +7,19 @@ const output = resolve('dist');
 if (output !== resolve('.') + '\\dist' && output !== resolve('.') + '/dist') throw new Error('Unexpected build directory');
 await rm(output, { recursive: true, force: true });
 await mkdir(output, { recursive: true });
-for (const file of ['index.html', 'styles.css', 'script.js', 'robots.txt', 'sitemap.xml', 'assets', '_headers']) {
+for (const file of ['index.html', 'styles.css', 'script.js', 'robots.txt', 'sitemap.xml', '_headers']) {
   await cp(file, `${output}/${file}`, { recursive: true });
+}
+// Asset paths must be referenced by public source. Rejected photo candidates and
+// legacy synthetic images remain available for recovery, outside this release.
+const html = await readFile('index.html','utf8');
+const css = await readFile('styles.css','utf8');
+const assets = new Set([...`${html}\n${css}`.matchAll(/assets\/[A-Za-z0-9_./-]+\.(?:webp|jpg|svg|woff2)/g)].map(match=>match[0]));
+for (const fontLicense of ['assets/fonts/DM-Sans-OFL.txt','assets/fonts/DM-Serif-Display-OFL.txt']) assets.add(fontLicense);
+for (const asset of assets) {
+  if (asset.includes('..')) throw new Error('Unsafe public asset path');
+  await mkdir(resolve(output, asset, '..'), {recursive:true});
+  await cp(asset,`${output}/${asset}`);
 }
 async function filesAt(directory) {
   const entries = await readdir(directory, { withFileTypes: true });

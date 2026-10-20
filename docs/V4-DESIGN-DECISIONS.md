@@ -1,0 +1,15 @@
+# KopiKita V4 — Kopi / Kita / Culture
+
+The approved handoff is the primary creative specification. On this page, the shared ritual in “kopi / kita” becomes a moving printed exhibition: a liquid opening, four menu worlds and a reveal of the studio that created them.
+
+The opening is a full-width illustrated pour, with 950-weight DM Sans typography arranged around the glass. Mobile uses the supplied portrait artwork and its own type, action and crop composition. These generated images are illustrative brand compositions, not genuine coffee photographs or images of an operating café. The porcelain cup mark, print composition and stamp come from the supplied production artwork; mockup boards are reference only.
+
+The cream gallery alternates large and small image placements on desktop, becomes two columns on tablet and a single stack on small phones. Every exact CSV record remains an ordinary HTML article with the stable original ID. Filters update the query string, preserve pressed states and announce the count. Category and product fragments reveal a hidden category. Product focus and hover animate the image and arrow. Photography provenance is linked per item and described in the footer; an unverified candidate never fills a genuine-photo slot.
+
+The studio reveal uses oversize typography entering from opposite directions, a quiet portfolio link and a prominent enquiry action. The portfolio's actual `#contact` section was inspected before linking it. The project sends no messages or enquiries itself.
+
+`MotionDirector` manages finite WAAPI animation handles, visibility and scene intersection. Static content is visible before enhancement. Pause, reduced motion, document hiding, offscreen work, cleanup and back/forward restoration are supported. Informative text stays opaque at every frame. The decorative ticker has its own pause control. Scrolling remains native; there is no wheel handler, body lock or required horizontal gesture.
+
+Indexing eligibility is intentionally changed from V3's noindex to a truthful fictional CreativeWork. No LocalBusiness, Restaurant, business location, rating, availability or checkout markup is used. The public canonical and infrastructure target remain the existing KopiKita Worker and hostname.
+
+The deployment script now fails closed on incomplete photos and stale/missing visual evidence. V3 recovery is retained on `codex/kopikita-v3-recovery` at `48fef5bcd98bf0881c49cace7a2f26334cfb14da`. The production baseline observed on 2026-10-20 is Worker version `e4aab4da-cf56-44ba-b37c-6e61734d8883`, deployment `88185ca7-e5b7-4e31-9383-add013f85a09`, 100% traffic. These are current preflight observations, not V4 deployment receipts.

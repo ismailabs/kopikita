@@ -2,10 +2,11 @@ import { readFile, mkdir, writeFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import assert from 'node:assert/strict';
 const base = process.env.SITE_URL || 'https://kopikita.ismailstudio.my/';
-const expected = JSON.parse(await readFile('dist/release.json', 'utf8'));
+const expectedManifest = process.env.RELEASE_MANIFEST || 'dist/release.json';
+const expected = JSON.parse(await readFile(expectedManifest, 'utf8'));
 const results = [];
 const transportRetries = [];
-const receipt = { base, commit: expected.commit, startedAt: new Date().toISOString(), results, transportRetries, privatePathsReturn404: false };
+const receipt = { base, expectedManifest, commit: expected.commit, startedAt: new Date().toISOString(), results, transportRetries, privatePathsReturn404: false };
 async function resource(path) {
   for (let attempt = 1; attempt <= 3; attempt++) {
     try {
@@ -36,7 +37,7 @@ try {
     assert.equal(createHash('sha256').update(body).digest('hex'), hash, `Public bytes differ: ${path}`);
     results.push({ path, status: response.status, bytes: body.length, hash });
   }
-  for (const path of ['README.md', 'TESTING.md', 'package.json', 'wrangler.jsonc', '_headers', '.git/config', '.env', 'KopiKita-Codex-Handoff/08-CODEX-OPERATING-BRIEF.md', 'KopiKita-V3-Codex-Handoff/README-START-HERE.md', 'KopiKita-V3-Codex-Handoff/CODEX-EXECUTION-BRIEF.md', 'KopiKita-V3-Codex-Handoff/MANIFEST-SHA256.txt', '.agents/skills/web-design-guidelines/SKILL.md', 'skills-lock.json', 'data/menu-baseline.csv', 'tools/build.mjs']) {
+  for (const path of ['README.md', 'TESTING.md', 'package.json', 'wrangler.jsonc', '_headers', '.git/config', '.env', 'KopiKita-Codex-Handoff/08-CODEX-OPERATING-BRIEF.md', 'KopiKita-V3-Codex-Handoff/README-START-HERE.md', 'KopiKita-V3-Codex-Handoff/CODEX-EXECUTION-BRIEF.md', 'KopiKita-V3-Codex-Handoff/MANIFEST-SHA256.txt', '.agents/skills/web-design-guidelines/SKILL.md', 'skills-lock.json', 'data/menu-baseline.csv', 'tools/build.mjs', 'KopiKita-V4-Codex-Handoff/CONTRACT.md', 'reports/evidence.json', 'data/product-photos.json', 'tools/release-gate.mjs', 'AGENTS.md']) {
     const { response } = await resource(path);
     assert.equal(response.status, 404, `Private/source path published: ${path}`);
   }

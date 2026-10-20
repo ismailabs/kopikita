@@ -10,7 +10,7 @@ try {
  for (const method of ['pointer','keyboard']) {
   const page = await browser.newPage();
   await page.goto(base);
-  const link = page.locator('.studio-note a');
+  const link = page.locator('.studio-small-link');
   assert.equal(await link.getAttribute('href'),'https://ismailstudio.my/');
   if(method==='pointer') await link.click();
   else {await link.focus(); await page.keyboard.press('Enter');}
@@ -33,6 +33,14 @@ try {
  results.push({method:'pointer',placement:'footer',final:popup.url(),openerProtected:await popup.evaluate(()=>window.opener===null)});
  assert(results.at(-1).openerProtected);
  await popup.close(); await page.close();
+ const contactPage = await browser.newPage();
+ await contactPage.goto(base);
+ await contactPage.locator('.studio-cta').focus();
+ await contactPage.keyboard.press('Enter');
+ await contactPage.waitForURL('https://www.ismailstudio.my/#contact');
+ assert(await contactPage.locator('#contact').isVisible());
+ results.push({method:'keyboard',placement:'enquiry',final:contactPage.url(),contactSection:true});
+ await contactPage.close();
  await writeFile(`${output}/results.json`,JSON.stringify({base,checkedAt:new Date().toISOString(),results},null,2));
  console.log('PASS: exact ISMAIL links navigate to the real portfolio by pointer and keyboard; footer new tab is protected');
 }finally{await browser.close();}

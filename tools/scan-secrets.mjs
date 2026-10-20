@@ -14,7 +14,7 @@ for (const path of files) {
   const text = git(['show', `:${path}`]);
   if (patterns.some(pattern => pattern.test(text))) findings.push(`staged: ${path}`);
   if (/(^|\/)(node_modules|dist|artifacts|\.wrangler|\.env[^/]*|\.dev\.vars[^/]*)(\/|$)/.test(path)) findings.push(`forbidden staged path: ${path}`);
-  if (/(^|\/)KopiKita(?:-V3)?-Codex-Handoff(?:\/|\.zip$)/i.test(path)) findings.push(`forbidden handoff path: ${path}`);
+  if (/(^|\/)KopiKita(?:-V[34])?-Codex-Handoff(?:\/|\.zip$)/i.test(path)) findings.push(`forbidden handoff path: ${path}`);
 }
 for (const commit of git(['rev-list', '--all']).trim().split('\n').filter(Boolean)) {
   const content = git(['show', '--format=', commit]);
