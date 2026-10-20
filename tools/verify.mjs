@@ -10,6 +10,8 @@ const approvedPhotoLinks = new Set([
   'https://unsplash.com/photos/a-person-pouring-a-drink-into-a-glass-l50MvnRJfDg',
   'https://unsplash.com/photos/ice-cream-in-clear-drinking-glass-kA1lumyOPmI',
   'https://unsplash.com/license',
+  'https://www.pexels.com/photo/close-up-of-yellow-cake-16526021/',
+  'https://www.pexels.com/license/',
 ]);
 for (const file of ['index.html', 'robots.txt', 'sitemap.xml']) {
   const source = await readFile(file, 'utf8');

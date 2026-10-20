@@ -2,15 +2,12 @@
 import csv,html,json,pathlib,shutil
 from PIL import Image,ImageOps,ImageDraw,ImageFont
 ROOT=pathlib.Path(__file__).resolve().parents[1]
-reasons={
- '02':'No source verified as unsweetened local kopi. Sweetened Kopi O and espresso are not substitutes.',
- '04':'No free redistribution license verified for an accurately identified evaporated-milk Kopi C photo. Flickr candidate 39395606802 is all rights reserved and iced.',
- '26':'Rejected Pandan swiss roll.jpg: pandan sponge is identified, but kaya filling is unverified.',
- '30':'Rejected Mango tart, 2015-06-06.jpg: cooked mango mini-pie, not the fresh mango and vanilla-cream tart in the canonical description.',
-}
+reasons={}
 alts={
  '01':'Black kopi in a traditional patterned ceramic cup and saucer',
+ '02':'Black Malaysian coffee in a floral cup at Georgetown, Penang',
  '03':'Milk coffee in a small patterned enamel cup with a spoon',
+ '04':'A foamy cup of Malaysian kopitiam coffee at Yinzo Kopi in Ipoh',
  '05':'Creamy Malaysian white coffee in an OldTown cup and saucer',
  '06':'Kopi cham, the coffee and tea blend, in a patterned ceramic cup',
  '07':'A short espresso with crema in a small cup on a saucer',
@@ -32,20 +29,33 @@ alts={
  '23':'Golden butter croissant on a white plate beside a newspaper and cup',
  '24':'Almond croissant covered in sliced almonds on a dark plate',
  '25':'Golden pain au chocolat with chocolate visible in its laminated layers',
+ '26':'Slices of pandan sponge roll with a light spiral filling',
  '27':'Cinnamon rolls being drizzled with a light white glaze',
  '28':'A slice of banana bread with a caramelised outer edge',
  '29':'A homemade Basque cheesecake with a deeply browned top in baking paper',
+ '30':'Fresh mango slices arranged over a pastry tart',
 }
 matchNotes={
+ '02':'Wikimedia Commons identifies the photograph as coffee in Malaysia; its description records Georgetown, Penang, in 2013. The image visibly shows dark coffee in a floral cup. It is a representative black-kopi image; no claim is made about sugar. Cropped, resized and converted to WebP under CC BY 2.0 with title, creator, source and license credit. Independent illustrative photography, not a KopiKita product shoot.',
+ '04':'The source identifies a photographed cup of coffee at Yinzo Kopi in Ipoh, Malaysia. The crop centers the local kopitiam coffee and removes most of the accompanying toast. The image does not establish the precise milk ingredient. Independently sourced illustrative photography, not a KopiKita product shoot. Cropped and adapted under CC BY 2.0 with attribution.',
+ '26':'The source identifies a pandan Swiss roll; the image visibly shows green pandan sponge and a pale spiral filling. It is used as a representative visual for the pandan roll, without claiming that the photographed filling is kaya or that KopiKita prepared it. Cropped and converted under CC BY-SA 4.0; the derivative remains under the same license.',
+ '30':'The Pexels caption identifies a mango tart, and the photograph visibly shows fresh mango pieces on a pastry base. The image does not establish a particular cream recipe. Independently sourced illustrative photography, not a KopiKita product shoot. Pexels marks the image free to use; credit is included.',
  '19':'Creator caption identifies coffee with palm sugar and ice; visual inspection shows iced coffee layered with milk. This matches the menu description of palm sugar, espresso and milk. Independent photograph, not a KopiKita product shoot. Unsplash marks it free for commercial use; credited here.',
  '20':'Creator caption explicitly identifies an iced orange espresso tonic; visual inspection confirms orange peel, espresso pour, ice and tonic. The crop removes the source glass branding while retaining the drink. Independent photograph, not a KopiKita product shoot. Unsplash marks it free for commercial use; credited here.',
  '22':'Creator caption identifies “Coconut & brew”; Unsplash tags identify coconut, iced coffee, cold brew and nut milk. Visual inspection shows iced coffee layered with pale milk. This matches the menu description. Independent photograph, not a KopiKita product shoot. Unsplash marks it free for commercial use; credited here.',
+}
+sourceOverrides={
+ '02':{'title':'Coffee (9634387111).jpg','sourcePage':'https://commons.wikimedia.org/wiki/File:Coffee_(9634387111).jpg','sourceUrl':'https://upload.wikimedia.org/wikipedia/commons/0/07/Coffee_%289634387111%29.jpg','creator':'LeonardKong','license':'CC BY 2.0','licenseUrl':'https://creativecommons.org/licenses/by/2.0','downloadDate':'2026-10-20','description':'Georgetown @ Penang 2013','path':'assets/images/menu-v4/item-02.webp','smallPath':'assets/images/menu-v4/item-02-400.webp','downloadedSha256':'5e5b7518361a85efe40bb28fca583ce09e816cc6849a4ec9202e33480fa92390'},
+ '04':{'title':'Kaya toast, Yinzo Kopi, Ipoh, Malaysia with cup of coffee.jpg','sourcePage':'https://commons.wikimedia.org/wiki/File:Kaya_toast,_Yinzo_Kopi,_Ipoh,_Malaysia_with_cup_of_coffee.jpg','sourceUrl':'https://upload.wikimedia.org/wikipedia/commons/2/24/Kaya_toast%2C_Yinzo_Kopi%2C_Ipoh%2C_Malaysia_with_cup_of_coffee.jpg','creator':'Sharon Hahn Darlin','license':'CC BY 2.0','licenseUrl':'https://creativecommons.org/licenses/by/2.0','downloadDate':'2026-10-20','description':'Kaya toast and a cup of coffee at Yinzo Kopi in Ipoh, Malaysia','path':'assets/images/menu-v4/item-04.webp','smallPath':'assets/images/menu-v4/item-04-400.webp','downloadedSha256':'1d02c96890391a3939ae18f21cfce528d36823e78e42f7a3c107bc9c305557c2'},
+ '26':{'title':'Pandan swiss roll.jpg','sourcePage':'https://commons.wikimedia.org/wiki/File:Pandan_swiss_roll.jpg','sourceUrl':'https://upload.wikimedia.org/wikipedia/commons/f/f6/Pandan_swiss_roll.jpg','creator':'Peachyeung316','license':'CC BY-SA 4.0','licenseUrl':'https://creativecommons.org/licenses/by-sa/4.0/','downloadDate':'2026-10-20','description':'Pandan swiss roll from local moment of happiness bakery in yuen long','path':'assets/images/menu-v4/item-26.webp','smallPath':'assets/images/menu-v4/item-26-400.webp','downloadedSha256':'9eb415b49fc6ca4616cab5d21a8f09483f1a39a74fa0904be18c3b7c7d42d2c8'},
+ '30':{'title':'Close up of Yellow Cake','sourcePage':'https://www.pexels.com/photo/close-up-of-yellow-cake-16526021/','sourceUrl':'https://images.pexels.com/photos/16526021/pexels-photo-16526021.jpeg?cs=srgb&dl=pexels-jimmy-liao-3615017-16526021.jpg&fm=jpg','creator':'Jimmy Liao','license':'Pexels License','licenseUrl':'https://www.pexels.com/license/','downloadDate':'2026-10-20','description':'Close-up of a vibrant mango tart showcasing juicy diced fruit and a hint of red topping.','path':'assets/images/menu-v4/item-30.webp','smallPath':'assets/images/menu-v4/item-30-400.webp','downloadedSha256':'f5aa294846990ded035b39e80f79252110a274b43c0b5b40d9042fb0cabadf68'},
 }
 data=json.loads((ROOT/'data/product-photos.json').read_text(encoding='utf-8'));byid={p['id']:p for p in data}
 baseline=list(csv.DictReader((ROOT/'data/menu-baseline.csv').open(encoding='utf-8-sig',newline='')))
 rows=[]
 for n,item in enumerate(baseline,1):
  id=f'{n:02d}';p=byid.get(id,{'id':id});p['menuId']='menu-item-'+id;p['productName']=item['product_name']
+ if id in sourceOverrides:p.update(sourceOverrides[id])
  if id in reasons:
   if p.get('title'):p['rejectedCandidate']={'title':p['title'],'sourcePage':p['sourcePage'],'reason':reasons[id]}
   for key in ('path','smallPath'):
@@ -55,6 +65,7 @@ for n,item in enumerate(baseline,1):
   p.update(status='unresolved',matchNotes=reasons[id],path='',smallPath='',alt='')
  else:
   assert id in alts and p.get('path'),f'Missing reviewed photo {id}'
+  p.pop('rejectedCandidate',None)
   p.update(status='verified',alt=alts[id],matchNotes=matchNotes.get(id,'Inspected in candidate/replacement contact sheets on 2026-10-20. Source file identifies the named drink/bake; visible appearance corresponds to the menu concept. Independently sourced depiction, not a KopiKita product shoot.'))
   if id=='14':p['attributionNotes']=p['creator'];p['creator']='Evilphil77 (Commons attribution)'
   if p.get('licenseUrl','').startswith('http:'):p['licenseUrl']=p['licenseUrl'].replace('http:','https:',1)
@@ -87,5 +98,5 @@ for n,(p,b) in enumerate(zip(rows,baseline)):
  credit=f'<a href="{p["sourcePage"]}">{html.escape(p["title"])}</a><p>{html.escape(p["creator"])} · <a href="{p["licenseUrl"]}">{p["license"]}</a></p>' if ok else html.escape(p['matchNotes'])
  cards.append(f'<article>{media}<h2>{p["id"]} {html.escape(b["product_name"])}</h2>{credit}</article>')
 sheet.save(ROOT/'artifacts/v4/photo-contact-sheet.jpg',quality=90)
-(ROOT/'reports/photo-contact-sheet.html').write_text('<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>KopiKita V4 photo review</title><style>body{background:#f8ecd9;color:#0b231d;font:16px Arial;padding:24px}main{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:24px}img,.missing{width:100%;height:220px;object-fit:contain;background:#d5b592}h2{font-size:22px}a{color:inherit}.missing{display:grid;place-items:center}</style><h1>KopiKita V4 photographic coverage — '+str(len(alts))+'/30 verified</h1><p>Every source is independent photography, not an operating KopiKita product shoot. Resized/cropped WebP adaptations remain under the respective image license. Missing exact variants block release.</p><main>'+''.join(cards)+'</main></html>',encoding='utf-8')
-print(f'Reviewed {len(alts)}/30 verified; {len(reasons)} unresolved. Release remains blocked.')
+(ROOT/'reports/photo-contact-sheet.html').write_text('<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>KopiKita V4 photo review</title><style>body{background:#f8ecd9;color:#0b231d;font:16px Arial;padding:24px}main{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:24px}img,.missing{width:100%;height:220px;object-fit:contain;background:#d5b592}h2{font-size:22px}a{color:inherit}.missing{display:grid;place-items:center}</style><h1>KopiKita V4 photographic coverage — '+str(len(alts))+'/30 verified</h1><p>All 30 menu images are independent genuine photographs used as illustrative representations, not images of products prepared or photographed by KopiKita. Resized/cropped WebP adaptations follow their recorded licenses and are credited below; no endorsement is implied.</p><main>'+''.join(cards)+'</main></html>',encoding='utf-8')
+print(f'Reviewed {len(alts)}/30 verified; {len(reasons)} unresolved.')

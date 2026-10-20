@@ -1,62 +1,70 @@
-# KopiKita V4 — IMPLEMENTED, PRODUCTION BLOCKED
+# KopiKita V4 release record
 
-Date: 20 October 2026. Scope: KopiKita only. **This is a reviewable implementation, not a finished production V4 release.** The approved handoff requires 30 genuine matching photographs. There are 23 accepted photographs and seven unresolved products; the photography and overall Visual Transformation gates remain blocked. No V4 production deployment or remote preview has been performed.
+20 October 2026. The photography blocker is resolved under the user's representative-photography clarification. Final Git publication and production verification are pending below; this intermediate record does not claim deployment.
 
-## Implementation
+## Implementation and visual acceptance
 
-The vanilla one-page site now opens with supplied coffee-pour artwork, kinetic KOPI/KITA type and a separately composed portrait mobile scene. The menu is an editorial exhibition of all 30 exact original records, with local responsive photos, query-string filters, stable category/product fragments, focus management and individual source credits. The final scene reveals large Ismail Studio typography and working portfolio/contact links. The live studio contact section was inspected; no enquiry was submitted.
+The existing V4 work is preserved: supplied illustrative coffee-pour artwork, kinetic KOPI/KITA typography, a separate portrait mobile composition, a photographic 30-item exhibition, and the large Ismail Studio finale. Native CSS and Web Animations API provide scene entrances, image/arrow feedback, filtering transitions and a pausable ticker. Scrolling stays native. No runtime framework, backend, paid service, tracking or ordering flow was added.
 
-Native CSS, SVG and WAAPI provide the finite scene animations, product interactions, category transitions and controlled ticker. Pause, reduced motion, offscreen/document pausing and page lifecycle cleanup preserve usable static content. No React, GSAP, backend, analytics, paid service, checkout, fabricated venue or testimonial was added. Fictional status and the distinction between generated brand artwork and independent photography remain visible. Metadata describes an indexable fictional CreativeWork; production's V3 SEO has not been changed.
+The Visual Transformation Gate passes on inspected, matched V3/V4 hero, menu and studio captures at 1440x900 and 390x844. The current run also records five actual animation states for each of the three signature experiences at both sizes, with fully opaque informative text. Composition, typography, artwork, menu discovery and studio conversion are visibly different; no subjective score substitutes for those captures. See [visual review](../reports/VISUAL-REVIEW.md).
 
-See [design decisions](V4-DESIGN-DECISIONS.md), [visual inspection](../reports/VISUAL-REVIEW.md), [skill ledger](../reports/skill-usage.md), [source review](../reports/PHOTO-SOURCING.md), [source-linked contact sheet](../reports/photo-contact-sheet.html), and `data/product-photos.json`.
+All 30 original menu names, descriptions, categories, prices and IDs remain exact. The gallery has 30 distinct genuine photographs and 60 self-hosted WebP derivatives. Wider layouts use paired 4:3 cards; phones up to 480px use one column and 6:5 crops. Visible disclosure identifies independent representative images and says KopiKita prepared and photographed none of the products. Generated hero/print artwork is separately disclosed and never counted as photography.
 
-## Hard release blocker
+## Sources and licenses
 
-| Missing exact photo | Reason |
+The final four products use LeonardKong's Penang black kopi, Sharon Hahn Darlin's Ipoh kopitiam coffee, Peachyeung316's pandan Swiss roll, and Jimmy Liao's fresh-mango tart. Their source pages, precise licenses, source-byte hashes, crops and representation limits are in [PHOTO-SOURCING.md](../reports/PHOTO-SOURCING.md), [the contact sheet](../reports/photo-contact-sheet.html) and `data/product-photos.json`. Public product and footer credits preserve title, creator, source, license and modification notices. CC BY-SA image derivatives retain their applicable license separately from the site code.
+
+Sugar, exact milk ingredient and filling/cream recipe are not asserted from images. Those limits follow the user's explicit clarification; menu text is unchanged. No photograph was generated or purchased. Assets and tooling used for this work required zero additional cost.
+
+## Verification
+
+| Gate | Actual result and receipt |
 | --- | --- |
-| Kopi O Kosong | Unsweetened local black kopi not verified; no sugar assumption made from another black-coffee photo. |
-| Kopi C | Evaporated-milk variant and free reuse rights not verified. |
-| Gula Melaka Latte | Exact paid-stock candidate cannot be used under the zero-cost condition. |
-| Orange Espresso Tonic | Available coffee/tonic photo does not verify orange. |
-| Coconut Cold Brew | Available coconut candidate is explicitly a rose variant. |
-| Pandan Kaya Roll | Available pandan roll does not verify kaya filling. |
-| Mango Fruit Tart | Available mango mini-pie does not depict the stated fresh-mango/vanilla-cream tart. |
+| Source/content/SEO | `npm run verify` PASS: 30 exact records; 6/9/7/8 categories; stable anchors/assets; JavaScript syntax; canonical; indexable fictional CreativeWork; approved studio/credit destinations and disclosures. |
+| Photography | Handoff `check_product_photos.py --repo-root .` PASS: 30 rows, 30 baseline rows, zero gaps. Independent audit verified 60 integrated WebPs, 30 unique source hashes, matching credits and four new original-image hashes. |
+| Chromium | `artifacts/browser/results.json`: Edge 155.0.4283.62 at 320/375/390/430/768/1024/1440/1920; exact rows, decoded images, filters, navigation, ticker, keyboard/skip, touch, reduced motion, no-JS/blocked-script fallback and 200% text PASS. Zero axe findings, JS/HTTP errors or external runtime requests. |
+| WebKit | `artifacts/v4/webkit-photo-final-desktop/results.json`: WebKit 27.2 at 768/1024/1440/1920 and shared mobile navigation, filtered axe, keyboard/skip, reduced motion, no-JS/blocked-script and 320/1440 text-enlargement checks PASS. A preceding run completed 320/375/390/430 before a 768px pointer-stability timeout; its successful captures remain in `artifacts/v4/webkit-photo-final/`. The retry passed without production changes or weaker assertions. One obsolete responsive image request was cancelled; visible images decoded. |
+| Visual/native scenes | `artifacts/v4/visual-final/results.json`: matched captures plus 30 real frames. Full 30-photo contact sheet and desktop/tablet/phone captures inspected. |
+| Design inspector | `artifacts/v4/taste-photos-release/report.json`: 0 FAIL, 3 defended WARN at 1440/768/390; every listed sheet inspected. Approved palette/type/label/numbering allowances and intentional decorative ticker clipping are documented in the visual review. No broken-image allowance. Earlier retries are retained, not represented as passes. |
+| Source lint | Taste lint: 0 FAIL, 1 WARN for em-dash separators, largely in provenance credits and preserved content. |
+| Packaging | `npm run build`: 74 allowlisted public files plus `release.json`. Project-local Wrangler 4.151.0 `deploy --keep-vars --dry-run` PASS, no bindings. `artifacts/v4/wrangler-dry-run-photos-30.txt`. |
+| Skills | [Skill ledger](../reports/skill-usage.md) records contributions and brief-specific overrides. |
 
-The supplied photography checker fails with 49 field findings across these seven rows. The supplied visual checker fails on the unpassed photo/visual gates and missing V4 production verification. Those are deliberate truthful failures. `npm run deploy` now runs a fail-closed `release:gate` before Wrangler, preventing these missing items from becoming a nominally accepted release. Generated art, duplicated images and wrong recipes were not used to close the gap.
+The generic Taste scene runner found no pinned `section.scene` elements. It is not counted as signature-scene proof; the dedicated native-frame suite is applicable. Required photo credits and the approved palette/poster direction are preserved. The decorative ticker is intentionally clipped inside its window; its real movement, seam, pause, offscreen behavior and accessibility have independent assertions. Actual headings remain readable in inspected frames.
 
-## Evidence and verification
+## Final performance review
 
-| Check | Observed result |
-| --- | --- |
-| Handoff integrity before editing | PASS, 36 files and SHA256 checks. The photo checklist's execution columns were then updated; canonical text remains unchanged. |
-| Canonical menu / source guards | `npm run verify` PASS: all names, descriptions, categories, displayed prices and 30 stable entries; anchors/assets, JS syntax, canonical and truthful CreativeWork schema. `data/menu-baseline.csv` and `wrangler.jsonc` unchanged. |
-| Real static comparison / native scene frames | PASS for collection: paired 1440×900 and 390×844 public-V3/local-V4 opening, menu and studio captures; 30 actual 0/25/50/75/100% scene samples and recorded transforms. Overall visual acceptance remains BLOCKED by photos. |
-| Design inspection | Final inspector 0 FAIL, 3 documented WARN at 1440/768/390. Source lint 0 FAIL, 0 WARN. Three inspected correction rounds. |
-| Motion contrast | Edge and WebKit, 375/1440, actual frozen entrance/filter frames: opaque informative text and zero axe findings. |
-| New interactions | Edge and WebKit reach all 79 initial controls in DOM order; native credits keyboard/reveal, global pause, conflicting deep links and 320/1440 text enlargement PASS. |
-| Built preview | PASS at 375/1440: exact menu, filter, featured target, canonical, zero axe and JS errors. All 67 public hashes match the local candidate manifest; private/source paths return 404. This is local evidence. |
-| Asset provenance | 23 genuine locally hosted photos, 46 WebP variants; source and license metadata plus all-30 contact sheet. Seven unresolved; photo gate FAIL. |
-| Cloudflare packaging | Project-local Wrangler 4.151.0 assets-only dry run PASS, no bindings; existing pinned account/Worker/config preserved. No production write. |
-| Production preservation | Current V3 reverified: commit `48fef5bcd98bf0881c49cace7a2f26334cfb14da`, all 60 public hashes, private/source 404 checks, zero recorded transport retries. |
+Lighthouse 13.5.0 / Edge 155.0.4283.62 ran three alternating mobile pairs and one desktop pair after other browser suites completed. The V3 server's HTML, CSS and JavaScript were independently matched to recovery commit `48fef5bcd98bf0881c49cace7a2f26334cfb14da`. Raw reports, traces and timestamps: `artifacts/v4/perf-final/summary.json`.
 
-### Final browser and performance receipts
+| Local lab metric | V3 | V4 |
+| --- | ---: | ---: |
+| Mobile median Performance | 79 | 76 |
+| Mobile median LCP | 2,360ms | 2,885ms |
+| Mobile median FCP | 1,036ms | 1,183ms |
+| Mobile median TBT | 791ms | 786ms |
+| Mobile CLS, all three runs | 0 | 0 |
+| Desktop Performance, one pair | 99 | 95 |
+| Desktop LCP, one pair | 518ms | 789ms |
+| V4 Accessibility / Best Practices / SEO | — | 100 / 100 / 100 |
 
-The built candidate at `http://127.0.0.1:4175/` passed the final verification run. WebKit completed the full responsive and interaction sequence at 320, 375, 390, 430, 768, 1024 and 1440px, including all 30 exact menu rows, 30/6/9/7/8 filter counts, navigation and overflow checks. The first run's 1920px filter click hit a Playwright auto-scroll stability timeout after the menu and overflow checks had passed. The helper now scrolls that control into view instantly before a real pointer click; a focused 1920px retry passed all filters and shared keyboard, no-JavaScript, reduced-motion, 200% text and navigation checks. Its receipt is `artifacts/v4/final-webkit-desktop-final/results.json`. The final 375px/1440px and filtered axe scans report zero violations.
+V4's mobile LCP is about 525ms slower. This is a documented trade-off for the substantially richer opening, not a claimed speed improvement. The high-priority portrait WebP is 111,846 bytes; gallery images are responsive/lazy. The representative third trace has 12 requests, about 461KB transferred, one 9.6KB runtime script, and most main-thread work in rendering/layout rather than script parsing. One V4 mobile run scored 49 with 4.70s LCP; the other two scored 77/76 with 2.86/2.88s LCP. V3 also had noisy timing outliers. All samples are retained. These local simulated measurements are not field Core Web Vitals or INP evidence; the single desktop pair is not a distribution.
 
-Final Edge and WebKit interaction runs each reached all 79 controls in DOM order and passed source-credit keyboard/fragment access, global pause, page lifecycle, conflicting deep links, 200% text and offline filter controls. Motion-contrast checks on the built candidate froze actual entrance/filter frames at 375/1440 in both engines; text stayed opaque and axe reported zero findings. The built-preview link check confirmed portfolio navigation by pointer and keyboard. No external runtime requests or JavaScript/HTTP errors were found. A WebKit placeholder-SVG request cancellation was recorded during teardown after visible images had decoded; it was not an HTTP failure.
+## Publication and production
 
-Three paired Lighthouse 13.5 mobile runs used V3 at `127.0.0.1:4174` and the V4 source preview at `127.0.0.1:4173`. The median V3/V4 LCP was **2,350/2,806ms** (+456ms); median FCP was 930/1,114ms, and V4 CLS was 0 in all three runs. Median performance score was 78/72. Mobile TBT medians were 829/1,117ms, with large outliers for both versions, so the aggregate lab scores are noisy and are not field Core Web Vitals. The portrait hero remains the LCP element. Its visually reviewed q78 WebP was reduced from 166,924 to 111,846 bytes (33%) and lowered the earlier V4 mobile median LCP from 3,245 to 2,806ms while retaining the artwork's composition. One desktop pair measured V3/V4 LCP at 559/995ms; that single sample is too small to characterize desktop performance, and both values remained below one second.
+Pending the release commit and live receipts. Preflight confirmed existing account `44214a829e2337ca50cf40e4cd827cba`, Worker `kopikita`, enabled custom domain `kopikita.ismailstudio.my`, zone `ismailstudio.my`, compatibility date `2026-10-12`, and no bindings. Before V4, version `e4aab4da-cf56-44ba-b37c-6e61734d8883`, deployment `88185ca7-e5b7-4e31-9383-add013f85a09`, served 100% of traffic. Readback: `artifacts/v4/cloudflare-preflight.json`.
 
-The final source verifier passed, the rebuilt preview contains 67 public files, and `npx wrangler deploy --keep-vars --dry-run` passed with no bindings. `npm run release:gate` still fails closed on exactly the seven products in the table above. Because the photo and overall visual gates remain unpassed, no V4 deployment was attempted; production remains the verified V3 version. Earlier test attempts are retained as diagnostics: 320px/200% overflow was fixed, the native details summary was added to keyboard-order coverage, and explicit tab stops were restored for WebKit. Finite animations are settled only in static screenshot helpers because offscreen scene animations intentionally pause; the separate real-frame suite tests animation states.
+Production acceptance requires the public commit manifest and every file hash to match the committed build, private paths to return 404, HTTPS/SEO to work, and live browser/studio-link checks. A Git push alone is not deployment proof. The build excludes reports, handoffs, skills, tools, dependencies, source manifests, Git data and secrets. Cloudflare consumes `_headers`; its `no-transform` control preserves exact bytes and prevents analytics injection.
 
-## Production and recovery
+## Exact rollback
 
-Production URL: https://kopikita.ismailstudio.my/. It still serves V3. The preflight authenticated read identified existing account `44214a829e2337ca50cf40e4cd827cba`, Worker `kopikita`, current version `e4aab4da-cf56-44ba-b37c-6e61734d8883` and deployment `88185ca7-e5b7-4e31-9383-add013f85a09` at 100%. No unrelated project, DNS, billing, variable, secret or credential was changed. Git push is not treated as deployment evidence.
+The recovery branch `codex/kopikita-v3-recovery` preserves V3 commit `48fef5bcd98bf0881c49cace7a2f26334cfb14da`. The provider version above was freshly confirmed before V4. From this repository:
 
-The exact V3 source is preserved on `codex/kopikita-v3-recovery`, at `48fef5bcd98bf0881c49cace7a2f26334cfb14da`, and in `artifacts/v4/v3-source.zip`. V4 uses `codex/kopikita-v4`; its implementation commit is `581c9576f9a6b46a658bf7c74bb70d76d673f247`. No rollback is currently needed because production was never replaced.
+```sh
+npx wrangler rollback e4aab4da-cf56-44ba-b37c-6e61734d8883 --name kopikita --message "Restore verified V3 release" --yes
+```
 
-If a later V4 deployment needs recovery, first re-read the current scoped deployment. With the unchanged KopiKita configuration, restore the recorded V3 Worker version using project-local `wrangler rollback e4aab4da-cf56-44ba-b37c-6e61734d8883 --message "Restore verified KopiKita V3"`, then verify both the custom hostname and enabled workers.dev endpoint against the saved V3 manifest and browser journeys. Rollback is limited to this assets-only Worker; it does not require DNS changes, Worker recreation, force-push or a Git reset. Verify CLI help and actual version retention before acting.
+Then verify canonical and existing workers.dev hosts against the saved V3 release manifest and re-run public browser checks. Rollback creates a new deployment serving that version across existing routes; connected resource data is not restored. This assets-only Worker has no storage/database bindings. If provider retention later removes the version, use a separate clean checkout of the recovery commit and its documented build/verification/deploy workflow. Never reset or force-push the current branch. [Cloudflare rollback reference](https://developers.cloudflare.com/workers/versions-and-deployments/rollbacks/).
 
-## Finishing the release
+## Limits
 
-Obtain seven genuinely matching, inspectable photographs and actual reuse permissions. Update only those records and their checklist execution fields; preserve every canonical menu string. Regenerate the menu, rerun the photography checker, inspect the completed contact sheet and gallery at matched viewports, refresh visual/source acceptance and complete the existing technical checks. Then commit/push the final verified source, build from the clean commit, pass `npm run release:gate`, deploy through the existing guarded script and independently verify production's release manifest, every asset hash, private paths, HTTPS, browser behavior and studio links. Until then, do not call V4 complete or deployed.
+Windows browser automation uses emulated viewports/touch/text enlargement. Physical devices, a manual screen-reader audit, browser-chrome zoom, field INP/CrUX and full WCAG certification are not established. Independent photo vessels, lighting and source resolution vary and ingredient details remain representative. No enquiry was sent and no business conversion, real venue or operating café is claimed. The common-pattern secret scan is not a Gitleaks audit. Delivery items marked pending above must be completed before the goal is finished.

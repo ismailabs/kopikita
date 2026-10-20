@@ -1,68 +1,59 @@
 # KopiKita MY
 
-A fictional Malaysian café concept by [ISMAIL](https://ismailstudio.my/). The café, menu, prices and synthetic imagery are illustrative. There are no orders, payments, reservations, actual venue, customers or business hours.
+A fictional Malaysian café concept by [Ismail Studio](https://ismailstudio.my/). The café, menu and prices are imagined. All 30 menu products use genuine, independently sourced representative photographs; the coffee-pour and print compositions are generated illustrative brand artwork. There are no orders, payments, reservations, actual venue, customer claims or business hours.
 
-V4 implementation (2026-10-20): **PRODUCTION BLOCKED — seven exact product photographs remain unresolved.** The reviewable redesign is on `codex/kopikita-v4`; it must not be deployed until the media and visual release gates pass. See [V4 release report](docs/V4-RELEASE-REPORT.md), [design decisions](docs/V4-DESIGN-DECISIONS.md), and [photo coverage](reports/photo-contact-sheet.html).
+The V4 source on `codex/kopikita-v4` now has complete 30-photo coverage. The user authorized representative photography on 20 October 2026; the four clarified matches and their ingredient limits are recorded in [the photo sourcing report](reports/PHOTO-SOURCING.md). Publication and production acceptance are recorded separately in [the V4 release report](docs/V4-RELEASE-REPORT.md) and `reports/evidence.json`. Photo completion alone is not a production deployment receipt.
 
-Production remains the verified V3 release at https://kopikita.ismailstudio.my/. See [V3 acceptance evidence](docs/V3-RELEASE-REPORT.md). V4 adds native scene animation, a 30-entry image-led exhibition, a studio finale, truthful indexable CreativeWork metadata, explicit photo provenance and a fail-closed deployment guard. The V3 architecture notes below are historical where the V4 decisions supersede them.
-
-For the current V4 candidate, run `npm run dev`, `npm run verify`, `npm test`, `node tools/v4-interactions.mjs`, and `node tools/v4-visual-check.mjs`. `BROWSER_ENGINE=webkit` selects the installed alternate engine. The photograph checklist and `npm run release:gate` are expected to fail until the seven missing variants are genuinely resolved. `npm run deploy` invokes that guard before Wrangler. No build output, handoff, local screenshots or private research files are published.
-
-- Intended public URL: <https://kopikita.ismailstudio.my/>
+- Canonical public URL: <https://kopikita.ismailstudio.my/>
 - Existing Worker endpoint: <https://kopikita.mohamad-ismail-mohd-izwan.workers.dev/>
-- Repository: <https://github.com/ismailabs/kopikita>, production branch `main`
-- Existing Cloudflare Worker: `kopikita`, account pinned in the unchanged `wrangler.jsonc`
+- Repository: <https://github.com/ismailabs/kopikita>
+- Existing Cloudflare Worker: `kopikita`, account and custom hostname pinned in `wrangler.jsonc`
 
-## Architecture and design
+## V4 architecture and design
 
-Semantic HTML, one tokenized mobile-first stylesheet, and progressive vanilla JavaScript. No runtime packages, third-party scripts, external fonts, backend services or analytics. DM Serif Display and DM Sans are hosted locally with their OFL licenses. The handoff boards guided composition only; their invented claims and menu data were not used.
+Semantic HTML, one tokenized stylesheet and progressive vanilla JavaScript implement three signature scenes: an illustrative coffee-pour opening, a photographic menu exhibition and the Ismail Studio finale. Native CSS, SVG and Web Animations API provide motion. No runtime packages, third-party scripts, external fonts, backend services, analytics or paid services are required. DM Sans and DM Serif Display are hosted locally with their SIL Open Font Licenses.
 
-All 30 original menu entries remain in HTML and work without JavaScript: Malaysian kopi (6), espresso bar (9), iced & specialty (7), bakes (8). `data/menu-baseline.csv`, independently checked against original commit `541ae32`, locks every name, description, category and display price. The four photographic highlights link to exact original rows. With JS they reveal the appropriate category and move focus; without JS they are ordinary working anchors.
+The opening uses supplied desktop and portrait artwork with KOPI/KITA poster typography. The menu alternates image-led cards on desktop, keeps paired columns on tablet and wider mobile viewports, then becomes a single stack at 480px and below. Mobile crops, typography and action placement are separately composed. [V4 design decisions](docs/V4-DESIGN-DECISIONS.md) and [matched V3/V4 visual review](reports/VISUAL-REVIEW.md) document the implementation and tradeoffs.
 
-The small navigation controller runs immediately after the header to prevent a measured loading shift; the deferred script handles filters and motion. Navigation supports Escape, outside dismissal, destination focus and responsive reset, including when the main script fails. Five native filter buttons announce counts and pressed state. The slow decorative ticker has pause/resume, offscreen/document pause, reduced-motion and static no-JS behavior. Entrances never gate access to content. Concept B uses a pine opening, oversized three-line serif, an iced-coffee arch over tangerine, ivory menu surfaces, alternating product frames, an oat story section and a three-image atmosphere mosaic. Mobile copy and imagery occupy separate blocks; enlarged text can reflow the favourites into one column. See [design decisions](docs/V3-DESIGN-DECISIONS.md).
+All 30 original entries remain ordinary HTML and work without JavaScript: local kopi (6), espresso (9), iced (7) and bakes (8). `data/menu-baseline.csv` locks every original name, description, category, ID and displayed price. Five filter buttons update pressed state, announce counts and preserve category state in the URL. Legacy category and product fragments reveal the correct content. Navigation supports Escape, outside dismissal, destination focus and responsive reset, including when the main script fails.
 
-The fictional disclosure remains visible at the top, near the illustrative menu and in the footer. Two truthful studio links use exactly `https://ismailstudio.my/`. Metadata uses `CreativeWork`, the intended custom canonical, and `noindex, follow`. No DNS or routes need changing.
+Content is visible before animation. Global pause, the ticker's pause control, reduced motion, offscreen/document pausing and lifecycle cleanup retain usable static content. Fictional status is visible in the opening, story, menu and footer. The menu explicitly says that KopiKita prepared and photographed none of the products. Product and footer credits identify each photograph's creator, source, license and adaptations. See [asset credits](ASSET-CREDITS.md), the [source-linked contact sheet](reports/photo-contact-sheet.html) and `data/product-photos.json`.
+
+Metadata describes an indexable fictional `CreativeWork`, with the custom canonical, robots policy and sitemap. It contains no operational café, LocalBusiness, rating or booking schema. Portfolio and enquiry actions link to the real `https://ismailstudio.my/` and its `#contact` section; the concept submits no enquiry itself.
 
 ## Development and verification
 
-Node.js 22+; locked development dependencies. On Windows the tests use installed Microsoft Edge; use `BROWSER_PATH` for an alternative Chromium executable. `BROWSER_ENGINE=webkit` or `firefox` selects another installed Playwright engine.
+Use Node.js 22+ and locked development dependencies. Windows browser tests use installed Microsoft Edge. `BROWSER_PATH` selects another Chromium executable; `BROWSER_ENGINE=webkit` selects the cached alternate engine. Run the dev server in a separate terminal:
 
 ```sh
 npm ci
 npm run dev
-npm run verify
-npm test
-node tools/motion-contrast-check.mjs
-node tools/external-check.mjs
-npm run build
-npx wrangler deploy --dry-run
 ```
 
-Preview: `http://127.0.0.1:4173`. `SITE_URL` changes the test destination, and `EVIDENCE_DIR` changes the evidence folder. The suite checks 320/375/390/430/768/1024/1440/1920px, exact menu content, all filters, featured links, keyboard/focus/navigation, real animation frames, pause, reduced motion, script failure, 200% text and touch emulation. Axe covers desktop/mobile, open navigation and filtered state. External navigation is separately tested against the actual portfolio. [TESTING.md](TESTING.md) records executed coverage and limitations.
+Then run the relevant source, browser and release checks:
 
-`tools/performance.mjs` compares a separately served baseline on port 4174 against the candidate on port 4173: three alternating paired mobile trials and one paired desktop trial with Lighthouse. Run it after browser suites complete to avoid concurrent browser interference. These are local lab measurements, not field Core Web Vitals or conversion evidence.
+```sh
+npm run verify
+npm test
+node tools/v4-interactions.mjs
+node tools/v4-visual-check.mjs
+node tools/external-check.mjs
+python KopiKita-V4-Codex-Handoff/scripts/check_product_photos.py --repo-root .
+npm run build
+npm run release:gate
+npx wrangler deploy --keep-vars --dry-run
+```
+
+The local handoff is ignored and must be present to run its photography checker. Its metadata check does not replace actual image and reuse-permission inspection. `tools/v4-visual-check.mjs` captures the live public V3 baseline before release; after V4 deployment, retain the saved V3 captures/source instead of relabeling the live site as V3.
+
+Preview: `http://127.0.0.1:4173`. `SITE_URL` changes the test destination and `EVIDENCE_DIR` changes the evidence directory. [TESTING.md](TESTING.md) distinguishes current executed results, reproduction commands and remaining verification. The browser suite covers eight widths from 320 to 1920px, exact menu data, image decoding, filters, anchors, keyboard/navigation, reduced motion, no JavaScript, main-script failure and 200% text. Axe covers desktop/mobile, open navigation and filtered state; external navigation is tested separately against the actual portfolio.
+
+`tools/performance.mjs` runs three alternating paired mobile Lighthouse trials and one desktop pair against a separately served immutable V3 baseline on port 4174 and the candidate on port 4173. Run it after other browser suites close. These are local lab measurements, not field Core Web Vitals or conversion evidence.
 
 ## Existing Worker publication
 
-Workers Static Assets, not Pages. Git history and saved public receipts establish the previous Worker arrangement. The original Worker was absent on 17 October 2026 and was recreated with explicit user authorization. The custom domain is now declared in `wrangler.jsonc`; Cloudflare manages that hostname's DNS and certificate. No wildcard, apex or other project's mapping is part of this configuration.
+The site uses Workers Static Assets, with the existing Worker and custom hostname. No Pages project, DNS change or infrastructure recreation is required. Use authenticated `npm run deploy` from reviewed committed source after the complete media, technical and visual gates pass. The script invokes `release:gate` before Wrangler; Wrangler's build hook runs `npm run build`, and `--keep-vars` preserves dashboard variables. A Git push alone does not establish deployment. The inherited Workers Builds integration remains unverified unless its current state is independently observed.
 
-Production source is `main`. Use authenticated `npm run deploy` from a clean validated committed checkout; its Wrangler build hook executes `npm run build`, and `--keep-vars` preserves dashboard variables. The old Workers Builds integration cannot be assumed to survive recreation. Builds API inspection currently returns 403 with local OAuth, so automatic deployment is unverified; do not claim a Git push alone deploys this restored target. If Git builds are connected later, inspect and observe them rather than deploying twice. Never force-push or modify unrelated resources.
+The build copies an explicit public allowlist and only assets referenced by public HTML/CSS, plus font licenses. `dist/release.json` records the source commit and every public file's SHA-256, normalizing text line endings across Windows/Linux. Handoffs, source documentation, menu CSV, provenance JSON, tools, dependencies, Git state, raw evidence and credentials stay outside the public bundle. The `_headers` control file sets `Cache-Control: public, max-age=0, must-revalidate, no-transform` on this Worker's responses; it must return 404 publicly.
 
-The build publishes an explicit allowlist: HTML, stylesheet, JS, robots, sitemap and selected/local assets. It creates `release.json` with the Git commit and SHA-256 hashes, normalizing text line endings across Windows/Linux. Dependencies, Git state, source docs, handoff, CSV baseline, tools, local evidence and secrets are excluded. `tools/verify-production.mjs` requires every hosted file hash and release commit to match the locally built committed revision, and checks source/private paths return 404.
-
-The `_headers` control file sets `Cache-Control: public, max-age=0, must-revalidate, no-transform` only on this Worker's responses. This prevents the zone's automatic analytics injection from altering KopiKita's HTML, preserves exact served bytes and keeps the concept free of runtime tracking. Cloudflare consumes this control file; it is excluded from the public hash manifest and must return 404 publicly. Shared zone analytics settings are unchanged.
-
-```sh
-# From a clean, validated main checkout after authenticated invariant inspection:
-npm run deploy
-npm run build
-node tools/verify-production.mjs
-# Repeat with SITE_URL set to the existing workers.dev endpoint.
-# Rerun the browser and external-link suites against the intended public URL.
-```
-
-A successful Git push alone does not establish production acceptance. Exact deployment receipts, asset matching, public browser journeys, rollback reference and remaining limitations belong in [the V3 release report](docs/V3-RELEASE-REPORT.md).
-
-## Assets and ownership
-
-See [ASSET-CREDITS.md](ASSET-CREDITS.md). The V3 concept boards, mockup PNGs, reference prototype and low-resolution photo crops remain local-only and are excluded from Git and deployment. The original repository assets are retained as provenance; current imagery is explicitly synthetic. No trademark clearance, exclusive copyright, café certification or real customer results are claimed.
+After deployment, `node tools/verify-production.mjs` must match the committed build's manifest and every public asset hash, and confirm source/private paths return 404. Repeat with `SITE_URL` set to the enabled workers.dev endpoint, then run browser and real studio-link checks against production. The [V4 release report](docs/V4-RELEASE-REPORT.md) must record the actual deployed version, verified public commit, evidence and rollback procedure before claiming completion. The retained [V3 acceptance report](docs/V3-RELEASE-REPORT.md) is historical recovery evidence, not proof of a V4 release.
